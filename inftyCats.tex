@@ -1,0 +1,405 @@
+\documentclass[DIV=12,numbers=enddot,leqno,bibliography=totoc]{scrartcl}
+\usepackage{./inftyStyle}
+\addbibresource{./inftyLiterature.bib}
+\usepackage{blindtext}
+
+\newcommand{\embrace}[1]{\textup{(}#1\textup{)}}
+\newcommand{\ov}[1]{\smash{\overline{#1}}\vphantom{#1}}
+%\renewcommand{\nabla}{\d}%\nabla
+
+\makeatletter
+\newcommand{\claimlabel}[2]{$(#2)$\def\@currentlabel{$(#2)$}\label{#1}}
+\makeatother
+
+\title{$\infty$-Categories in Topology}
+\author{Ferdinand Wagner}
+
+\newcommand{\RHhom}{\operatorname{R\underline{Hom}}}
+\newcommand{\const}{\operatorname{const}}
+\newcommand{\Ar}{\operatorname{Ar}}
+\newcommand{\TwAr}{\operatorname{TwAr}}
+\newcommand{\core}{\operatorname{core}}
+\newcommand{\Sing}{\operatorname{Sing}}
+\newcommand{\InlineDelta}{\begin{tikzcd}[cramped, column sep=small,ampersand replacement=\&]\bullet \rar \& \bullet\end{tikzcd}}
+\newcommand{\InlineJ}{\begin{tikzcd}[cramped, column sep=small,ampersand replacement=\&]\bullet \rar[bend left] \& \lar[bend left]\bullet\end{tikzcd}}
+\newlength{\WidthOfAsterisk}
+\settowidth{\WidthOfAsterisk}{$*$}
+\newcommand{\InlineS}{\begin{tikzcd}[cramped, column sep=small,ampersand replacement=\&]* \rar[bend left] \& \lar[bend left]\phantom{*}\end{tikzcd}\hspace{-\the\WidthOfAsterisk}S^0}
+\newcommand{\InlineFin}{\langle 0\rangle\hspace{-\the\WidthOfAsterisk}\begin{tikzcd}[cramped, column sep=small,ampersand replacement=\&]\phantom{*} \rar[bend left] \& \lar[bend left]\phantom{*}\end{tikzcd}\hspace{-\the\WidthOfAsterisk}\langle 1\rangle}
+\newcommand{\PSh}{\operatorname{PSh}}
+\newcommand{\N}{\operatorname{N}}
+\newcommand{\F}{\operatorname{F}}
+\newcommand{\K}{\operatorname{K}}
+\newcommand{\B}{\mathrm{B}}
+\newcommand{\C}{\operatorname{C}}
+\newcommand{\Hhom}{\operatorname{\underline{Hom}}}
+\newcommand{\FinAn}{\smash{\cat{An}_{*/}^{\mathrm{fin}}}\vphantom{\cat{An}_{*/}}}
+
+\newcommand{\IDelta}{
+	\mathchoice{\Delta\llap{\scalebox{0.775}{$\Delta$\hspace{0.025em}}}}%
+	{\Delta\llap{\scalebox{0.775}{$\Delta$\hspace{0.025em}}}}%
+	{\Delta\llap{\scalebox{0.775}{$\scriptstyle\Delta$\hspace{0.025em}}}}%
+	{\Delta\llap{\scalebox{0.775}{$\scriptscriptstyle\Delta$\hspace{0.025em}}}}
+}%{\boldsymbol{\Delta}}
+
+\newcommand{\phantomdisplaymodebigparenthesis}{\mathchoice{\vphantom{\big(}}{}{}{}}
+\newcommand\lef[1]{\!\left#1}
+\newcommand{\righ}[1]{\phantomdisplaymodebigparenthesis\right#1}
+
+\newcommand{\equationblackbox}{\begin{tikzpicture}[baseline=(tmp.base),remember picture]
+		\node[inner sep=0pt](tmp){\vphantom{1}};
+		\begin{scope}[overlay]
+			\path (current page text area.east|-tmp.base)
+			node[anchor=base east,inner sep=0pt,outer sep=0pt]{$\blacksquare$};
+		\end{scope}
+\end{tikzpicture}}
+
+%\renewcommand{\left}[1]{\oldleft#1\phantomdisplaymodebigparenthesis}
+%\
+%\def\left{}
+%\def\right{}
+
+\definecolor{yellowish}{RGB}{255,191,0}
+\definecolor{whitish}{RGB}{255,254,225}
+
+\DeclareRobustCommand{\coolemoji}[1][1]{\tikz[scale=1,x=1ex,y=1ex,baseline=(origin.base)] {\fill[fill=yellowish] (0,0) circle (1); \pgfdeclareradialshading{sphere}{\pgfpoint{0ex}{0.882*#1ex}}{rgb(0ex)=(1,0.996,0.882); rgb(#1ex)=(1,0.749,0)}\pgfuseshading{sphere} \fill (-0.385,-0.42) .. controls (-0.426,-0.342) and (-0.397,-0.321) ..  (-0.325,-0.375) .. controls (-0.168,-0.495) and (0.068,-0.524) .. (0.223,-0.445) .. controls (0.269,-0.426) and (0.307,-0.411) .. (0.316,-0.411) .. controls (0.349,-0.411) and (0.329,-0.463) .. (0.275,-0.517) .. controls (0.071,-0.72) and (-0.258,-0.665) .. cycle; \fill (0,0.263) .. controls (-0.159,0.263) and (-0.046,-0.192) .. (-0.547,-0.192) .. controls (-0.84,-0.192) and (-0.842,-0.049) .. (-0.919,0.124) .. controls (-0.988,0.383) and (-1.008,0.203) .. (-1.021,0.37) .. controls (-1.026,0.441) and (-0.946,0.464) .. (-0.629,0.464) .. controls (-0.148,0.464) and (-0.167,0.387) .. (0,0.387) .. controls (0.167,0.387) and (0.148,0.464) .. (0.629,0.464) .. controls (0.946,0.464) and (1.026,0.441) .. (1.021,0.37) .. controls (1.008,0.203) and (0.988,0.383) .. (0.919,0.124) .. controls (0.842,-0.049) and (0.84,-0.192) .. (0.547,-0.192) .. controls (0.046,-0.192) and (0.159,0.263) .. cycle; \fill[gray] (-0.657,0.366) .. controls (-0.658,0.374) and (-0.634,0.389) .. (-0.602,0.397) .. controls (-0.493,0.428) and (-0.227,0.377) .. (-0.206,0.322) .. controls (-0.167,0.219) and (-0.411,0.154) .. (-0.534,0.219) .. controls (-0.592,0.25) and (-0.65,0.319) .. cycle; \fill[gray] (0.199,0.299) .. controls (0.199,0.369) and (0.486,0.439) .. (0.612,0.397) .. controls (0.671,0.379) and (0.605,0.253) .. (0.563,0.222) .. controls (0.452,0.14) and (0.199,0.185) .. cycle; \node (origin) at (0,-0.25) {\phantom{x}};}}
+
+\newcommand{\GrothendieckLeftDevil}{\begin{tikzpicture}[scale=0.5,baseline=1ex]
+		\pgfpathmoveto{\pgfqpoint{0cm}{0cm}}
+		\pgfpathlineto{\pgfqpoint{1.87cm}{0cm}}
+		\pgfpathlineto{\pgfqpoint{1.87cm}{0.953cm}}
+		\pgfpathlineto{\pgfqpoint{0cm}{0.953cm}}
+		\pgfpathclose
+		\pgfusepath{clip}
+		\begin{pgfscope}
+			\pgfpathmoveto{\pgfqpoint{0cm}{0cm}}
+			\pgfpathlineto{\pgfqpoint{1.87cm}{0cm}}
+			\pgfpathlineto{\pgfqpoint{1.87cm}{0.953cm}}
+			\pgfpathlineto{\pgfqpoint{0cm}{0.953cm}}
+			\pgfpathclose
+			\pgfusepath{clip}
+			\begin{pgfscope}
+				\definecolor{eps2pgf_color}{gray}{0}\pgfsetstrokecolor{eps2pgf_color}\pgfsetfillcolor{eps2pgf_color}
+				\pgfpathmoveto{\pgfqpoint{0.611cm}{0.03cm}}
+				\pgfpathcurveto{\pgfqpoint{0.617cm}{0.048cm}}{\pgfqpoint{0.6cm}{0.13cm}}{\pgfqpoint{0.615cm}{0.164cm}}
+				\pgfpathcurveto{\pgfqpoint{0.636cm}{0.21cm}}{\pgfqpoint{0.644cm}{0.261cm}}{\pgfqpoint{0.656cm}{0.31cm}}
+				\pgfpathcurveto{\pgfqpoint{0.662cm}{0.338cm}}{\pgfqpoint{0.555cm}{0.414cm}}{\pgfqpoint{0.552cm}{0.465cm}}
+				\pgfpathcurveto{\pgfqpoint{0.676cm}{0.446cm}}{\pgfqpoint{0.777cm}{0.405cm}}{\pgfqpoint{0.834cm}{0.292cm}}
+				\pgfpathcurveto{\pgfqpoint{0.886cm}{0.188cm}}{\pgfqpoint{0.838cm}{0.203cm}}{\pgfqpoint{0.848cm}{0.118cm}}
+				\pgfpathcurveto{\pgfqpoint{0.851cm}{0.095cm}}{\pgfqpoint{0.854cm}{0.092cm}}{\pgfqpoint{0.885cm}{0.092cm}}
+				\pgfpathcurveto{\pgfqpoint{0.93cm}{0.091cm}}{\pgfqpoint{0.965cm}{0.104cm}}{\pgfqpoint{0.965cm}{0.122cm}}
+				\pgfpathcurveto{\pgfqpoint{0.965cm}{0.138cm}}{\pgfqpoint{0.867cm}{0.314cm}}{\pgfqpoint{0.849cm}{0.342cm}}
+				\pgfpathcurveto{\pgfqpoint{0.798cm}{0.42cm}}{\pgfqpoint{0.713cm}{0.459cm}}{\pgfqpoint{0.632cm}{0.498cm}}
+				\pgfpathcurveto{\pgfqpoint{0.656cm}{0.507cm}}{\pgfqpoint{0.681cm}{0.511cm}}{\pgfqpoint{0.707cm}{0.511cm}}
+				\pgfpathcurveto{\pgfqpoint{0.749cm}{0.51cm}}{\pgfqpoint{0.764cm}{0.521cm}}{\pgfqpoint{0.794cm}{0.486cm}}
+				\pgfpathcurveto{\pgfqpoint{0.829cm}{0.444cm}}{\pgfqpoint{0.865cm}{0.427cm}}{\pgfqpoint{0.917cm}{0.427cm}}
+				\pgfpathcurveto{\pgfqpoint{1.025cm}{0.427cm}}{\pgfqpoint{1.058cm}{0.486cm}}{\pgfqpoint{1.079cm}{0.486cm}}
+				\pgfpathcurveto{\pgfqpoint{1.091cm}{0.486cm}}{\pgfqpoint{1.102cm}{0.49cm}}{\pgfqpoint{1.104cm}{0.494cm}}
+				\pgfpathcurveto{\pgfqpoint{1.113cm}{0.508cm}}{\pgfqpoint{1.242cm}{0.52cm}}{\pgfqpoint{1.399cm}{0.52cm}}
+				\pgfpathlineto{\pgfqpoint{1.558cm}{0.52cm}}
+				\pgfpathcurveto{\pgfqpoint{1.564cm}{0.499cm}}{\pgfqpoint{1.574cm}{0.482cm}}{\pgfqpoint{1.592cm}{0.469cm}}
+				\pgfpathcurveto{\pgfqpoint{1.61cm}{0.457cm}}{\pgfqpoint{1.755cm}{0.455cm}}{\pgfqpoint{1.808cm}{0.464cm}}
+				\pgfpathcurveto{\pgfqpoint{1.833cm}{0.469cm}}{\pgfqpoint{1.84cm}{0.467cm}}{\pgfqpoint{1.84cm}{0.476cm}}
+				\pgfpathcurveto{\pgfqpoint{1.84cm}{0.479cm}}{\pgfqpoint{1.835cm}{0.482cm}}{\pgfqpoint{1.783cm}{0.482cm}}
+				\pgfpathcurveto{\pgfqpoint{1.717cm}{0.482cm}}{\pgfqpoint{1.631cm}{0.484cm}}{\pgfqpoint{1.626cm}{0.493cm}}
+				\pgfpathcurveto{\pgfqpoint{1.623cm}{0.497cm}}{\pgfqpoint{1.657cm}{0.502cm}}{\pgfqpoint{1.722cm}{0.502cm}}
+				\pgfpathcurveto{\pgfqpoint{1.784cm}{0.503cm}}{\pgfqpoint{1.841cm}{0.507cm}}{\pgfqpoint{1.841cm}{0.517cm}}
+				\pgfpathcurveto{\pgfqpoint{1.841cm}{0.534cm}}{\pgfqpoint{1.611cm}{0.507cm}}{\pgfqpoint{1.626cm}{0.523cm}}
+				\pgfpathcurveto{\pgfqpoint{1.629cm}{0.526cm}}{\pgfqpoint{1.659cm}{0.531cm}}{\pgfqpoint{1.694cm}{0.533cm}}
+				\pgfpathcurveto{\pgfqpoint{1.798cm}{0.54cm}}{\pgfqpoint{1.832cm}{0.544cm}}{\pgfqpoint{1.83cm}{0.556cm}}
+				\pgfpathcurveto{\pgfqpoint{1.829cm}{0.566cm}}{\pgfqpoint{1.81cm}{0.563cm}}{\pgfqpoint{1.791cm}{0.563cm}}
+				\pgfpathcurveto{\pgfqpoint{1.753cm}{0.563cm}}{\pgfqpoint{1.609cm}{0.549cm}}{\pgfqpoint{1.609cm}{0.555cm}}
+				\pgfpathcurveto{\pgfqpoint{1.609cm}{0.587cm}}{\pgfqpoint{1.803cm}{0.586cm}}{\pgfqpoint{1.803cm}{0.603cm}}
+				\pgfpathcurveto{\pgfqpoint{1.803cm}{0.614cm}}{\pgfqpoint{1.791cm}{0.615cm}}{\pgfqpoint{1.725cm}{0.609cm}}
+				\pgfpathcurveto{\pgfqpoint{1.642cm}{0.603cm}}{\pgfqpoint{1.588cm}{0.586cm}}{\pgfqpoint{1.575cm}{0.563cm}}
+				\pgfpathcurveto{\pgfqpoint{1.568cm}{0.551cm}}{\pgfqpoint{1.548cm}{0.549cm}}{\pgfqpoint{1.41cm}{0.548cm}}
+				\pgfpathcurveto{\pgfqpoint{1.261cm}{0.547cm}}{\pgfqpoint{1.251cm}{0.548cm}}{\pgfqpoint{1.235cm}{0.564cm}}
+				\pgfpathcurveto{\pgfqpoint{1.222cm}{0.576cm}}{\pgfqpoint{1.211cm}{0.58cm}}{\pgfqpoint{1.194cm}{0.577cm}}
+				\pgfpathcurveto{\pgfqpoint{1.162cm}{0.57cm}}{\pgfqpoint{1.171cm}{0.584cm}}{\pgfqpoint{1.122cm}{0.59cm}}
+				\pgfpathcurveto{\pgfqpoint{1.084cm}{0.595cm}}{\pgfqpoint{1.065cm}{0.614cm}}{\pgfqpoint{1.046cm}{0.576cm}}
+				\pgfpathcurveto{\pgfqpoint{1.028cm}{0.53cm}}{\pgfqpoint{0.983cm}{0.544cm}}{\pgfqpoint{0.953cm}{0.571cm}}
+				\pgfpathcurveto{\pgfqpoint{0.931cm}{0.594cm}}{\pgfqpoint{0.93cm}{0.598cm}}{\pgfqpoint{0.935cm}{0.642cm}}
+				\pgfpathcurveto{\pgfqpoint{0.942cm}{0.7cm}}{\pgfqpoint{0.956cm}{0.713cm}}{\pgfqpoint{0.986cm}{0.693cm}}
+				\pgfpathcurveto{\pgfqpoint{1.004cm}{0.681cm}}{\pgfqpoint{1.019cm}{0.68cm}}{\pgfqpoint{1.082cm}{0.686cm}}
+				\pgfpathcurveto{\pgfqpoint{1.185cm}{0.696cm}}{\pgfqpoint{1.182cm}{0.696cm}}{\pgfqpoint{1.179cm}{0.675cm}}
+				\pgfpathcurveto{\pgfqpoint{1.175cm}{0.652cm}}{\pgfqpoint{1.198cm}{0.639cm}}{\pgfqpoint{1.239cm}{0.639cm}}
+				\pgfpathcurveto{\pgfqpoint{1.272cm}{0.639cm}}{\pgfqpoint{1.284cm}{0.657cm}}{\pgfqpoint{1.275cm}{0.693cm}}
+				\pgfpathcurveto{\pgfqpoint{1.265cm}{0.732cm}}{\pgfqpoint{1.349cm}{0.727cm}}{\pgfqpoint{1.378cm}{0.721cm}}
+				\pgfpathcurveto{\pgfqpoint{1.427cm}{0.711cm}}{\pgfqpoint{1.499cm}{0.726cm}}{\pgfqpoint{1.499cm}{0.746cm}}
+				\pgfpathcurveto{\pgfqpoint{1.499cm}{0.77cm}}{\pgfqpoint{1.338cm}{0.725cm}}{\pgfqpoint{1.316cm}{0.793cm}}
+				\pgfpathcurveto{\pgfqpoint{1.313cm}{0.801cm}}{\pgfqpoint{1.296cm}{0.818cm}}{\pgfqpoint{1.278cm}{0.83cm}}
+				\pgfpathcurveto{\pgfqpoint{1.242cm}{0.855cm}}{\pgfqpoint{1.212cm}{0.906cm}}{\pgfqpoint{1.227cm}{0.921cm}}
+				\pgfpathcurveto{\pgfqpoint{1.241cm}{0.935cm}}{\pgfqpoint{1.211cm}{0.953cm}}{\pgfqpoint{1.197cm}{0.953cm}}
+				\pgfpathcurveto{\pgfqpoint{1.175cm}{0.951cm}}{\pgfqpoint{1.202cm}{0.856cm}}{\pgfqpoint{1.203cm}{0.854cm}}
+				\pgfpathcurveto{\pgfqpoint{1.217cm}{0.815cm}}{\pgfqpoint{1.163cm}{0.807cm}}{\pgfqpoint{1.171cm}{0.828cm}}
+				\pgfpathcurveto{\pgfqpoint{1.174cm}{0.835cm}}{\pgfqpoint{1.169cm}{0.846cm}}{\pgfqpoint{1.161cm}{0.854cm}}
+				\pgfpathcurveto{\pgfqpoint{1.125cm}{0.886cm}}{\pgfqpoint{1.03cm}{0.853cm}}{\pgfqpoint{1.05cm}{0.816cm}}
+				\pgfpathcurveto{\pgfqpoint{1.085cm}{0.786cm}}{\pgfqpoint{1.114cm}{0.795cm}}{\pgfqpoint{1.051cm}{0.759cm}}
+				\pgfpathcurveto{\pgfqpoint{1.002cm}{0.733cm}}{\pgfqpoint{1.001cm}{0.733cm}}{\pgfqpoint{0.971cm}{0.747cm}}
+				\pgfpathcurveto{\pgfqpoint{0.948cm}{0.757cm}}{\pgfqpoint{0.94cm}{0.766cm}}{\pgfqpoint{0.94cm}{0.78cm}}
+				\pgfpathcurveto{\pgfqpoint{0.94cm}{0.805cm}}{\pgfqpoint{0.911cm}{0.833cm}}{\pgfqpoint{0.886cm}{0.833cm}}
+				\pgfpathcurveto{\pgfqpoint{0.864cm}{0.833cm}}{\pgfqpoint{0.844cm}{0.816cm}}{\pgfqpoint{0.821cm}{0.777cm}}
+				\pgfpathcurveto{\pgfqpoint{0.794cm}{0.731cm}}{\pgfqpoint{0.725cm}{0.735cm}}{\pgfqpoint{0.648cm}{0.696cm}}
+				\pgfpathcurveto{\pgfqpoint{0.601cm}{0.672cm}}{\pgfqpoint{0.524cm}{0.612cm}}{\pgfqpoint{0.494cm}{0.576cm}}
+				\pgfpathcurveto{\pgfqpoint{0.445cm}{0.532cm}}{\pgfqpoint{0.294cm}{0.535cm}}{\pgfqpoint{0.199cm}{0.533cm}}
+				\pgfpathcurveto{\pgfqpoint{0.191cm}{0.602cm}}{\pgfqpoint{0.181cm}{0.659cm}}{\pgfqpoint{0.105cm}{0.667cm}}
+				\pgfpathcurveto{\pgfqpoint{0.058cm}{0.67cm}}{\pgfqpoint{0cm}{0.642cm}}{\pgfqpoint{0cm}{0.604cm}}
+				\pgfpathcurveto{\pgfqpoint{0cm}{0.567cm}}{\pgfqpoint{0.089cm}{0.644cm}}{\pgfqpoint{0.119cm}{0.639cm}}
+				\pgfpathcurveto{\pgfqpoint{0.167cm}{0.63cm}}{\pgfqpoint{0.166cm}{0.57cm}}{\pgfqpoint{0.172cm}{0.529cm}}
+				\pgfpathcurveto{\pgfqpoint{0.107cm}{0.521cm}}{\pgfqpoint{0.017cm}{0.528cm}}{\pgfqpoint{0.036cm}{0.494cm}}
+				\pgfpathcurveto{\pgfqpoint{0.043cm}{0.483cm}}{\pgfqpoint{0.114cm}{0.485cm}}{\pgfqpoint{0.173cm}{0.487cm}}
+				\pgfpathcurveto{\pgfqpoint{0.192cm}{0.419cm}}{\pgfqpoint{0.221cm}{0.365cm}}{\pgfqpoint{0.297cm}{0.359cm}}
+				\pgfpathcurveto{\pgfqpoint{0.373cm}{0.359cm}}{\pgfqpoint{0.466cm}{0.52cm}}{\pgfqpoint{0.466cm}{0.448cm}}
+				\pgfpathcurveto{\pgfqpoint{0.466cm}{0.431cm}}{\pgfqpoint{0.59cm}{0.321cm}}{\pgfqpoint{0.597cm}{0.3cm}}
+				\pgfpathcurveto{\pgfqpoint{0.603cm}{0.281cm}}{\pgfqpoint{0.571cm}{0.203cm}}{\pgfqpoint{0.56cm}{0.16cm}}
+				\pgfpathcurveto{\pgfqpoint{0.55cm}{0.124cm}}{\pgfqpoint{0.537cm}{0.101cm}}{\pgfqpoint{0.514cm}{0.083cm}}
+				\pgfpathcurveto{\pgfqpoint{0.486cm}{0.059cm}}{\pgfqpoint{0.472cm}{0.039cm}}{\pgfqpoint{0.478cm}{0.029cm}}
+				\pgfpathcurveto{\pgfqpoint{0.485cm}{0.018cm}}{\pgfqpoint{0.607cm}{0.018cm}}{\pgfqpoint{0.611cm}{0.03cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.896cm}{0.778cm}}
+				\pgfpathcurveto{\pgfqpoint{0.907cm}{0.753cm}}{\pgfqpoint{0.889cm}{0.757cm}}{\pgfqpoint{0.869cm}{0.752cm}}
+				\pgfpathcurveto{\pgfqpoint{0.851cm}{0.746cm}}{\pgfqpoint{0.842cm}{0.77cm}}{\pgfqpoint{0.855cm}{0.787cm}}
+				\pgfpathcurveto{\pgfqpoint{0.869cm}{0.804cm}}{\pgfqpoint{0.884cm}{0.805cm}}{\pgfqpoint{0.896cm}{0.778cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.914cm}{0.661cm}}
+				\pgfpathcurveto{\pgfqpoint{0.914cm}{0.63cm}}{\pgfqpoint{0.899cm}{0.595cm}}{\pgfqpoint{0.874cm}{0.569cm}}
+				\pgfpathcurveto{\pgfqpoint{0.853cm}{0.547cm}}{\pgfqpoint{0.813cm}{0.537cm}}{\pgfqpoint{0.813cm}{0.553cm}}
+				\pgfpathcurveto{\pgfqpoint{0.813cm}{0.571cm}}{\pgfqpoint{0.865cm}{0.664cm}}{\pgfqpoint{0.88cm}{0.672cm}}
+				\pgfpathcurveto{\pgfqpoint{0.906cm}{0.686cm}}{\pgfqpoint{0.914cm}{0.683cm}}{\pgfqpoint{0.914cm}{0.661cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.601cm}{0.544cm}}
+				\pgfpathcurveto{\pgfqpoint{0.601cm}{0.555cm}}{\pgfqpoint{0.712cm}{0.639cm}}{\pgfqpoint{0.736cm}{0.639cm}}
+				\pgfpathcurveto{\pgfqpoint{0.742cm}{0.639cm}}{\pgfqpoint{0.831cm}{0.683cm}}{\pgfqpoint{0.793cm}{0.64cm}}
+				\pgfpathcurveto{\pgfqpoint{0.759cm}{0.601cm}}{\pgfqpoint{0.78cm}{0.555cm}}{\pgfqpoint{0.744cm}{0.544cm}}
+				\pgfpathcurveto{\pgfqpoint{0.715cm}{0.536cm}}{\pgfqpoint{0.601cm}{0.536cm}}{\pgfqpoint{0.601cm}{0.544cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{1.046cm}{0.52cm}}
+				\pgfpathlineto{\pgfqpoint{1.026cm}{0.503cm}}
+				\pgfpathcurveto{\pgfqpoint{0.933cm}{0.426cm}}{\pgfqpoint{0.819cm}{0.49cm}}{\pgfqpoint{0.832cm}{0.512cm}}
+				\pgfpathcurveto{\pgfqpoint{0.834cm}{0.516cm}}{\pgfqpoint{0.849cm}{0.515cm}}{\pgfqpoint{0.865cm}{0.512cm}}
+				\pgfpathcurveto{\pgfqpoint{0.93cm}{0.497cm}}{\pgfqpoint{0.97cm}{0.52cm}}{\pgfqpoint{1.046cm}{0.52cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.428cm}{0.491cm}}
+				\pgfpathcurveto{\pgfqpoint{0.418cm}{0.484cm}}{\pgfqpoint{0.389cm}{0.457cm}}{\pgfqpoint{0.363cm}{0.431cm}}
+				\pgfpathcurveto{\pgfqpoint{0.301cm}{0.359cm}}{\pgfqpoint{0.225cm}{0.387cm}}{\pgfqpoint{0.212cm}{0.472cm}}
+				\pgfpathcurveto{\pgfqpoint{0.208cm}{0.494cm}}{\pgfqpoint{0.455cm}{0.512cm}}{\pgfqpoint{0.428cm}{0.491cm}}
+				\pgfpathclose
+				\pgfusepath{fill}
+			\end{pgfscope}
+		\end{pgfscope}
+\end{tikzpicture}}
+\newcommand{\GrothendieckRightDevil}{\begin{tikzpicture}[scale=0.5,baseline=1.3ex]
+		\pgfpathmoveto{\pgfqpoint{0cm}{0cm}}
+		\pgfpathlineto{\pgfqpoint{0.917cm}{0cm}}
+		\pgfpathlineto{\pgfqpoint{0.917cm}{1.235cm}}
+		\pgfpathlineto{\pgfqpoint{0cm}{1.235cm}}
+		\pgfpathclose
+		\pgfusepath{clip}
+		\begin{pgfscope}
+			\pgfpathmoveto{\pgfqpoint{0cm}{0cm}}
+			\pgfpathlineto{\pgfqpoint{0.917cm}{0cm}}
+			\pgfpathlineto{\pgfqpoint{0.917cm}{1.235cm}}
+			\pgfpathlineto{\pgfqpoint{0cm}{1.235cm}}
+			\pgfpathclose
+			\pgfusepath{clip}
+			\begin{pgfscope}
+				\definecolor{eps2pgf_color}{gray}{0}\pgfsetstrokecolor{eps2pgf_color}\pgfsetfillcolor{eps2pgf_color}
+				\pgfpathmoveto{\pgfqpoint{0.839cm}{0.989cm}}
+				\pgfpathcurveto{\pgfqpoint{0.84cm}{1.009cm}}{\pgfqpoint{0.846cm}{1.019cm}}{\pgfqpoint{0.863cm}{1.027cm}}
+				\pgfpathcurveto{\pgfqpoint{0.893cm}{1.042cm}}{\pgfqpoint{0.919cm}{1.116cm}}{\pgfqpoint{0.912cm}{1.167cm}}
+				\pgfpathcurveto{\pgfqpoint{0.909cm}{1.187cm}}{\pgfqpoint{0.903cm}{1.203cm}}{\pgfqpoint{0.898cm}{1.203cm}}
+				\pgfpathcurveto{\pgfqpoint{0.893cm}{1.203cm}}{\pgfqpoint{0.892cm}{1.19cm}}{\pgfqpoint{0.895cm}{1.169cm}}
+				\pgfpathcurveto{\pgfqpoint{0.903cm}{1.122cm}}{\pgfqpoint{0.874cm}{1.056cm}}{\pgfqpoint{0.866cm}{1.064cm}}
+				\pgfpathcurveto{\pgfqpoint{0.849cm}{1.081cm}}{\pgfqpoint{0.859cm}{1.212cm}}{\pgfqpoint{0.843cm}{1.218cm}}
+				\pgfpathcurveto{\pgfqpoint{0.824cm}{1.224cm}}{\pgfqpoint{0.848cm}{1.041cm}}{\pgfqpoint{0.831cm}{1.07cm}}
+				\pgfpathcurveto{\pgfqpoint{0.815cm}{1.098cm}}{\pgfqpoint{0.823cm}{1.218cm}}{\pgfqpoint{0.807cm}{1.224cm}}
+				\pgfpathcurveto{\pgfqpoint{0.783cm}{1.234cm}}{\pgfqpoint{0.821cm}{1.051cm}}{\pgfqpoint{0.79cm}{1.068cm}}
+				\pgfpathcurveto{\pgfqpoint{0.748cm}{1.09cm}}{\pgfqpoint{0.768cm}{1.229cm}}{\pgfqpoint{0.743cm}{1.235cm}}
+				\pgfpathcurveto{\pgfqpoint{0.743cm}{1.235cm}}{\pgfqpoint{0.742cm}{1.235cm}}{\pgfqpoint{0.742cm}{1.235cm}}
+				\pgfpathcurveto{\pgfqpoint{0.737cm}{1.234cm}}{\pgfqpoint{0.737cm}{1.219cm}}{\pgfqpoint{0.739cm}{1.161cm}}
+				\pgfpathcurveto{\pgfqpoint{0.743cm}{1.105cm}}{\pgfqpoint{0.744cm}{1.064cm}}{\pgfqpoint{0.806cm}{1.032cm}}
+				\pgfpathlineto{\pgfqpoint{0.798cm}{0.689cm}}
+				\pgfpathcurveto{\pgfqpoint{0.798cm}{0.646cm}}{\pgfqpoint{0.797cm}{0.644cm}}{\pgfqpoint{0.765cm}{0.628cm}}
+				\pgfpathcurveto{\pgfqpoint{0.68cm}{0.609cm}}{\pgfqpoint{0.489cm}{0.561cm}}{\pgfqpoint{0.447cm}{0.593cm}}
+				\pgfpathcurveto{\pgfqpoint{0.423cm}{0.616cm}}{\pgfqpoint{0.419cm}{0.64cm}}{\pgfqpoint{0.438cm}{0.647cm}}
+				\pgfpathcurveto{\pgfqpoint{0.468cm}{0.659cm}}{\pgfqpoint{0.424cm}{0.695cm}}{\pgfqpoint{0.479cm}{0.695cm}}
+				\pgfpathcurveto{\pgfqpoint{0.529cm}{0.695cm}}{\pgfqpoint{0.556cm}{0.75cm}}{\pgfqpoint{0.487cm}{0.75cm}}
+				\pgfpathcurveto{\pgfqpoint{0.446cm}{0.75cm}}{\pgfqpoint{0.436cm}{0.752cm}}{\pgfqpoint{0.493cm}{0.814cm}}
+				\pgfpathcurveto{\pgfqpoint{0.573cm}{0.901cm}}{\pgfqpoint{0.528cm}{0.881cm}}{\pgfqpoint{0.471cm}{0.835cm}}
+				\pgfpathcurveto{\pgfqpoint{0.429cm}{0.8cm}}{\pgfqpoint{0.422cm}{0.797cm}}{\pgfqpoint{0.391cm}{0.802cm}}
+				\pgfpathcurveto{\pgfqpoint{0.27cm}{0.821cm}}{\pgfqpoint{0.316cm}{0.729cm}}{\pgfqpoint{0.161cm}{0.757cm}}
+				\pgfpathcurveto{\pgfqpoint{0.068cm}{0.774cm}}{\pgfqpoint{0.076cm}{0.732cm}}{\pgfqpoint{0.208cm}{0.711cm}}
+				\pgfpathcurveto{\pgfqpoint{0.285cm}{0.698cm}}{\pgfqpoint{0.284cm}{0.699cm}}{\pgfqpoint{0.268cm}{0.674cm}}
+				\pgfpathcurveto{\pgfqpoint{0.236cm}{0.626cm}}{\pgfqpoint{0.292cm}{0.618cm}}{\pgfqpoint{0.303cm}{0.636cm}}
+				\pgfpathcurveto{\pgfqpoint{0.316cm}{0.657cm}}{\pgfqpoint{0.375cm}{0.635cm}}{\pgfqpoint{0.375cm}{0.609cm}}
+				\pgfpathcurveto{\pgfqpoint{0.375cm}{0.562cm}}{\pgfqpoint{0.215cm}{0.621cm}}{\pgfqpoint{0.185cm}{0.606cm}}
+				\pgfpathcurveto{\pgfqpoint{0.151cm}{0.59cm}}{\pgfqpoint{0.15cm}{0.503cm}}{\pgfqpoint{0.142cm}{0.447cm}}
+				\pgfpathcurveto{\pgfqpoint{0.102cm}{0.438cm}}{\pgfqpoint{0.01cm}{0.413cm}}{\pgfqpoint{0.043cm}{0.399cm}}
+				\pgfpathcurveto{\pgfqpoint{0.061cm}{0.391cm}}{\pgfqpoint{0.042cm}{0.368cm}}{\pgfqpoint{0.064cm}{0.368cm}}
+				\pgfpathcurveto{\pgfqpoint{0.092cm}{0.368cm}}{\pgfqpoint{0.076cm}{0.348cm}}{\pgfqpoint{0.099cm}{0.348cm}}
+				\pgfpathcurveto{\pgfqpoint{0.118cm}{0.348cm}}{\pgfqpoint{0.101cm}{0.331cm}}{\pgfqpoint{0.129cm}{0.331cm}}
+				\pgfpathcurveto{\pgfqpoint{0.155cm}{0.331cm}}{\pgfqpoint{0.142cm}{0.348cm}}{\pgfqpoint{0.154cm}{0.348cm}}
+				\pgfpathcurveto{\pgfqpoint{0.173cm}{0.348cm}}{\pgfqpoint{0.161cm}{0.315cm}}{\pgfqpoint{0.12cm}{0.256cm}}
+				\pgfpathcurveto{\pgfqpoint{0.062cm}{0.17cm}}{\pgfqpoint{0.088cm}{0.178cm}}{\pgfqpoint{0.059cm}{0.135cm}}
+				\pgfpathcurveto{\pgfqpoint{0.024cm}{0.084cm}}{\pgfqpoint{-0.005cm}{0.027cm}}{\pgfqpoint{0.001cm}{0.022cm}}
+				\pgfpathcurveto{\pgfqpoint{0.006cm}{0.017cm}}{\pgfqpoint{0.105cm}{0.025cm}}{\pgfqpoint{0.111cm}{0.031cm}}
+				\pgfpathcurveto{\pgfqpoint{0.117cm}{0.036cm}}{\pgfqpoint{0.099cm}{0.106cm}}{\pgfqpoint{0.102cm}{0.115cm}}
+				\pgfpathcurveto{\pgfqpoint{0.118cm}{0.156cm}}{\pgfqpoint{0.101cm}{0.183cm}}{\pgfqpoint{0.154cm}{0.184cm}}
+				\pgfpathcurveto{\pgfqpoint{0.172cm}{0.185cm}}{\pgfqpoint{0.186cm}{0.183cm}}{\pgfqpoint{0.186cm}{0.18cm}}
+				\pgfpathcurveto{\pgfqpoint{0.186cm}{0.145cm}}{\pgfqpoint{0.285cm}{0.201cm}}{\pgfqpoint{0.217cm}{0.231cm}}
+				\pgfpathcurveto{\pgfqpoint{0.204cm}{0.237cm}}{\pgfqpoint{0.138cm}{0.289cm}}{\pgfqpoint{0.352cm}{0.289cm}}
+				\pgfpathcurveto{\pgfqpoint{0.547cm}{0.289cm}}{\pgfqpoint{0.392cm}{0.36cm}}{\pgfqpoint{0.569cm}{0.313cm}}
+				\pgfpathcurveto{\pgfqpoint{0.697cm}{0.279cm}}{\pgfqpoint{0.8cm}{0.329cm}}{\pgfqpoint{0.797cm}{0.291cm}}
+				\pgfpathcurveto{\pgfqpoint{0.794cm}{0.257cm}}{\pgfqpoint{0.798cm}{0.248cm}}{\pgfqpoint{0.819cm}{0.248cm}}
+				\pgfpathcurveto{\pgfqpoint{0.861cm}{0.248cm}}{\pgfqpoint{0.818cm}{0.298cm}}{\pgfqpoint{0.863cm}{0.324cm}}
+				\pgfpathcurveto{\pgfqpoint{0.906cm}{0.349cm}}{\pgfqpoint{0.881cm}{0.399cm}}{\pgfqpoint{0.857cm}{0.413cm}}
+				\pgfpathcurveto{\pgfqpoint{0.826cm}{0.431cm}}{\pgfqpoint{0.84cm}{0.456cm}}{\pgfqpoint{0.84cm}{0.522cm}}
+				\pgfpathcurveto{\pgfqpoint{0.874cm}{0.518cm}}{\pgfqpoint{0.903cm}{0.516cm}}{\pgfqpoint{0.908cm}{0.529cm}}
+				\pgfpathcurveto{\pgfqpoint{0.915cm}{0.547cm}}{\pgfqpoint{0.869cm}{0.543cm}}{\pgfqpoint{0.88cm}{0.562cm}}
+				\pgfpathcurveto{\pgfqpoint{0.906cm}{0.608cm}}{\pgfqpoint{0.84cm}{0.644cm}}{\pgfqpoint{0.834cm}{0.644cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.363cm}{0.555cm}}
+				\pgfpathcurveto{\pgfqpoint{0.363cm}{0.555cm}}{\pgfqpoint{0.378cm}{0.373cm}}{\pgfqpoint{0.363cm}{0.374cm}}
+				\pgfpathcurveto{\pgfqpoint{0.323cm}{0.375cm}}{\pgfqpoint{0.251cm}{0.441cm}}{\pgfqpoint{0.208cm}{0.441cm}}
+				\pgfpathcurveto{\pgfqpoint{0.182cm}{0.441cm}}{\pgfqpoint{0.191cm}{0.441cm}}{\pgfqpoint{0.188cm}{0.469cm}}
+				\pgfpathcurveto{\pgfqpoint{0.173cm}{0.615cm}}{\pgfqpoint{0.196cm}{0.588cm}}{\pgfqpoint{0.363cm}{0.555cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.734cm}{0.573cm}}
+				\pgfpathcurveto{\pgfqpoint{0.759cm}{0.557cm}}{\pgfqpoint{0.783cm}{0.539cm}}{\pgfqpoint{0.807cm}{0.522cm}}
+				\pgfpathlineto{\pgfqpoint{0.801cm}{0.42cm}}
+				\pgfpathcurveto{\pgfqpoint{0.757cm}{0.405cm}}{\pgfqpoint{0.585cm}{0.342cm}}{\pgfqpoint{0.697cm}{0.34cm}}
+				\pgfpathcurveto{\pgfqpoint{0.776cm}{0.34cm}}{\pgfqpoint{0.777cm}{0.397cm}}{\pgfqpoint{0.793cm}{0.39cm}}
+				\pgfpathcurveto{\pgfqpoint{0.803cm}{0.386cm}}{\pgfqpoint{0.798cm}{0.352cm}}{\pgfqpoint{0.798cm}{0.333cm}}
+				\pgfpathcurveto{\pgfqpoint{0.641cm}{0.319cm}}{\pgfqpoint{0.6cm}{0.336cm}}{\pgfqpoint{0.5cm}{0.362cm}}
+				\pgfpathcurveto{\pgfqpoint{0.479cm}{0.366cm}}{\pgfqpoint{0.478cm}{0.369cm}}{\pgfqpoint{0.478cm}{0.414cm}}
+				\pgfpathcurveto{\pgfqpoint{0.478cm}{0.513cm}}{\pgfqpoint{0.444cm}{0.53cm}}{\pgfqpoint{0.493cm}{0.546cm}}
+				\pgfpathcurveto{\pgfqpoint{0.612cm}{0.569cm}}{\pgfqpoint{0.702cm}{0.588cm}}{\pgfqpoint{0.734cm}{0.573cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.857cm}{0.364cm}}
+				\pgfpathcurveto{\pgfqpoint{0.857cm}{0.355cm}}{\pgfqpoint{0.853cm}{0.348cm}}{\pgfqpoint{0.849cm}{0.348cm}}
+				\pgfpathcurveto{\pgfqpoint{0.844cm}{0.348cm}}{\pgfqpoint{0.84cm}{0.358cm}}{\pgfqpoint{0.84cm}{0.37cm}}
+				\pgfpathcurveto{\pgfqpoint{0.84cm}{0.399cm}}{\pgfqpoint{0.857cm}{0.385cm}}{\pgfqpoint{0.857cm}{0.364cm}}
+				\pgfpathclose
+				\pgfpathmoveto{\pgfqpoint{0.309cm}{0.344cm}}
+				\pgfpathlineto{\pgfqpoint{0.28cm}{0.338cm}}
+				\pgfpathcurveto{\pgfqpoint{0.189cm}{0.321cm}}{\pgfqpoint{0.197cm}{0.32cm}}{\pgfqpoint{0.197cm}{0.353cm}}
+				\pgfpathcurveto{\pgfqpoint{0.201cm}{0.422cm}}{\pgfqpoint{0.276cm}{0.362cm}}{\pgfqpoint{0.309cm}{0.344cm}}
+				\pgfpathclose
+				\pgfusepath{fill}
+			\end{pgfscope}
+		\end{pgfscope}
+\end{tikzpicture}}
+
+\newtheoremstyle{csatanicthm}
+{\thmsep}   % ABOVESPACE
+{\thmsep}   % BELOWSPACE
+{\itshape}  % BODYFONT
+{0pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{.\enskip\GrothendieckLeftDevil}         % HEADPUNCT
+{5pt plus 1pt minus 1pt} % HEADSPACE
+{\thmnumber{#2. }\thmname{#1}\thmnote{ \textmd{(#3)}}}          % CUSTOM-HEAD-SPEC
+
+\theoremstyle{csatanicthm}
+\newtheorem{sataniclem}[theorem]{Lemma}
+\newtheorem{satanicthm}[theorem]{Theorem}
+
+\makeatletter
+\renewcommand{\@pnumwidth}{2em} 
+\renewcommand{\@tocrmarg}{3em}
+\newcommand{\vast}[1]{\bBigg@{#1}}
+\makeatother
+
+\flushbottom
+
+%\includeonly{nothingtoseehere}
+%\includeonly{./Sections/inftyCats1-5}
+%\includeonly{./Sections/inftyCats1-5,./Sections/inftyCats6}
+%\includeonly{./Sections/inftyCats6}
+%\includeonly{./Sections/inftyCats7}
+%\includeonly{./Sections/inftyCats6,./Sections/inftyCats7}
+\begin{document}
+	\maketitle
+
+	\tableofcontents
+	\addtocounter{section}{-1}
+	
+	\addtokomafont{section}{\S}
+	\addtokomafont{subsection}{\S}
+	\newpage
+	
+	%let\left\left
+	
+	\section{Introduction}
+	
+	\begin{numpar}[$\infty$-Categories in topology.]
+		[TODO]
+	\end{numpar}
+	\begin{numpar}[The aim of these notes.]
+		[TODO]
+	\end{numpar}
+	
+	\begin{numpar}[Model independence and notation.]\label{par:ModelIndependenceIntro}
+		The model for $\infty$-categories we use in these notes will be \emph{quasi-categories}. But there are many other approaches to $\infty$-categories, like \emph{topologically} or \emph{Kan-enriched categories}, \emph{complete Segal spaces}, \emph{$1$-complicial sets}, \ldots\ Of course, these approaches should all be equivalent, but it's usually a non-trivial task to tranfer a result proven in one model into another model. A general theory of model independence that allows for such non-trivial transfers has been developed by Emily Riehl and Dominic Verity \cite{RiehlVerity}.
+		
+		In these notes, we take a somewhat different approach towards a model-independent theory. We will, or at least we would, in an ideal version of these notes, proceed in the following steps:
+		\begin{alphanumerate}
+			\item First, we'll set up the framework of quasi-categories, by any means necessary.\label{enum:SetupQuasicategories}
+			\item After that, we'll identify a few key model-independent statements and prove (or black box) them in the model of quasi-categories.\label{enum:KeyStatements}
+			\item Finally, all further proofs will be done in a model-independent fashion.\label{enum:AllProofsModelIndependent}
+		\end{alphanumerate}
+		So, at least in an ideal world, if you prefer a different model of quasi-categories, you'll probably know how to do steps~\cref{enum:SetupQuasicategories} and~\cref{enum:KeyStatements} in your model, and then everything from step~\cref{enum:AllProofsModelIndependent} will work in your model too.
+		
+		In reality, these notes don't quite live up to that ideal, but I dare say we come somewhat close. In \crefrange{sec:SimplicialSets}{sec:Straightening}, we'll sketch how to get the theory of quasi-categories off the ground. This corresponds to steps~\cref{enum:SetupQuasicategories} and~\cref{enum:KeyStatements} above, with most of \cref{enum:KeyStatements} happening in \cref{sec:JoyalLifting} and \cref{sec:Straightening}. Everything from \cref{sec:InftyCategoryTheory} onward mostly falls within step~\cref{enum:AllProofsModelIndependent}. I write \enquote{mostly} because, unfortunately, there are still a few non-model-independent arguments scattered throughout the text, the worst offender probably being our treatment of cardinality bounds and filteredness in \cref{subsec:Presentable}. I could, of course, tautologically claim that every non-model-independent proof still belongs to step~\cref{enum:KeyStatements}, but that would be a poor excuse for my inability to come up with better arguments.
+		
+		The transition to (mostly) model-independent arguments will be reflected in a change of terminology: Throughout \crefrange{sec:SimplicialSets}{sec:Straightening}, we'll use the term  \emph{quasi-category}, we'll write $\F(\Cc,\Dd)$ for the mapping object in simplicial sets and we'll always write $\N(\Ee)$ to emphasise that an ordinary category $\Ee$ can be turned into a quasi-category via the nerve construction. Starting from \cref{sec:InftyCategoryTheory}, we'll simply say \emph{$\infty$-category}, write $\Fun(\Cc,\Dd)$, and consider every ordinary category $\Ee$ implicitly as an $\infty$-category, suppressing $\N$ everywhere. Only when we're using non-model-independent arguments, we'll switch back to the old terminology, to emphasise that what we're doing is morally questionable.
+	\end{numpar}
+	\begin{numpar}[Acknowledgments.]
+		[TODO] Many thanks to \cite{HigherCatsI}, \cite{HigherCatsII}, \cite{KTheory}.
+	\end{numpar}
+	
+	\newpage
+	\include{./Sections/inftyCats1-5}
+	\include{./Sections/inftyCats6}
+	\include{./Sections/inftyCats7}
+	
+	
+	\newpage
+	
+	
+	
+	
+	\newpage
+	\section{The tensor product of spectra}\label{sec:TensorProduct}
+	\subsection{Symmetric monoidal \texorpdfstring{$\infty$}{Infinity}-categories}
+	
+	\subsection{Day convolution}
+	
+	\subsection{Homology and cohomology}
+	\begin{thm}\label{thm:DRIsModulesOverHR}
+		The functor $\H\colon \Dd(\IZ)\rightarrow \cat{Sp}$ can be equipped with a symmetric monoidal structure and induces equivalences
+		\begin{equation*}
+			\H\colon \Dd(R)\overset{\simeq}{\longrightarrow} \cat{LMod}_{\H R}(\cat{Sp})
+		\end{equation*}
+		for every ordinary ring $R$. If $R$ is commutative, then $\cat{LMod}_{\H R}(\cat{Sp})$ admits a canonical symmetric monoidal structure and the above equivalence can be made strictly monoidal if we equip $\Dd(R)$ with the symmetric monoidal structure induced by $-\lotimes_R-$.\hfill$\blacksquare$
+	\end{thm}
+	\begin{cor}\label{cor:Homology}
+		If $X\in\cat{An}$ is an anima, then the unreduced and reduced homology and cohomology of $X$ with coefficients in an abelian group $A$ are given by
+		\begin{align*}
+			\H_*(X,A)&\cong \pi_*\lef(\IS[X]\otimes\H A\righ)\,,& \widetilde{\H}_*\left(X,A\right)&\cong \pi_*\Bigl(\fib\lef(\IS[X]\rightarrow \IS[*]\righ)\otimes\H A\Bigr)\,,\\
+			\H^*(X,A)&\cong \pi_{-*}\hom_\IS\lef(\IS[X],\H A\righ)\,,& \widetilde{\H}^*\left(X,A\right)&\cong \pi_{-*}\hom_\IS\Bigl(\fib\lef(\IS[X]\rightarrow \IS[*]\righ),\H A\Bigr)\,.
+		\end{align*}
+	\end{cor}
+	
+	\newpage
+	\section[Cool topology applications]{Cool topology applications \coolemoji}
+	
+	
+
+	\newpage
+	\renewcommand{\ParagraphOrNot}{}
+	
+	\setkomafont{section}{\rmfamily\bfseries\centering\Large}
+	
+	\printbibliography
+\end{document}

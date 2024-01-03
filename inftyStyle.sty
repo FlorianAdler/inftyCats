@@ -1,0 +1,805 @@
+%%%% PACKAGES %%%%
+
+%%%% general stuff %%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{newunicodechar}
+
+%%%% typography %%%%
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{csquotes}
+\setkomafont{sectioning}{\rmfamily\bfseries}
+\addtokomafont{section}{\centering}
+\addtokomafont{subsection}{\centering}
+\displaywidowpenalty=8000
+%\postdisplaypenalty=8000
+\widowpenalty=8000
+\clubpenalty=8000
+
+%%%% tables %%%%
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+%%%% math %%%%
+\usepackage{amsmath,amsfonts,amssymb,mathtools}
+\usepackage{bbm}
+\usepackage[bbgreekl]{mathbbol}
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb} %to ensure that the meaning of \mathbb does not change
+\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+\usepackage{old-arrows}
+\usepackage{accents}
+\usepackage{array}
+\usepackage{stmaryrd}
+\SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}%otherwise we get a strange warning
+
+%%%% diagrams %%%%
+\usepackage{tikz-cd}
+\usepackage{tikzpagenodes}
+\usetikzlibrary{arrows,calc,decorations.markings,decorations.pathmorphing,patterns,patterns.meta}
+
+%%%% bibliography %%%%
+\usepackage[
+backend=biber,
+style=ieee-alphabetic,
+dashed=true,
+giveninits=false,
+maxnames=3]{biblatex}
+\renewcommand*\bibnamedash{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\setcounter{biburlnumpenalty}{7000}
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+\DeclareSourcemap{
+	\maps[datatype=bibtex]{
+		\map[overwrite=true]{
+			\step[fieldsource=fjournal]
+			\step[fieldset=journal, origfieldval]
+		}
+	}
+}
+\renewcommand{\bibleftbracket}{\textup{[}}
+\renewcommand{\bibrightbracket}{\textup{]}}
+\renewbibmacro{in:}{}
+%\DeclareFieldFormat{url}{\url{#1}}
+
+% prints author names as small caps
+%\renewcommand{\mkbibnamegiven}[1]{\textsc{#1}}
+%\renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
+%\renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
+%\renewcommand{\mkbibnamesuffix}[1]{\textsc{#1}}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{\emph{#1}\isdot}
+\DeclareFieldFormat{journaltitle}{#1\nopunct}
+\DeclareFieldFormat*[incollection,book]{booktitle}{#1\isdot}
+\DeclareFieldFormat*[incollection,book]{series}{#1\isdot}
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{volume}{vol.\ #1\isdot}
+
+\renewbibmacro*{addendum+pubstate}{%
+	\setunit{\adddot\space}%
+	\printfield{addendum}%
+	\newunit\newblock
+	\printfield{pubstate}}
+	
+\renewbibmacro*{series+number(book)}{%
+	\iffieldundef{series}{}
+	{%
+		\setunit{\addcomma\addspace}%
+		\printtext{%
+			\printfield{series}%
+			\setunit*{\addspace}%
+			\printfield{number}%
+			\newunit}}}
+
+\DeclareBibliographyDriver{book}{%
+	\usebibmacro{bibindex}%
+	\usebibmacro{begentry}%
+	\usebibmacro{author/editor+others/translator+others}%
+	\setunit{\labelnamepunct}\newblock
+	\usebibmacro{maintitle+title}%
+	\usebibmacro{series+number(book)}%
+	\printlist{language}%
+	\newunit\newblock
+	\usebibmacro{volume+part}%
+	\newunit
+	\usebibmacro{chapter+pages}%
+	\newunit
+	\printfield{pagetotal}%
+	\newunit\newblock
+	\printfield{edition}%
+	\newunit\newblock
+	\usebibmacro{byauthor}%
+	\newunit\newblock
+	\usebibmacro{byeditor+others}%
+	\newunit\newblock
+	\printfield{volumes}%
+	\newunit\newblock
+	\setunit{\adddot\addspace}%
+	\newblock
+	\usebibmacro{publisher+location+date}%
+	\newunit\newblock
+	\printfield{note}%
+	\newunit\newblock
+	\iftoggle{bbx:isbn}
+	{\printfield{isbn}}
+	{}%
+	\newunit\newblock
+	\usebibmacro{doi+eprint+url}%
+	\newunit\newblock
+	\usebibmacro{addendum+pubstate}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\newunit\newblock
+	\iftoggle{bbx:related}
+	{\usebibmacro{related:init}%
+		\usebibmacro{related}}
+	{}%
+	\usebibmacro{finentry}}
+
+%%%% lists %%%%
+\newlength{\thmsep}%hax
+\setlength{\thmsep}{\topsep}%dunno y dis workin
+\setlength{\parindent}{1.5em}
+
+\usepackage{enumitem}
+%\newenvironment{numerate}{\begin{enumerate}[wide=0pt, leftmargin=*, labelindent=0pt, itemsep=0.5\thmsep, topsep=0.5\thmsep, label={\upshape(\arabic*)}, listparindent=\parindent, parsep=0pt]}{\end{enumerate}}
+\newcommand{\itememph}[1]{$(#1)$}
+\newlist{alphanumerate}{enumerate}{10}
+\setlist[alphanumerate]{labelsep=!,labelindent=0pt, labelwidth=2em, itemindent=0pt, align=left, itemsep=0.5\thmsep, topsep=0.5\thmsep, label={$(\alph*)$}, ref={$\alph*$}, listparindent=\parindent, parsep=0pt, before={\let\item\customitem}}
+%\setlist[alphanumerate]{wide=0pt, left=0pt .. 2.25em, widest=iii, itemsep=0.5\thmsep, topsep=0.5\thmsep, label={$(\alph*)$}, ref={$\alph*$}, listparindent=\parindent, parsep=0pt, before={\let\item\customitem}}
+%\newenvironment{alphanumerate}{\begin{enumerate}[]}{\end{enumerate}}
+%\newenvironment{rmnumerate}{\begin{enumerate}[labelindent=0em, itemsep=0.5\thmsep, topsep=0.5\thmsep, label={\upshape(\roman*)}, parsep=0pt]}{\end{enumerate}}
+\newlist{temize}{itemize}{10}
+\setlist[temize]{widest=\itememph{m}, leftmargin=*,labelindent=0pt, itemsep=0.5\thmsep, topsep=0.5\thmsep, listparindent=\parindent, parsep=0pt, label={\textbullet}}
+%\newenvironment{temize}{\begin{itemize}[widest=\itememph{m}, leftmargin=*,labelindent=0pt, itemsep=0.5\thmsep, topsep=0.5\thmsep, listparindent=\parindent, parsep=0pt]}{\end{itemize}}
+
+%%%% page headings %%%%
+\usepackage[autooneside=false,automark]{scrlayer-scrpage}
+\pagestyle{plain}
+\chead{}
+\pagestyle{scrheadings}
+\newcommand{\ParagraphOrNot}{}
+\chead{\ifodd\number\value{page}%
+	\textsc{\emph{\ParagraphOrNot\rightmark}}%
+\else%
+	\textsc{\emph{\ParagraphOrNot\leftmark}}%
+\fi%
+}
+%\ofoot{\ifodd\number\value{page}%
+%	\emph{\thepage}%
+%\fi%
+%}
+%\ifoot{\ifodd\number\value{page}\else%
+%	\emph{\thepage}%
+%	\fi%
+%}
+%\cfoot{}
+
+%%%% miscellaneous %%%%
+\usepackage{blindtext}
+\usepackage{xparse}
+
+
+%%%% THEOREMS AND CROSS-REFERENCING %%%%
+
+%%%% equations %%%%
+\usepackage{chngcntr}
+%\renewcommand{\theequation}{\thesmallerdummy}
+
+%%%% relevant packages %%%%
+\usepackage{amsthm}
+%\usepackage[colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black,unicode]{hyperref}
+\usepackage[colorlinks=true,linkcolor=red!70!black,citecolor=cyan!25!blue,urlcolor=red!70!black,unicode]{hyperref}%linkcolor=red!75!black,,urlcolor=red!75!blackcitecolor=blue!60!black
+\usepackage[capitalize,compress]{cleveref}
+
+\newcommand{\stackstag}[1]{Tag~\href{https://stacks.math.columbia.edu/tag/#1}{\textup{#1}}}
+\newcommand{\HTTthm}[1]{\href{http://people.math.harvard.edu/~lurie/papers/HTT.pdf\#theorem.#1}{#1}}
+\newcommand{\HAthm}[1]{\href{http://people.math.harvard.edu/~lurie/papers/HA.pdf\#theorem.#1}{#1}}
+\newcommand{\SAGthm}[1]{\href{https://www.math.ias.edu/~lurie/papers/SAG-rootfile.pdf\#theorem.#1}{#1}}
+
+%%%% theorem styles %%%%
+
+\newtheoremstyle{cthm}
+{\thmsep}   % ABOVESPACE
+{\thmsep}   % BELOWSPACE
+{\itshape}  % BODYFONT
+{0pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{.\enskip---}         % HEADPUNCT
+{5pt plus 1pt minus 1pt} % HEADSPACE
+{\thmnumber{#2. }\thmname{#1}\thmnote{ \textmd{(#3)}}}          % CUSTOM-HEAD-SPEC
+
+\newtheoremstyle{cdef}
+{\thmsep}   % ABOVESPACE
+{\thmsep}   % BELOWSPACE
+{\normalfont}  % BODYFONT
+{0pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{.\enskip---\enskip}         % HEADPUNCT
+{0pt}%{5pt plus 1pt minus 1pt} % HEADSPACE
+{\thmnumber{#2. }\thmname{#1}\thmnote{ \textmd{(#3)}}}          % CUSTOM-HEAD-SPEC
+
+\newcounter{theorem}[section]
+\renewcommand{\thetheorem}{\arabic{section}.\arabic{theorem}}
+%\renewcommand{\thesection}{\S\arabic{section}}
+%\renewcommand{\thesubsection}{\S\arabic{subsection}}
+
+
+%%%% theorem types %%%%
+
+\theoremstyle{cthm}
+\newtheorem{thm}[theorem]{Theorem}
+\newtheorem{lem}[theorem]{Lemma}
+\newtheorem{cor}[theorem]{Corollary}
+\newtheorem{prop}[theorem]{Proposition}
+\newtheorem{conj}[theorem]{Conjecture}
+
+\theoremstyle{cdef}
+\newtheorem{defi}[theorem]{Definition}
+\newtheorem{rem}[theorem]{Remark}
+\newtheorem{exm}[theorem]{Example}
+\newtheorem{cntx}[theorem]{Counterexample}
+\newtheorem{nota}[theorem]{Notation}
+\newtheorem{warn}[theorem]{Warning}
+\newtheorem{con}[theorem]{Construction}
+
+%%%% cross-reference styles %%%%
+\counterwithin*{equation}{theorem}
+\renewcommand{\theequation}{\thetheorem.\arabic{equation}}
+
+\crefdefaultlabelformat{\textup{#2#1#3}}
+\crefformat{theorem}{\textup{#2#1#3}}
+\newcommand{\creflastconjunction}{, and\nobreakspace}
+%\crefmultiformat{theorem}{\textup{#2#1#3}}{ and~\textup{#2#1#3}}{, \textup{#2#1#3}}{ and~\textup{#2#1#3}}
+\crefformat{equation}{\textup{(#2#1#3)}}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{lem}{Lemma}{Lemmas}
+\crefname{cor}{Corollary}{Corollaries}
+\crefname{defi}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+\crefname{con}{Construction}{Constructions}
+\crefname{exm}{Example}{Examples}
+\crefformat{alphanumeratei}{\textup{(#2#1#3)}}
+%\crefformat{thm}{Theorem~\textup{#2#1#3}}
+%\crefformat{lem}{Lemma~\textup{#2#1#3}}
+%\crefformat{cor}{Corollary~\textup{#2#1#3}}
+%\crefformat{prop}{Proposition~\textup{#2#1#3}}
+%\crefformat{nota}{Notation~\textup{#2#1#3}}
+%\crefformat{rem}{Remark~\textup{#2#1#3}}
+%\crefformat{con}{Construction~\textup{#2#1#3}}
+%\crefformat{defi}{Definition~\textup{#2#1#3}}
+%\crefformat{exm}{Example~\textup{#2#1#3}}
+%\crefformat{cntx}{Counterexample~\textup{#2#1#3}}
+%\crefformat{warn}{Warning~\textup{#2#1#3}}
+%\crefformat{con}{Construction~\textup{#2#1#3}}
+%\crefformat{conj}{Conjecture~\textup{#2#1#3}}
+
+\crefformat{section}{\S\textup{#2#1#3}}
+\crefformat{subsection}{\S\textup{#2#1#3}}
+\crefformat{appendix}{\S\textup{#2#1#3}}
+\crefrangeformat{section}{\S\S#3#1#4--#5#2#6}
+\crefrangeformat{subsection}{\S\S#3#1#4--#5#2#6}
+
+%%%% claim labels %%%%
+%\newcounter{claimer}
+%\makeatletter
+%\newcommand\claim[1][]{\item[$(#1)$]\refstepcounter{claimer}\def\@currentlabel{$(#1)$}}
+%\makeatother
+%\crefformat{claimer}{\textup{#2#1#3}}
+
+
+%%%% STYLE CHOICES %%%%
+
+\newcommand{\IsArgEmpty}[3]{%
+	\if\relax\detokenize{#1}\relax%
+	#2%
+	\else%
+	#3%
+	\fi%
+}
+
+%%%% fixing \item to include correct referencing of manually set labels %%%%
+
+\newcounter{dummycounterforcustomitems}
+
+\let\realItem\item  % save the original item command
+\makeatletter
+\newcommand{\customitem}[1][]{%
+	\IsArgEmpty{#1}%
+	{\realItem}% add an item
+	{\realItem[$(#1)$]\refstepcounter{enumi}\addtocounter{enumi}{-1}\protected@edef\cref@currentlabel{[alphanumeratei][1][]{$#1$}}}% add an item and update label
+}
+\makeatother
+
+\crefformat{dummycounterforcustomitems}{#2#1#3}
+
+%%%% well-behaved numbered paragraphs %%%%
+
+\newtheoremstyle{cnumpar}
+{\thmsep}   % ABOVESPACE
+{\thmsep}   % BELOWSPACE
+{\normalfont}  % BODYFONT
+{0pt}       % INDENT (empty value is the same as 0pt)
+{\bfseries} % HEADFONT
+{\enskip---\enskip}         % HEADPUNCT
+{0pt} % HEADSPACE
+{\thmnumber{#2.\IsArgEmpty{#3}{}{ }}\thmname{#3}}          % CUSTOM-HEAD-SPEC
+
+\theoremstyle{cnumpar}
+\newtheorem{numpar}[theorem]{numpar}
+\crefformat{numpar}{\textup{#2#1#3}}
+
+%%%% SHORTCUTS %%%%
+
+%%%% miscellaneous %%%%
+\newcommand{\blank}{\phantom{w}}
+\newcommand{\ordinalst}{^{\text{st}}}
+\newcommand{\ordinalnd}{^{\text{nd}}}
+\newcommand{\ordinalrd}{^{\text{rd}}}
+\newcommand{\ordinalth}{^{\text{th}}}
+\newcommand{\st}{\ \middle|\ }
+
+\renewcommand{\geq}{\geqslant}
+\renewcommand{\leq}{\leqslant}
+\newcommand{\localise}[1]{{\textstyle\frac{1}{#1}}}
+%\mathchardef\mhyph="2D
+\DeclareMathSymbol{\mhyph}{\mathord}{AMSa}{"39}
+
+%%%% many alphabets %%%%
+
+% nicer phi and epsilon
+%\let\varphidummy\phi
+%\let\phi\varphi
+%\renewcommand{\varphi}{\varphidummy}
+\renewcommand{\epsilon}{\varepsilon}
+
+% \mathrm, may change
+\newcommand{\D}{\mathrm{D}}
+\renewcommand{\H}{\mathrm{H}}
+\renewcommand{\L}{\mathrm{L}}
+\newcommand{\R}{\mathrm{R}}
+
+% \mathcal 
+\newcommand{\Aa}{\mathcal{A}}
+\newcommand{\Bb}{\mathcal{B}}
+\newcommand{\Cc}{\mathcal{C}}
+\newcommand{\Dd}{\mathcal{D}}
+\newcommand{\Ee}{\mathcal{E}}
+\newcommand{\Ff}{\mathcal{F}}
+\newcommand{\Gg}{\mathcal{G}}
+\newcommand{\Hh}{\mathcal{H}}
+\newcommand{\Ii}{\mathcal{I}}
+\newcommand{\Jj}{\mathcal{J}}
+\newcommand{\Kk}{\mathcal{K}}
+\newcommand{\Ll}{\mathcal{L}}
+\newcommand{\Mm}{\mathcal{M}}
+\newcommand{\Nn}{\mathcal{N}}
+\newcommand{\Oo}{\mathcal{O}}
+\newcommand{\Pp}{\mathcal{P}}
+\newcommand{\Qq}{\mathcal{Q}}
+\newcommand{\Rr}{\mathcal{R}}
+\newcommand{\Ss}{\mathcal{S}}
+\newcommand{\Tt}{\mathcal{T}}
+\newcommand{\Uu}{\mathcal{U}}
+\newcommand{\Vv}{\mathcal{V}}
+\newcommand{\Ww}{\mathcal{W}}
+\newcommand{\Xx}{\mathcal{X}}
+\newcommand{\Yy}{\mathcal{Y}}
+\newcommand{\Zz}{\mathcal{Z}}
+
+% mathbb
+\newcommand{\IA}{\mathbb{A}}
+\newcommand{\IB}{\mathbb{B}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\ID}{\mathbb{D}}
+\newcommand{\IE}{\mathbb{E}}
+\newcommand{\IF}{\mathbb{F}}
+\newcommand{\IG}{\mathbb{G}}
+\newcommand{\IH}{\mathbb{H}}
+\newcommand{\II}{\mathbb{I}}
+\renewcommand{\IJ}{\mathbb{J}}
+\newcommand{\IK}{\mathbb{K}}
+\newcommand{\IL}{\mathbb{L}}
+\newcommand{\IM}{\mathbb{M}}
+\newcommand{\IN}{\mathbb{N}}
+\newcommand{\IO}{\mathbb{O}}
+\newcommand{\IP}{\mathbb{P}}
+\newcommand{\IQ}{\mathbb{Q}}
+\newcommand{\IR}{\mathbb{R}}
+\newcommand{\IS}{\mathbb{S}}
+\newcommand{\IT}{\mathbb{T}}
+\newcommand{\IU}{\mathbb{U}}
+\newcommand{\IV}{\mathbb{V}}
+\newcommand{\IW}{\mathbb{W}}
+\newcommand{\IX}{\mathbb{X}}
+\newcommand{\IY}{\mathbb{Y}}
+\newcommand{\IZ}{\mathbb{Z}}
+
+% mathfrak
+\renewcommand{\AA}{\mathfrak{A}}
+\newcommand{\BB}{\mathfrak{B}}
+\newcommand{\CC}{\mathfrak{C}}
+\newcommand{\DD}{\mathfrak{D}}
+\newcommand{\EE}{\mathfrak{E}}
+\newcommand{\FF}{\mathfrak{F}}
+\newcommand{\GG}{\mathfrak{G}}
+\newcommand{\HH}{\mathfrak{H}}
+\newcommand{\JJ}{\mathfrak{J}}
+\newcommand{\KK}{\mathfrak{K}}
+\newcommand{\LL}{\mathfrak{L}}
+\newcommand{\MM}{\mathfrak{M}}
+\newcommand{\NN}{\mathfrak{N}}
+\newcommand{\OO}{\mathfrak{O}}
+\newcommand{\PP}{\mathfrak{P}}
+\newcommand{\QQ}{\mathfrak{Q}}
+\newcommand{\RR}{\mathfrak{R}}
+\renewcommand{\SS}{\mathfrak{S}}
+\newcommand{\TT}{\mathfrak{T}}
+\newcommand{\UU}{\mathfrak{U}}
+\newcommand{\VV}{\mathfrak{V}}
+\newcommand{\WW}{\mathfrak{W}}
+\newcommand{\XX}{\mathfrak{X}}
+\newcommand{\YY}{\mathfrak{Y}}
+\newcommand{\ZZ}{\mathfrak{Z}}
+
+\renewcommand{\aa}{\mathfrak{a}}
+\newcommand{\bb}{\mathfrak{b}}
+\newcommand{\cc}{\mathfrak{c}}
+\newcommand{\dd}{\mathfrak{d}}
+\newcommand{\ee}{\mathfrak{e}}
+\newcommand{\ff}{\mathfrak{f}}
+\let\gge\gg
+\renewcommand{\gg}{\mathfrak{g}}
+\newcommand{\hh}{\mathfrak{h}}
+\newcommand{\ii}{\mathfrak{i}}
+\newcommand{\jj}{\mathfrak{j}}
+\newcommand{\kk}{\mathfrak{k}}
+\let\lle\ll
+\renewcommand{\ll}{\mathfrak{l}}
+\newcommand{\mm}{\mathfrak{m}}
+\newcommand{\nn}{\mathfrak{n}}
+\newcommand{\oo}{\mathfrak{o}}
+\newcommand{\pp}{\mathfrak{p}}
+\newcommand{\qq}{\mathfrak{q}}
+\newcommand{\rr}{\mathfrak{r}}
+%\newcommand{\ss}{\mathfrak{s}}
+%\newcommand{\tt}{\mathfrak{t}}
+\newcommand{\uu}{\mathfrak{u}}
+\newcommand{\vv}{\mathfrak{v}}
+\newcommand{\ww}{\mathfrak{w}}
+\newcommand{\xx}{\mathfrak{x}}
+\newcommand{\yy}{\mathfrak{y}}
+\newcommand{\zz}{\mathfrak{z}}
+
+%Japanese
+\newcommand\Yo{\!\text{\usefont{U}{min}{m}{n}\symbol{'210}}\hspace{-0.125ex}\vphantom{Y}}
+
+\DeclareFontFamily{U}{min}{}
+\DeclareFontShape{U}{min}{m}{n}{<-> udmj30}{}
+
+
+%%%% math operators %%%%
+
+%% category theory
+\newcommand{\Fun}{\operatorname{Fun}}
+\newcommand{\Nat}{\operatorname{Nat}}
+\newcommand{\Lan}{\operatorname{Lan}}
+\newcommand{\Ran}{\operatorname{Ran}}
+\newcommand{\eq}{\operatorname{eq}}
+\newcommand{\coeq}{\operatorname{coeq}}
+\newcommand{\fib}{\operatorname{fib}}
+\newcommand{\cofib}{\operatorname{cofib}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\ev}{\operatorname{ev}}
+\newcommand{\pr}{\operatorname{pr}}
+
+\DeclareMathOperator*{\colimit}{colim}
+\DeclareMathOperator*{\hocolimit}{hocolim}
+\DeclareMathOperator*{\holimit}{holim}
+\DeclareMathOperator*{\limit}{lim}
+
+\newcommand{\op}{\mathrm{op}}
+
+\newcommand{\cat}[1]{\mathrm{#1}}
+
+% group theory
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Gal}{\operatorname{Gal}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\SL}{\operatorname{SL}}
+
+% linear algebra
+\renewcommand{\det}{\operatorname{det}}%otherwise, det_K behaves strangely in displaymode
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\cha}{\operatorname{char}}
+
+% commutative algebra
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\Frac}{\operatorname{Frac}}
+\newcommand{\Tor}{\operatorname{Tor}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\HOM}{\operatorname{\underline{Hom}}}
+\newcommand{\EXT}{\operatorname{\underline{Ext}}}
+\newcommand{\Der}{\operatorname{Der}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\rk}{\operatorname{rk}}
+\newcommand{\length}{\operatorname{length}}
+\newcommand{\depth}{\operatorname{depth}}
+\newcommand{\Fil}{\operatorname{Fil}}
+\newcommand{\nil}{\operatorname{nil}}
+\newcommand{\gr}{\operatorname{gr}}
+
+\newcommand{\sh}{\mathrm{sh}}
+\newcommand{\sep}{\mathrm{sep}}
+\newcommand{\ab}{\mathrm{ab}}
+
+% algebraic geometry
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Spf}{\operatorname{Spf}}
+\newcommand{\Cl}{\operatorname{Cl}}
+\newcommand{\Pic}{\operatorname{Pic}}
+\newcommand{\Bun}{\operatorname{Bun}}
+\newcommand{\Div}{\operatorname{Div}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\res}{\operatorname{res}}
+
+\newcommand{\red}{\mathrm{red}}
+\newcommand{\Zar}{\mathrm{Zar}}
+\newcommand{\fppf}{\mathrm{fppf}}
+\newcommand{\fpqc}{\mathrm{fpqc}}
+\newcommand{\et}{\mathrm{\acute{e}t}}
+\newcommand{\crys}{\mathrm{crys}}
+\newcommand{\cont}{\mathrm{cont}}
+\renewcommand{\inf}{\mathrm{inf}}
+\newcommand{\dR}{\mathrm{dR}}
+
+% arithmetic geometry
+\newcommand{\Frob}{\operatorname{Frob}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\cycl}{\mathrm{cycl}}
+\newcommand{\Prism}{{\mathbbl{\Delta}}}
+\newcommand{\qOmega}{q\mhyph\Omega}
+\newcommand{\qhatOmega}{q\mhyph\widehat{\Omega}}
+\newcommand{\qHodge}{q\mhyph\!\operatorname{Hdg}}
+\newcommand{\qHatge}{q\mhyph\widehat{\operatorname{Hdg}}\vphantom{\Omega}}
+\newcommand{\perf}{\mathrm{perf}}
+\newcommand{\perfd}{\mathrm{perfd}}
+\newcommand{\qpower}{\llbracket q-1\rrbracket}
+\newcommand{\qcrys}{{q\mhyph\mathrm{crys}}}
+\newcommand{\qdR}{{q\mhyph\mathrm{dR}}}
+\newcommand{\gh}{\operatorname{gh}}
+
+% condensed
+\newcommand{\solid}{{\mathchoice{\scalebox{0.72}{$\blacksquare$}}{\scalebox{0.72}{$\blacksquare$}}{\scalebox{0.72}{$\scriptstyle\blacksquare$}}{\scalebox{0.72}{$\scriptscriptstyle\blacksquare$}}}}%{{\scriptscriptstyle\blacksquare}}
+
+% derived and infinity categories
+\newcommand{\Tot}{\operatorname{Tot}}
+\newcommand{\RHom}{\operatorname{RHom}}
+\newcommand{\Ch}{\operatorname{Ch}}
+\newcommand{\Kos}{\operatorname{Kos}}
+\newcommand{\cone}{\operatorname{cone}}
+\newcommand{\Map}{\operatorname{Map}}
+\newcommand{\CAlg}{\operatorname{CAlg}}
+\newcommand{\Cat}{\cat{Cat}}
+
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\newcommand{\cotimes}{\mathbin{\widehat{\otimes}}}
+\newcommand{\lotimes}{\otimes^\L}
+\newcommand{\soltimes}{\otimes^\solid}
+\newcommand{\lsoltimes}{\otimes^{\L\solid}}
+\newcommand{\clotimes}{\mathbin{\smash{\widehat{\otimes}}\vphantom{\otimes}}^\L}
+
+
+%%%% fancy arrows %%%%
+%
+\newlength{\arrowlength}
+\settowidth{\arrowlength}{$\rightarrow$}
+\newlength{\longarrowlength}
+\settowidth{\longarrowlength}{$\longrightarrow$}
+
+
+\DeclareRobustCommand\longtwoheadrightarrow
+{\relbar\joinrel\twoheadrightarrow}
+\DeclareRobustCommand\longtwoheadleftarrow
+{\twoheadleftarrow\joinrel\relbar}
+
+\newcommand{\morphism}[1][]{%
+	\mathchoice{\overset{#1}{\longrightarrow}}%
+	{\IsArgEmpty{#1}{\rightarrow}{\overset{#1}{\longrightarrow}}}%
+	{\IsArgEmpty{#1}{\rightarrow}{\overset{#1}{\longrightarrow}}}%
+	{\IsArgEmpty{#1}{\rightarrow}{\overset{#1}{\longrightarrow}}}%
+}
+\newcommand{\lmorphism}[1][]{%
+	\mathchoice{\overset{#1}{\longleftarrow}}%
+	{\IsArgEmpty{#1}{\leftarrow}{\overset{#1}{\longleftarrow}}}%
+	{\IsArgEmpty{#1}{\leftarrow}{\overset{#1}{\longleftarrow}}}%
+	{\IsArgEmpty{#1}{\leftarrow}{\overset{#1}{\longleftarrow}}}%
+}
+\newcommand{\lrmorphism}[1][]{%
+	\mathchoice{\overset{#1}{\longleftrightarrow}}%
+	{\IsArgEmpty{#1}{\leftrightarrow}{\overset{#1}{\longleftrightarrow}}}%
+	{\IsArgEmpty{#1}{\leftrightarrow}{\overset{#1}{\longleftrightarrow}}}%
+	{\IsArgEmpty{#1}{\leftrightarrow}{\overset{#1}{\longleftrightarrow}}}%
+}
+\newcommand{\monomorphism}[1][]{%
+	\mathchoice{\overset{#1}{\mathrel{\smash{\longhookrightarrow}\vphantom{\rightarrow}}}}%
+	{\IsArgEmpty{#1}{\hookrightarrow}{\overset{#1}{\mathrel{\smash{\longhookrightarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\hookrightarrow}{\overset{#1}{\mathrel{\smash{\longhookrightarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\hookrightarrow}{\overset{#1}{\mathrel{\smash{\longhookrightarrow}\vphantom{\rightarrow}}}}}%
+}
+\newcommand{\lmonomorphism}[1][]{%
+	\mathchoice{\overset{#1}{\mathrel{\smash{\longhookleftarrow}\vphantom{\rightarrow}}}}%
+	{\IsArgEmpty{#1}{\hookleftarrow}{\overset{#1}{\mathrel{\smash{\longhookleftarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\hookleftarrow}{\overset{#1}{\mathrel{\smash{\longhookleftarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\hookleftarrow}{\overset{#1}{\mathrel{\smash{\longhookleftarrow}\vphantom{\rightarrow}}}}}%
+}
+\newcommand{\epimorphism}[1][]{%
+	\mathchoice{\overset{#1}{\mathrel{\smash{\longtwoheadrightarrow}\vphantom{\rightarrow}}}}%
+	{\IsArgEmpty{#1}{\twoheadrightarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadrightarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\twoheadrightarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadrightarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\twoheadrightarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadrightarrow}\vphantom{\rightarrow}}}}}%
+}
+\newcommand{\lepimorphism}[1][]{%
+	\mathchoice{\overset{#1}{\mathrel{\smash{\longtwoheadleftarrow}\vphantom{\rightarrow}}}}%
+	{\IsArgEmpty{#1}{\twoheadleftarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadleftarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\twoheadleftarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadleftarrow}\vphantom{\rightarrow}}}}}%
+	{\IsArgEmpty{#1}{\twoheadleftarrow}{\overset{#1}{\mathrel{\smash{\longtwoheadleftarrow}\vphantom{\rightarrow}}}}}%
+}
+
+\newlength{\morphismlength}
+\settowidth{\morphismlength}{$\longrightarrow$}
+
+%somewhat ugly
+\NewDocumentCommand{\doublemorphism}{O{} O{}}{%
+	\begin{tikzcd}[ampersand replacement=\&, cramped, column sep={\the\morphismlength-0.04em}]%
+		\vphantom{x}\rar[shift left=0.45ex, "#1"]\rar[shift right=0.45ex, "#2"{swap}] \& \vphantom{x}%
+	\end{tikzcd}%
+}
+
+\newcommand{\doublelrmorphism}{%
+	\mathrel{\underset{\smash{\raisebox{0.35em}{$\longleftarrow$}}}{\overset{\smash{\raisebox{-0.35em}{$\longrightarrow$}}}{\phantom{\longrightarrow}}}}
+}
+%somewhat ugly
+%\NewDocumentCommand{\doublelrmorphism}{O{} O{}}{%
+%	\begin{tikzcd}[ampersand replacement=\&, cramped, column sep={\the\morphismlength-0.04em}]%
+%		\vphantom{x}\rar[shift left=0.45ex, "#1"]\& \lar[shift left=0.45ex, "#2"] \vphantom{x}%
+%	\end{tikzcd}%
+%}
+%somewhat ugly
+%\NewDocumentCommand{\doublerlmorphism}{O{} O{}}{%
+%	\begin{tikzcd}[ampersand replacement=\&, cramped, column sep={\the\morphismlength-0.04em}]%
+%		\vphantom{x}\rar[shift right=0.45ex, "#1"{swap}]\& \lar[shift right=0.45ex, "#2"{swap}] \vphantom{x}%
+%	\end{tikzcd}%
+%}
+
+\newlength{\shortmorphismlength}
+\settowidth{\shortmorphismlength}{$\rightarrow$}
+
+\newcommand{\shortdoublemorphism}{%
+	\mathrel{\underset{\smash{\raisebox{0.35em}{$\rightarrow$}}}{\overset{\smash{\raisebox{-0.35em}{$\rightarrow$}}}{\phantom{\rightarrow}}}}%
+}
+%	\begin{tikzcd}[ampersand replacement=\&, cramped, column sep={\the\shortmorphismlength-0.04em}]%
+%		\vphantom{x}\rar[shift left=0.45ex]\rar[shift right=0.45ex] \& \vphantom{x}%
+%	\end{tikzcd}%
+%}
+
+%somewhat ugly
+\newcommand{\shortdoublelrmorphism}{%
+	\mathrel{\smash{\underset{\smash{\raisebox{0.35em}{$\leftarrow$}}}{\overset{\smash{\raisebox{-0.35em}{$\rightarrow$}}}{\phantom{\rightarrow}}}}}%
+}
+%	\begin{tikzcd}[ampersand replacement=\&, cramped, column sep={\the\shortmorphismlength-0.04em}]%
+%		\vphantom{x}\rar[shift left=0.45ex]\& \lar[shift left=0.45ex] \vphantom{x}%
+%	\end{tikzcd}%
+%}
+
+%\colon in opposite direction, e.g. for adjunctions
+\newcommand*\noloc{%
+	\nobreak
+	\mskip6mu plus1mu
+	\mathpunct{}%
+	\nonscript
+	\mkern-\thinmuskip
+	{:}%
+	\mskip2mu
+	\relax
+}
+
+\newcommand{\isomorphism}{\overset{\smash{\raisebox{-0.2ex}{$\scriptstyle\sim$}}}{\longrightarrow}}
+\newcommand{\lisomorphism}{\overset{\smash{\raisebox{-0.2ex}{$\scriptstyle\sim$}}}{\longleftarrow}}
+\newcommand{\lrisomorphism}{\overset{\smash{\raisebox{-0.2ex}{$\scriptstyle\sim$}}}{\longleftrightarrow}}
+
+
+%%%% tikz-cd convenience %%%%
+\tikzcdset{
+	arrow style=tikz, 
+	diagrams={>=to, line cap=round, line join=round, line width=rule_thickness}, arrows={line width=rule_thickness},
+	cells={font=\everymath\expandafter{\the\everymath\displaystyle}},
+}
+
+%% pushouts and pullbacks, TEMPORARY %%
+\font\msamdisplaystyle=msam10 at 11pt
+\font\msamscriptstyle=msam7 at 7pt
+\font\msamscriptscriptstyle=msam5 at 5pt
+\newcommand{\pushoutsign}{\mathchoice%
+	{\text{\msamdisplaystyle \char"3A}}%
+	{\text{\msamdisplaystyle \char"3A}}%
+	{\text{\msamscriptstyle \char"3A}}%
+	{\text{\msamscriptscriptstyle \char"3A}}%
+}
+
+\newcommand{\pullbacksign}{\mathchoice%
+	{\text{\msamdisplaystyle \char"3B}}%
+	{\text{\msamdisplaystyle \char"3B}}%
+	{\text{\msamscriptstyle \char"3B}}%
+	{\text{\msamscriptscriptstyle \char"3B}}%
+}
+
+%\newcommand{\pullbacksign}{\tikz[line width=rule_thickness, line join=round, line cap=round, baseline=(pb.base), inner sep=0ex]{\node (pb) at (0,0) {\phantom{\textup{.}}};\draw (pb.base) ++ (-0.07ex,0.051ex) -- ++(1.509ex,0) -- ++(0,1.509ex);\node at (0,1.35ex) {\textup{.}};}}
+%{\hspace{-0.325ex}\tikz[baseline=(pb.base)]{\draw[line width=rule_thickness, line cap=round] (0,0) ++ (-0.75ex,-0.75ex) -- ++(1.5ex,0ex) -- ++ (0ex,1.5ex);\node at (-0.6ex,0.6ex) {.};\node (pb) at (0,0) {\phantom{x}};}}
+%\newcommand{\pushoutsign}{\tikz[line width=rule_thickness, line join=round, line cap=round, baseline=(po.base), inner sep=0ex]{\node (po) at (0,0) {\phantom{\textup{.}}};\draw (po.base) ++ (0,0.051ex) -- ++(0,1.509ex) -- ++(1.509ex,0);\node at (1.439ex,0) {\textup{.}};}}
+%{\hspace{0.2ex}\tikz[baseline=(po.base)]{\draw (0,0) ++ (-0.75ex,-0.75ex) -- ++(0ex,1.5ex) -- ++ (1.5ex,0ex);\node at (0.6ex,-0.6ex) {\textup{.}};\node (po) at (0,0) {\phantom{x}};}}
+\tikzcdset{
+	pullback/.style = {dash, phantom, "\textstyle\pullbacksign", start anchor=center, end anchor=center},
+	hpullback/.style = {dash, phantom, "\textstyle\rlap{\phantom{$\pullbacksign$}}\smash{\pullbacksign_h}", start anchor=center, end anchor=center},
+	pushout/.style = {dash, phantom, "\textstyle\pushoutsign", start anchor=center, end anchor=center},
+	commutes/.style = {dash, phantom, "\scriptscriptstyle/\!/\!/", start anchor=center, end anchor=center},
+	hcommutes/.style = {dash, phantom, "\phantom{\scriptscriptstyle/\!/\!/}\smash{\scriptscriptstyle/\!/\!/_{\scriptstyle h}}", start anchor=center, end anchor=center}
+}
+
+\tikzcdset{
+	eqtop/.style={dash, shift right=#1},
+	eqtop/.default={0.1em},
+	eqbot/.style={dash, shift left=#1},
+	eqbot/.default={0.1em}
+}
+\newcommand{\eqar}[1][]{\ar[#1,eqtop]\ar[#1,eqbot]}
+\newcommand{\doublear}[2][]{\ar[#2,#1,white,double, double equal sign distance,-{implies[black]}]\eqar[#2,shorten >=0.22em]}
+
+\tikzcdset{
+	mono/.style={#1 hook->},
+	mono/.default={right},
+	epi/.style={->>},
+	iso/.style={"\sim"{sloped, above}}
+}
+
+
+\tikzcdset{
+	longarrowwidth/.style={column sep={\the\longarrowlength}},
+	arrowwidth/.style={column sep={\the\arrowlength}}
+}
+
+\tikzset{
+	symbol/.style={
+		draw=none,
+		every to/.append style={
+			edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+	}
+}
+
+%%%% modifiers %%%%
+%\newcommand{\ov}[1]{\overline{#1}\vphantom{#1}}
+
+\DeclareMathSymbol{\widehatsym}{\mathord}{largesymbols}{"62}
+\newcommand\lowerwidehatsym{%
+	\text{\smash{\raisebox{-1ex}{%
+				$\widehatsym$}}}}
+\newcommand\fixwidehat[1]{\accentset{\displaystyle\lowerwidehatsym}{#1}}%
+
+\DeclareMathSymbol{\widetildesym}{\mathord}{largesymbols}{"65}
+\newcommand\lowerwidetildesym{%
+	\text{\smash{\raisebox{-1.3ex}{%
+				$\widetildesym$}}}}
+\newcommand\fixwidetilde[1]{\accentset{\displaystyle\lowerwidetildesym}{#1}}
+
+\newcommand{\snake}[1]{\fixwidetilde{#1}}%space adjusting hack
+\newcommand{\roof}[1]{\fixwidehat{#1}\vphantom{\widehat{\Oo}}}
+\newcommand{\complete}{\wedge}%{\lowerwidehatsym}
+%\newcommand{\qcmod}{\lowerwidetildesym}
+
+
