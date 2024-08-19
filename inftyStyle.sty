@@ -21,6 +21,7 @@
 
 %%%% math %%%%
 \usepackage{amsmath,amsfonts,amssymb,mathtools}
+\usepackage{bbm}
 \usepackage{old-arrows}
 \usepackage{stmaryrd}
 \SetSymbolFont{stmry}{bold}{U}{stmry}{m}{n}%otherwise we get a strange warning
@@ -97,8 +98,8 @@
 
 % commands for "[" and "]" so that brackets in citations are consistent with the math brackets 
 \font\textmathabxmatha=matha10 at 11pt%
-\newcommand{\lbracketupshape}{\textup{\textmathabxmatha \char"72}}
-\newcommand{\rbracketupshape}{\textup{\textmathabxmatha \char"73}}
+\newcommand{\lbracketupshape}{$[$}
+\newcommand{\rbracketupshape}{$]$}
 
 %%%% redefining \over- and \underbrace, as in mathabx.dcl %%%%
 
@@ -860,6 +861,8 @@ style=section]{csectionappendix}
 \newcommand{\IY}{\mathbb{Y}}
 \newcommand{\IZ}{\mathbb{Z}}
 
+\newcommand{\IUnit}{\mathbbm{1}}
+
 % temporary greek mathbb
 \newcommand{\IDelta}{
 	\mathchoice{\Delta\llap{\scalebox{0.775}{$\Delta$\hspace{0.025em}}}}%
@@ -1062,6 +1065,7 @@ style=section]{csectionappendix}
 \newcommand{\Map}{\operatorname{Map}}
 \newcommand{\CAlg}{\operatorname{CAlg}}
 \newcommand{\Cat}{\cat{Cat}}
+\newcommand{\lax}{\mathrm{lax}\mhyph\otimes}
 
 % "d"-operator with automatic correct spacing
 \renewcommand*\d{\mathop{}\!\mathrm{d}}
@@ -1107,7 +1111,7 @@ style=section]{csectionappendix}
 
 % double left-and-right arrow
 \newcommand{\doublelrmorphism}{%
-	\mathrel{\stackon[-0.47em]{\stackunder[-0.47em]{\phantom{-}}{\smash{\longleftarrow}\vphantom{-}}}{\smash{\longrightarrow}\vphantom{-}}}%
+	\mathrel{\vphantom{\raisebox{0.112em}{$\longrightarrow$}\raisebox{0.303em}{\scalebox{1}[-1]{$\longrightarrow$}}}\smash{\stackon[-0.47em]{\stackunder[-0.47em]{\phantom{-}}{\smash{\longleftarrow}\vphantom{-}}}{\longrightarrow}}}%
 }
 
 

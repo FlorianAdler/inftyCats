@@ -1565,7 +1565,7 @@ We've seen in~\cref{par:HomInQuasiCategories} how to construct the $\Hom$ animae
 				\draw[dashed,shift={(3.5,-0.25)}, dash phase=3,fill=white!93!black]%,preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
 				(-0.9,0) to[out=35,in=270] (-0.8,0.2) to[out=90,in=305] (-0.9,0.6) to[out=125,in=180]  (-0.2,1.1) to[out=0,in=140] (0.4,0.8) to[out=320,in=100] (0.85,0.6) to[out=280,in=45] (0.7,0) to[out=225,in=90] (0.6,-0.3) to[out=270,in=90] (0.65,-0.6) to[out=270,in=90] (0.75,-0.85) to[out=270,in=70] (0.65,-1.1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=0] (-0.4,-1.3) to[out=180,in=315] (-0.8,-1) to[out=135,in=340] (-0.9,-0.7) to[out=160,in=270] (-1.1,-0.5) to[out=90,in=270] (-1,-0.25) to[out=90,in=205] cycle;
 			\end{scope}
-			\fill (0,0) circle (0.45ex) node[outer sep=0.5ex] (u) {} node[above left] {$u$};
+			\fill (-0.1,0) circle (0.45ex) node[outer sep=0.5ex] (u) {} node[above left,xshift=0.4ex] {$u$};
 			\fill (3.5,0) circle (0.45ex) node[outer sep=0.5ex] (v) {} node[above right] {$v$};
 			\fill (3.5,-1) circle (0.45ex) node[outer sep=0.5ex] (w) {} node[below right] {$w$};
 			\draw[postaction={decorate}] (u) to node[pos=0.5,above,outer sep=0.25ex] {$\scriptstyle\varphi$} (v);
@@ -1576,9 +1576,10 @@ We've seen in~\cref{par:HomInQuasiCategories} how to construct the $\Hom$ animae
 			\end{scope}
 			\node at (0,1.25) {$F(x)$};
 			\node at (3.5,1.25) {$F(y)$};
-			\fill (0,-3.8) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[below=0.5ex] {$x$};
+			\fill (-0.1,-3.8) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[below=0.5ex] {$x$};
 			\fill (3.5,-3.8) circle (0.45ex) node[outer sep=0.5ex] (y) {} node[below=0.5ex] {$y$};
 			\draw[postaction={decorate}] (x) to node[pos=0.5,above,outer sep=0.25ex] (alpha) {$\scriptstyle\alpha$} (y);
+			%\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=175] (4.5,0.75) (4.6,-1.7) to[out=185,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.7,-1.25) to [out=105,in=340] (-1.35,-1);
 			\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=170] (4.2,0.75) to[out=350,in=120] (4.9,0.3) to[out=300,in=90] (5.5,-0.1) to[out=270,in=60] (5,-0.7) to[out=240,in=135] (5.2,-1) to[out=315,in=90] (4.9,-1.3) to[out=270,in=120] (4.95,-1.4) to[out=300,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.7,-1.25) to [out=105,in=270] (-1.2,-0.75) to[out=90,in=270] (-2,-0.2) to[out=90,in=270] (-1.5,0.2) to[out=90,in=300] (-1.3,0.4) to[out=120,in=190] cycle;
 			%\begin{scope}[scale=0.9,shift={(0.4,-0.1)}]
 			%\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (0,2.2) to[out=0,in=180] (1.75,2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.25) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
@@ -1661,12 +1662,12 @@ We can now state the straightening/unstraightening equivalence. As was, unfortun
 	\begin{alphanumerate}
 		\item Let $\cat{Cocart}(\Cc)\subseteq\cat{Cat}_{\infty/\Cc}$ be the \embrace{non-full!} sub-quasi-category spanned by cocartesian fibrations over $\Cc$ and those maps that preserve cocartesian morphisms \embrace{see \cref{par:SubQuasiCategories}}. Then there are inverse equivalences of quasi-categories\label{enum:CocartesianStraightening}
 		\begin{equation*}
-			\operatorname{St}^{(\mathrm{cocart})}\colon \cat{Cocart}(\Cc) \underset{\simeq}{\mathrel{\smash{\underset{\smash{\raisebox{0.35em}{$\longleftarrow$}}}{\overset{\smash{\raisebox{-0.35em}{$\overset{\simeq}{\longrightarrow}$}}}{\phantom{\longrightarrow}}}}}}\F(\Cc,\cat{Cat}_\infty)\noloc \operatorname{Un}^{(\mathrm{cocart})}\vphantom{\overset{\simeq}{\overline{x}}}
+			\operatorname{St}^{(\mathrm{cocart})}\colon \cat{Cocart}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{Cat}_\infty)\noloc \operatorname{Un}^{(\mathrm{cocart})}\vphantom{\overset{\simeq}{\overline{x}}}
 		\end{equation*}
 		called \enquote{straightening} and \enquote{unstraightening}. For a cocartesian fibration $p\colon \Uu\rightarrow \Cc$, the value of $\operatorname{St}^{(\mathrm{cocart})}(p)\colon \Cc\rightarrow\cat{Cat}_\infty$ at $x\in \Cc$ is given by the fibre $p^{-1}\{x\}$. Furthermore, $F\colon \Cc\rightarrow \Dd$ is a functor, then the unstraightening equivalence sends the precomposition functor $-\circ F\colon \F(\Dd,\cat{Cat}_\infty)\rightarrow \F(\Cc,\cat{Cat}_\infty)$ to the pullback $F^*\colon \cat{Cocart}(\Dd)\rightarrow\cat{Cocart}(\Cc)$.
 		\item Let $\cat{Left}(\Cc)\subseteq \cat{Cat}_{\infty/\Cc}$ be the full sub-quasi-category spanned by the left fibrations over $\Cc$ \embrace{see \cref{par:SubQuasiCategories}}. Then the equivalences from \cref{enum:CocartesianStraightening} restrict to equivalences\label{enum:LeftStraightening}
 		\begin{equation*}
-			\operatorname{St}^{(\mathrm{left})}\colon \cat{Left}(\Cc) \underset{\simeq}{\mathrel{\smash{\underset{\smash{\raisebox{0.35em}{$\longleftarrow$}}}{\overset{\smash{\raisebox{-0.35em}{$\overset{\simeq}{\longrightarrow}$}}}{\phantom{\longrightarrow}}}}}}\F(\Cc,\cat{An})\noloc \operatorname{Un}^{(\mathrm{left})}\vphantom{\overset{\simeq}{\overline{x}}}\,.
+			\operatorname{St}^{(\mathrm{left})}\colon \cat{Left}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{An})\noloc \operatorname{Un}^{(\mathrm{left})}\vphantom{\overset{\simeq}{\overline{x}}}\,.
 		\end{equation*}
 	\end{alphanumerate}
 	Dually, there are equivalences $\cat{Cart}(\Cc)\simeq \F(\Cc^\op,\cat{Cat}_\infty)$ and $\cat{Right}(\Cc)\simeq \F(\Cc^\op,\cat{An})$. Here $\Cc^\op$ is the opposite quasi-category from \cref{par:Opposite}.\hfill$\blacksquare$

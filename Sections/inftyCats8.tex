@@ -1,0 +1,165 @@
+\section{The tensor product of spectra}\label{sec:TensorProduct}
+The overarching theme of these notes is to do topology without doing topology. So far, we've seen that many classical results are entirely formal consequences of abstract $\infty$-category theory. From now on, we'll show that many more classical results can be proved by doing \emph{algebra} in the stable $\infty$-category $\cat{Sp}$. We already know that $\cat{Sp}$ is additive (see the proof of \cref{lem:SpCGrpIsSp}) and so spectra can be viewed as homotopical generalisations of abelian groups. But to make the analogy between $\cat{Ab}$ and $\cat{Sp}$ really powerful, we need to be able to talk about \emph{algebras} and \emph{modules} in $\cat{Sp}$. This requires the construction of a tensor product on $\cat{Sp}$.
+
+In \cref{subsec:SymmetricMonoidal}, we'll study symmetric monoidal structures on arbitrary $\infty$-categories. In \cref{subsec:DayConvolution}, we'll construct many interesting examples, including the tensor product of spectra. In \cref{subsec:Homology}, we'll take the theory of algebras and modules in $\cat{Sp}$ for granted and use it to give the \enquote{correct} construction of homology and cohomology. Finally, there'll be a lengthy appendix. In \cref{subsec:InfinityOperads}, we'll sketch the missing theory of algebras and modules. In \cref{subsec:EnAlgebras}, we'll introduce the notion of \emph{$\IE_n$-algebras} for all $0\leqslant n\leqslant \infty$, which generalises the notions of $\IE_1$- and $\IE_\infty$-monoids that we already know. Finally, in \cref{subsec:LurieTensorProduct}, we'll prove more cool stuff about Lurie's magical $\infty$-category $\cat{Pr}^\L$ and sketch another construction of the tensor product on $\cat{Sp}$.
+
+
+\subsection{Symmetric monoidal \texorpdfstring{$\infty$}{Infinity}-categories}\label{subsec:SymmetricMonoidal}
+\begin{defi}\label{def:SymmetricMonoidal}
+	A \emph{symmetric monoidal $\infty$-category} is an object of $\cat{CMon}(\cat{Cat}_\infty)$, that is, a functor $\Cc\colon \cat{Fin}\rightarrow \cat{Cat}_\infty$ satisfying $\Cc_0\simeq *$ as well as the Segal condition from \cref{def:EinftyMonoid}\cref{enum:EinftyMonoid}. We often abusively identify $\Cc$ with its \emph{underlying $\infty$-category} $\Cc_1$.
+\end{defi}
+
+Unfortunately, there's a problem with this definition: The $\infty$-category $\cat{CMon}(\cat{Cat}_\infty)$ is \emph{not} a good framework to study symmetric monoidal $\infty$-categories! This is because $\cat{CMon}(\cat{Cat}_\infty)$ only keeps track of functors $F\colon \Cc\rightarrow \Dd$ that satisfy $F(x\otimes_\Cc y)\simeq F(x)\otimes_\Dd F(y)$. In the classical theory, these are called \emph{strictly symmetric monoidal}. However, many functors occuring in nature are only \emph{lax symmetric monoidal}: They only admit a functorial morphism $F(x)\otimes_\Dd F(y)\rightarrow F(x\otimes_\Cc y)$. For example, if $R\rightarrow S$ is a morphism of ordinary rings, then the base change $-\otimes_RS\colon \cat{Mod}_R\rightarrow \cat{Mod}_S$ is strictly symmetric monoidal, but its right adjoint, the forgetful functor $\cat{Mod}_S\rightarrow \cat{Mod}_R$ is usually only lax monoidal.
+
+If we think about symmetric monoidal $\infty$-categories as functors $\Cc\colon \cat{Fin}\rightarrow \cat{Cat}_\infty$, then there's no way to formalise what a lax symmetric monoidal functor should be.%
+%
+\footnote{That is, unless we're willing to invoke $(\infty,2)$-categories.}
+However, thanks to straightening/unstraightening (\cref{thm:Straightening}), we have another way to think about such functors: Namely, they can be regarded as cocartesian fibrations $\Cc^\otimes\rightarrow \cat{Fin}$. This allows us to define what we want.
+\begin{defi}\label{def:LaxSymmetricMonoidal}
+	Let $\Cc$ and $\Dd$ be symmetric monoidal $\infty$-categories, with associated cocartesian fibrations $\Cc^\otimes\rightarrow \cat{Fin}$ and $\Dd^\otimes\rightarrow \cat{Fin}$.
+	\begin{alphanumerate}
+		\item A morphism $\alpha\colon \langle m\rangle\rightarrow \langle n\rangle$ in $\cat{Fin}$ is called \emph{active} if $\alpha$ is everywhere defined, and \emph{inert} if $\alpha$ is bijective when restricted to the subset of $\langle m\rangle$ where it is defined. We denote by $\cat{Fin}^\mathrm{act},\cat{Fin}^\mathrm{int}\subseteq \cat{Fin}$ the non-full subcategories spanned by the active or inert morphisms, respectively.
+	\end{alphanumerate}
+	In particular, the Segal maps $e_i\colon \langle n\rangle \rightarrow \langle 1\rangle$ are inert and for every $n$ there is precisely one active morphism $f_n\colon \langle n\rangle \rightarrow \langle 1\rangle$.
+	\begin{alphanumerate}[resume]
+		\item A \emph{lax symmetric monoidal functor $F\colon \Cc\rightarrow \Dd$} is a functor $F^\otimes\colon \Cc^\otimes\rightarrow \Dd^\otimes$ in $\cat{Cat}_{\infty/\cat{Fin}}$ that preserves cocartesian lifts of inert morphisms. We call $F$ \emph{\embrace{strictly} symmetric monoidal} if $F^\otimes$ preserves arbitrary cocartesian lifts. We'll often abusively identify $F$ with its \emph{underlying functor} $F^\otimes_1\colon \Cc_1^\otimes\rightarrow \Dd_1^\otimes$. Also, we'll denote by $\Fun^{\lax}(\Cc,\Dd)$ and $\Fun^\otimes(\Cc,\Dd)$ the full sub-$\infty$-categories of $\Fun_{\cat{Fin}}(\Cc^\otimes,\Dd^\otimes)\coloneqq \Fun(\Cc^\otimes,\Dd^\otimes)\times_{\Fun(\Cc^\otimes,\cat{Fin})}\{\Cc^\otimes\rightarrow \cat{Fin}\}$ spanned by the (lax) symmetric monoidal functors.
+	\end{alphanumerate}
+\end{defi}
+%Let's try to unpack what happens in \cref{def:LaxSymmetricMonoidal}. 
+\begin{numpar}[Unravelling active and inert morphisms.]\label{par:UnravellingSymmetricMonoidal}
+	Let $\Cc$ be a symmetric monoidal $\infty$-category with associated cocartesian fibration $\Cc^\otimes\rightarrow \cat{Fin}$. According to the Segal condition, we must have $\Cc^\otimes_n\simeq \Cc^n$ for all $n$.
+	
+	Now let's see how active and inert morphisms encode the symmetric monoidal structure. First, the unique active morphism $f_2\colon \langle2\rangle \rightarrow \langle 1\rangle$ induces a functor $\Cc_2^\otimes\rightarrow \Cc_1^\otimes$ via straightening. Under the general identification $\Cc_n^\otimes\simeq \Cc^n$, this corresponds to the \emph{tensor product} functor $-\otimes_\Cc -\colon \Cc\times \Cc\rightarrow \Cc$. Similarly, $\langle 0\rangle \rightarrow \langle 1\rangle$ defines a morphism $*\rightarrow \Cc$, which classifies the \emph{tensor unit} $\IUnit_\Cc$. If no confusion can occur, we'll often drop the indices and just write $-\otimes -$ and $\IUnit$.
+	
+	In general, for any $\alpha\colon \langle m\rangle\rightarrow \langle n\rangle$, the associated functor $\operatorname{St}^{(\mathrm{cocart})}(\Cc^\otimes|_\alpha)\colon \Cc^m\rightarrow \Cc^n$ sends $(x_1,\dotsc,x_m)\in \Cc^m$ to $\bigl(\bigotimes_{i\in\alpha^{-1}(j)}x_i\bigr)_{j=1,\dotsc,n}\in\Cc^n$ (where empty tensor products are defined to be $\IUnit$). Thus, if $\alpha$ is active, then the tuple $(x_1,\dotsc,x_m)$ gets partitioned into $n$ collections and then the entries in each collection get tensored together. In the other extreme, if $\alpha$ is inert, then we simply forget those entries $x_i$ where $\alpha(i)$ is undefined. In particular, if $e_i\colon \langle n\rangle\rightarrow \langle 1\rangle$ is the $i$\textsuperscript{th} Segal map, then $\operatorname{St}^{(\mathrm{cocart})}(\Cc^\otimes|_{e_i})\colon \Cc^n\rightarrow \Cc$ is the projection to the $i$\textsuperscript{th} factor, as it should be.
+\end{numpar}
+\begin{numpar}[Unravelling lax symmetric monoidal functors.]\label{par:UnravellingLaxSymmetricMonoidal}
+	Now assume $F^\otimes\colon \Cc^\otimes\rightarrow \Dd^\otimes$ is a lax symmetric monoidal functor and let $F\colon \Cc\rightarrow \Dd$ be the underlying functor of $\infty$-categories. By our considerations in \cref{par:UnravellingSymmetricMonoidal}, if $\varphi$ is a cocartesian lift in $\Cc^\otimes$ of an inert morphism $\alpha\colon \langle m\rangle\rightarrow \langle n\rangle$, then $\varphi$ connects a tuple $(x_1,\dotsc,x_m)$ to $(x_{\alpha(i)})_{\alpha(i)\text{ defined}}$. Since this is just forgetting some entries, $F^\otimes(\varphi)$ should still connect $(F(x_1),\dotsc,F(x_m))$ to $(F(x_{\alpha(i)}))_{\alpha(i)\text{ defined}}$. This is precisely the condition that $F^\otimes$ preserves cocartesian lifts of inert morphisms.
+	
+	More interesting is what happens for active morphisms. For simplicity, let's only consider the unique active morphims $f_n\colon \langle n\rangle\rightarrow \langle 1\rangle$. If $\varphi$ is a cocartesian lift of $f_n$ in $\Cc^\otimes$, then $\varphi$ connects a tuple $(x_1,\dotsc,x_n)\in\Cc^n$ to $x_1\otimes_\Cc\dotsb\otimes_\Cc x_n\in \Cc$. The image $F^\otimes(\varphi)$ is still a lift of $f_n$, but it doesn't need to be cocartesian in $\Dd^\otimes$. Instead, we get the following picture:
+	\begin{center}
+		\vspace{-1ex}
+		\begin{tikzpicture}[line cap=round, line join=round, line width=rule_thickness, decoration={markings,mark=at position 0.5 with {\arrow{to}}},scale=0.95]
+			\begin{scope}[xscale=0.64,xshift=-0.15cm]
+				\draw[dashed,shift={(0,-0.25)},fill=white!93!black]%preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
+				(-0.8,0) to[out=35,in=270] (-0.6,0.2) to[out=90,in=305] (-0.8,0.6) to[out=125,in=180]  (-0.2,1) to[out=0,in=140] (0.4,0.65) to[out=320,in=100] (0.8,0.45) to[out=280,in=45] (0.6,0) to[out=225,in=90] (0.45,-0.3) to[out=270,in=135] (0.5,-0.6) to[out=315,in=90] (0.6,-0.85) to[out=270,in=70] (0.5,-1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=315] (-0.6,-1) to[out=135,in=340] (-0.8,-0.7) to[out=160,in=270] (-0.9,-0.5) to[out=90,in=270] (-0.8,-0.25) to[out=90,in=205] cycle;
+			\end{scope}
+			\begin{scope}[xscale=0.64,xshift=2.1cm]
+				\draw[dashed,shift={(3.5,-0.25)}, dash phase=3,fill=white!93!black]%,preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
+				(-0.9,0) to[out=35,in=270] (-0.8,0.2) to[out=90,in=305] (-0.9,0.6) to[out=125,in=180]  (-0.2,1.1) to[out=0,in=140] (0.4,0.8) to[out=320,in=100] (0.85,0.6) to[out=280,in=45] (0.7,0) to[out=225,in=90] (0.6,-0.3) to[out=270,in=90] (0.65,-0.6) to[out=270,in=90] (0.75,-0.85) to[out=270,in=70] (0.65,-1.1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=0] (-0.4,-1.3) to[out=180,in=315] (-0.8,-1) to[out=135,in=340] (-0.9,-0.7) to[out=160,in=270] (-1.1,-0.5) to[out=90,in=270] (-1,-0.25) to[out=90,in=205] cycle;
+			\end{scope}
+			\begin{scope}[yscale=0.3,xscale=0.7,shift={(1.2,-13.1)}]
+				\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (1,2.5) to[out=0,in=180] (1.95,2.2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.75) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
+			\end{scope}
+			\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=175] (4.5,0.75) (4.6,-1.7) to[out=185,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.7,-1.25) to [out=105,in=340] (-1.35,-1);
+			\fill (-0.2,0) circle (0.45ex) node[outer sep=0.5ex] (u) {} node[shift={(-5.5em,0.1em)}] {$\bigl(F(x_1),\dotsc,F(x_n)\bigr)$};
+			\fill (3.6,0) circle (0.45ex) node[outer sep=0.5ex] (v) {} node[shift={(6.75em,0.25em)}] {$F(x_1)\otimes_\Dd\dotsb \otimes_\Dd F(x_n)$};
+			\fill (3.6,-1) circle (0.45ex) node[outer sep=0.5ex] (w) {} node[shift={(5.6em,-0.3em)}] {$F(x_1\otimes_\Cc\dotsb\otimes_\Cc x_n)$};
+			\draw[postaction={decorate}] (u) to node[pos=0.5,above,outer sep=0.25ex] {$\scriptstyle\varphi'$} (v);
+			\draw[postaction={decorate}] (v) to node[pos=0.5] (mid) {}  (w);
+			\draw[postaction={decorate}] (u) to node[pos=0.5,below=0.5ex] {$\scriptstyle F^\otimes(\varphi)$} (w);
+			\node at (0,1.25) {$\Dd^n$};
+			\node at (3.5,1.25) {$\Dd$};
+			\fill (-0.2,-3.8) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[below=0.5ex] {$\langle n\rangle$};
+			\fill (3.6,-3.8) circle (0.45ex) node[outer sep=0.5ex] (y) {} node[below=0.5ex] {$\langle 1\rangle$};
+			\draw[postaction={decorate}] (x) to node[pos=0.5,above,outer sep=0.25ex] (alpha) {$\scriptstyle f_n$} (y);
+			
+			%\begin{scope}[scale=0.9,shift={(0.4,-0.1)}]
+			%\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (0,2.2) to[out=0,in=180] (1.75,2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.25) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
+			%\end{scope}
+			%\draw[|-to] (0,-1.65) to (x);
+			%\node (Uu) at (-2,0.75) {$\Uu$};
+			\node (Uu) at (-1.3,-1.4) {$\Dd^\otimes$};
+			\node (Cc) at (-1.3,-3.4) {$\cat{Fin}$};
+			%\draw[very thick,-to] (1.75,-2.1) to (alpha);
+			\draw[dashed, shorten >=0.25ex] (x) to (-0.675,-0.8);
+			\draw[dashed] (x) to (0.29,-1.1);
+			\draw[dashed,shorten >=0.25ex] (y) to (2.88,-0.8);
+			\draw[dashed,shorten >=0.75ex] (y) to (4.06,-1.15);
+			\path (u) to node[pos=0.75] {$\scriptscriptstyle/\!/\!/$} (mid);
+			%\draw[dashed, shorten <=1.25ex] (-0.9,-0.8) to (x);
+			%\draw[dashed, shorten <=0.75ex,dash phase=1.5] (0.6,-1.1) to (x);
+			%\draw[dashed,shorten <=1.5ex, dash phase=0] (2.595,-0.8) to (y);
+			%\draw[dashed, shorten >=0.75ex,dash phase=0] (y) to (4.245,-1.15);
+			%\draw[|-to] (3.5,-1.65) to (y);
+		\end{tikzpicture}
+	\end{center}
+	Here $\varphi'$ is a cocartesian lift of $f_n$ in $\Dd^\otimes$ with source $(F(x_1),\dotsc,F(x_n))$. Then the target of $\varphi'$ is necessarily $F(x_1)\otimes_\Dd\dotsb\otimes_\Dd F(x_n)$, as depicted. Together, $\varphi'$ and $F^\otimes(\varphi)$ define a horn $\sigma\colon\Lambda_0^2\rightarrow \Dd^\otimes$, which admits a filler $\ov\sigma\colon \Delta^2\rightarrow \Dd^\otimes$ by definition of $\varphi'$ being cocartesian. Restricting to $\ov\sigma|_{\Delta^{\{1,2\}}}$ yields a morphism
+	\begin{equation*}
+		F(x_1)\otimes_\Dd\dotsb \otimes_\Dd F(x_n)\longrightarrow F(x_1\otimes_\Cc\dotsb\otimes_\Cc x_n)\,,
+	\end{equation*}
+	as we would expect from a lax symmetric monoidal functor. With a little more effort, we can make this morphism functorial.
+\end{numpar}
+\begin{lem}\label{lem:LaxTransformation}
+	Let $p\colon \Uu\rightarrow \Delta^1$ and $q\colon \Vv\rightarrow \Delta^1$ be cocartesian fibrations, whose straightenings are functors $F\colon \Uu_0\rightarrow \Uu_1$ and $G\colon \Vv_0\rightarrow \Vv_1$ \embrace{regarded as objects in $\Fun(\Delta^1,\cat{Cat}_\infty)$}. Furthermore, suppose we're given functors $\alpha_0\colon \Uu_0\rightarrow \Vv_0$ and $\alpha_1\colon \Uu_1\rightarrow \Vv_1$. Then there exists a pullback diagram%
+	%
+	\footnote{Roughly, the pullback diagram is saying that a functor $\Uu\rightarrow \Vv$ in $\cat{Cat}_{\infty/\Delta^1}$, which not necessarily preserves cocartesian lifts, is given by the data of $(\alpha_0,\alpha_1,\eta)$ that fit into a square
+	\begin{equation*}
+		\begin{tikzcd}[ampersand replacement=\&]
+			\Uu_0\rar["\alpha_0"]\dar["F"'] \& \Vv_0\dar["G"]\dlar[draw=none,"\Longleftarrow"{sloped,marking,pos=0.5},"\eta"']\\
+			\Uu_1\rar["\alpha_1"] \& \Vv_1
+		\end{tikzcd}
+	\end{equation*}
+	The functor $\Uu\rightarrow \Vv$ preserves cocartesian lifts (that is, $\Uu\rightarrow \Vv$ is a morphism in $\cat{Cocart}(\Delta^1)\simeq \Fun(\Delta^1,\cat{Cat}_\infty)$) if and only if $\eta$ is an equivalence, so that the square commutes on the nose in $\cat{Cat}_\infty$.}
+	\begin{equation*}
+		\begin{tikzcd}
+			\Hom_{\Fun(\Uu_0,\Vv_1)}(G\circ\alpha_0,\alpha_1\circ F)\dar\rar\drar[pullback] & \Hom_{\cat{Cat}_{\infty/\Delta^1}}\bigl((p\colon \Uu\rightarrow \Delta^1),(q\colon \Vv\rightarrow \Delta^1)\bigr)\dar\\
+			\{\alpha_0\}\times\{\alpha_1\}\rar & \Hom_{\cat{Cat}_\infty}(\Uu_0,\Vv_0)\times\Hom_{\cat{Cat}_\infty}(\Uu_1,\Vv_1)
+		\end{tikzcd}
+	\end{equation*}
+	In particular, every lax symmetric monoidal functor $F^\otimes\colon \Cc^\otimes\rightarrow \Dd^\otimes$ defines a natural transformation $F(-)\otimes_\Dd F(-)\Rightarrow F(-\otimes_\Cc-)$ and a morphism $\IUnit_\Dd\rightarrow F(\IUnit_\Cc)$.
+\end{lem}
+
+
+\begin{proof}[Proof sketch]
+	The \enquote{in particular} follows by applying the general assertion to the restrictions $\Cc^\otimes|_{f_2}$, $\Dd^\otimes|_{f_2}$ as well as $\Cc^\otimes|_{\{\langle 0\rangle \rightarrow \langle 1\rangle\}}$, $\Dd^\otimes|_{\{\langle 0\rangle \rightarrow \langle 1\rangle\}}$, which are cocartesian fibrations over $\Delta^1$.
+	
+	To prove the general statement, let $\cat{Cat}_{\infty/\Delta^1}^\mathrm{cocart}\subseteq \cat{Cat}_{\infty/\Delta^1}$ be the full sub-$\infty$-category spanned by the cocartesian fibrations. Then there exists an inclusion $i\colon \cat{Cocart}(\Delta^1)\rightarrow \cat{Cat}_{\infty/\Delta^1}^\mathrm{cocart}$, which is essentially surjective, but not fully faithful. Our goal is to show that $i$ admits a left adjoint $L$, sending $p\colon \Uu\rightarrow \Delta^1$ to the unstraightening of the functor
+	\begin{equation*}
+		\Uu_0\times\{0\}\longrightarrow \Uu_0\times\Delta^1\sqcup_{\Uu_0\times \{1\},F}\Uu_1\times \{1\}
+	\end{equation*}
+	(regarded as an object in $\Fun(\Delta^1,\cat{Cat}_\infty)$; the pushout is taken in $\cat{Cat}_\infty$). If we can show this, the desired pullback square follows from $\cat{Cocart}(\Delta^1)\simeq \Fun(\Delta^1,\cat{Cat}_\infty)$, \cref{lem:HomInArrowCategories}, and \cref{cor:HomPreservesLimits} after an easy unravelling. In particular, the component $\Uu_0\times \Delta^1$ of the pushout is the reason why the anima of natural transformations $\Hom_{\Fun(\Uu_0,\Vv_1)}(G\circ \alpha_0,\alpha_1\circ F)$ shows up in the pullback.
+	
+	To show that $L\colon \cat{formula}$ exists and is given as above, we first claim that unstraightening over $\Delta^1$ can be described very explicitly:
+	\begin{alphanumerate}\itshape
+		\item[\boxtimes] The unstraightening functor $\operatorname{Un}^{(\mathrm{cocart})}\colon \Fun(\Delta^1,\cat{Cat}_\infty)\rightarrow \cat{Cocart}(\Delta^1)$ sends $F\colon \Uu_0\rightarrow \Uu_1$ to $\Uu\simeq \Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\},F}\Uu_1\times\{1\}$, functorially in $F$.\label{claim:UnstraighteningOverDelta1} 
+	\end{alphanumerate}
+	To prove \cref{claim:UnstraighteningOverDelta1}, observe that $F\colon \Uu_0\rightarrow \Uu_1$ can functorially be written as the pushout of the span $(\id_{\Uu_0}\colon \Uu_0\rightarrow \Uu_0)\Leftarrow (\emptyset \rightarrow \Uu_0) \Rightarrow (\emptyset \rightarrow \Uu_1)$ in $\Fun(\Delta^1,\cat{Cat}_\infty)$. Since $\operatorname{Un}^{(\mathrm{cocart})}$ is an equivalence of $\infty$-categories, it must preserve pushouts. The unstraightening of $\id_{\Uu_0}\colon \Uu_0\rightarrow \Uu_0$ is, functorially, $\pr_2\colon \Uu_0\times\Delta^1\rightarrow \Delta^1$ by \cref{exm:Straightening}\cref{enum:ProjectionsStraightenToConstantFunctors}. The unstraightening of an arrow of the form $\emptyset \rightarrow \Xx$ is, functorially, $\Xx\times\{1\}\rightarrow \Delta^1$. To see this, observe that $\emptyset\rightarrow \Xx$ is, functorially, the left Kan extension along $\{1\}\rightarrow \Delta^1$ of the functor $\{1\}\rightarrow \cat{Cat}_\infty$ sending $1\mapsto \Xx$. By definition, the left Kan extension functor $\Lan_{\{1\}\rightarrow \Delta^1}\colon \Fun(\{1\},\cat{Cat}_\infty)\rightarrow \Fun(\Delta^1,\cat{Cat}_\infty)$ is left adjoint to restriction along $\{1\}\rightarrow \cat{Cat}_\infty$. Since restrictions correspond to fibre products under straightening/unstraightening, we must check that the left adjoint of the fibre functor $-\times_{\Delta^1}\{1\}\colon \cat{Cocart}(\Delta^1)\rightarrow \cat{Cocart}(\{1\})$ sends $\Xx\rightarrow \{1\}$ to $\Xx\times\{1\}\rightarrow \Delta^1$. This is straightforward (and we've seen a similar assertion in \cref{lem:KanExtensionForRight}\cref{enum:ForgetfulFunctor}).
+	
+	To finish the proof of \cref{claim:UnstraighteningOverDelta1}, we only need to check that the pushout $\Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\}}\Uu_1\times\{1\}$, taken in $\cat{Cat}_\infty$ (or $\cat{Cat}_{\infty/\Delta^1}$, this doesn't matter by the dual of \cref{lem:ColimitsInSliceCategory}\cref{enum:LimitsInSlice}) agrees with the pushout in $\cat{Cocart}(\Delta^1)$. It's enough to check that $\Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\}}\Uu_1\times\{1\}\rightarrow \Delta^1$ is a cocartesian fibration, because then the universal property is straightforward to verify.%
+	%
+	\footnote{By \cref{lem:NonFullSubcategory}, $\Hom_{\cat{Cocart}(\Delta^1)}$ is always a collection of path components of $\Hom_{\cat{Cat}_{\infty/\smash{\Delta^1}}}$. Thus, once the universal property holds in $\cat{Cat}_{\infty/\Delta^1}$, verifying the universal property in $\cat{Cocart}(\Delta^1)$ boils down to a matching of path components.}
+	To this end, we can extend the adjunction $\Delta^1\shortdoublelrmorphism \{1\}$ first to $\Uu_0\times\Delta^1\shortdoublelrmorphism\Uu_0\times\{1\}$ and then to an adjunction $\Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\}}\Uu_1\times\{1\}\shortdoublelrmorphism \Uu_1\times\{1\}$ by the same pushout argument as in the proof of \cref{lem:Smash}. Using this adjunction and the criterion from \cref{lem:CocartesianMorphisms}, we see that for all $u_0\in\Uu_0$, the morphism represented by $\{u_0\}\times\Delta^1\rightarrow \Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\}}\Uu_1\times\{1\}$ is a cocartesian lift of $0\rightarrow 1$ in $\Delta^1$. Since this is the only non-identity morphism in $\Delta^1$, we've verified that $\Uu_0\times\Delta^1\sqcup_{\Uu_0\times\{1\}}\Uu_1\times\{1\}\rightarrow \Delta^1$ is indeed a cocartesian fibration, and \cref{claim:UnstraighteningOverDelta1} follows.
+	
+	
+\end{proof}
+
+
+\newpage
+
+\subsection{Day convolution}\label{subsec:DayConvolution}
+
+\subsection{Homology and cohomology}\label{subsec:Homology}
+\begin{thm}\label{thm:DRIsModulesOverHR}
+	The Eilenberg--MacLane functor $\Dd(\IZ)\rightarrow \cat{Sp}$ from \cref{exm:EilenbergMacLaneSpectra} upgrades to an equivalence of stable $\infty$-categories
+	\begin{equation*}
+		\Dd(R)\overset{\simeq}{\longrightarrow} \cat{LMod}_{R}(\cat{Sp})
+	\end{equation*}
+	for every ordinary ring $R$. If $R$ is commutative, then $\cat{LMod}_{R}(\cat{Sp})\simeq \cat{Mod}_R(\cat{Sp})$ admits a canonical symmetric monoidal structure and the above equivalence can be made strictly monoidal if we equip $\Dd(R)$ with the symmetric monoidal structure induced by $-\lotimes_R-$.\hfill$\blacksquare$
+\end{thm}
+\begin{cor}\label{cor:Homology}
+	If $X\in\cat{An}$ is an anima, then the unreduced and reduced homology and cohomology of $X$ with coefficients in an abelian group $A$ are given by
+	\begin{align*}
+		\H_*(X,A)&\cong \pi_*\bigl(\IS[X]\otimes A\bigr)\,,& \widetilde{\H}_*(X,A)&\cong \pi_*\Bigl(\fib\bigl(\IS[X]\rightarrow \IS[*]\bigr)\otimes A\Bigr)\,,\\
+		\H^*(X,A)&\cong \pi_{-*}\hom_\IS\bigl(\IS[X], A\bigr)\,,& \widetilde{\H}^*(X,A)&\cong \pi_{-*}\hom_\IS\Bigl(\fib\bigl(\IS[X]\rightarrow \IS[*]\bigr), A\Bigr)\,.
+	\end{align*}
+\end{cor}
+
+\newpage
+
+\sectionappendix{A glimpse of higher algebra}
+\subsection{\texorpdfstring{$\infty$}{Infinity}-Operads}\label{subsec:InfinityOperads}
+
+\subsection{\texorpdfstring{$\IE_n$}{En}-Algebras and iterated loop animae}\label{subsec:EnAlgebras}
+
+\subsection{The Lurie tensor product}\label{subsec:LurieTensorProduct}

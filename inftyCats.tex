@@ -10,7 +10,9 @@
 %\includeonly{./Sections/inftyCats1-5,./Sections/inftyCats6}
 %\includeonly{./Sections/inftyCats6}
 %\includeonly{./Sections/inftyCats7}
+\includeonly{./Sections/inftyCats8}
 %\includeonly{./Sections/inftyCats6,./Sections/inftyCats7}
+%\includeonly{./Sections/inftyCats7,./Sections/inftyCats8}
 
 %\renewcommand{\sectionmark}[1]{\gdef\leftmark{#1}}
 
@@ -27,25 +29,25 @@
 	
 	\renewcommand{\ParagraphOrNot}{\S}
 	\section{Introduction}
-	At the QED Academy 2023 in Sonthofen, I gave a lecture course about \emph{$\infty$-categories in topology}. The goal of this course was ambitious, but we managed to have the Adams spectral sequence on the board in the end. After the academy was over, I decided, for future use, to translate my handwritten German notes into English and into \LaTeX. The result is this document. What began as a simple transscription quickly led to many additions and presented me with the opportunity to provide many missing details. While I fell for these temptations many times, I hope that at their heart, this notes still display a faithful (albeit not essentially surjective) representation of my original course.
+	At the QED Academy 2023 in Sonthofen, I gave a lecture course about \emph{$\infty$-categories in topology}. The goal of this course was ambitious and many omissions had to be made, but in the end we managed to have the Adams spectral sequence on the board. After the course I decided, for future use, to translate my handwritten German notes into English and into \LaTeX. The result is this document. What began as a simple transscription quickly led to many additions, as it presented me with the tempting opportunity to provide many missing details. While I fell for this temptation many times, I hope that at their heart, these notes still display a faithful (albeit not essentially surjective) representation of my original course.
 	
 	\begin{numpar}[$\infty$-Categories in topology.]
 		When I first learned $\infty$-category theory, I felt like I'd just been given a cheat code for homotopy theory. Before, I'd felt lost in all the technicalities and struggled to develop intuition. With $\infty$-categories, everything suddenly made sense and I finally started to see the elegance and the clarity that I'd been looking for so long.
 		
-		So what are $\infty$-categories and what makes them so useful? Very roughly, an $\infty$-category not only contains \emph{$0$-morphisms} (objects) and \emph{$1$-morphism}, as an ordinary category, but also higher \emph{$n$-morphisms} for all $n\geqslant 2$. It turns out that all the usual results and constructions from category theory can be carried over to $\infty$-categories---however, getting $\infty$-category theory off the ground is \emph{much} more difficult than ordinary category theory: More than 30 years lie between the first definition of $\infty$-categories \cite{BoardmanVogt} and the first proof of the Yoneda lemma \cite{HTT}! But it's worth the effort! Among many other applications, which we'll not attempt to survey here, $\infty$-categories provide an incredibly powerful framework to do homotopy theory in. Already the vague idea explained above has a topological flavour: $n$-morphisms in an $\infty$-category, which run between morphisms of lower order, are reminiscent of $n$-cells in a CW-complexes, whose boundary is made up of cells of lower dimension. And indeed, every CW-complex (and then by CW-approximation every topological space) \emph{is} an example of an $\infty$-category. This is a key advantage of $\infty$-category theory over ordinary category theory:
+		So what are $\infty$-categories and what makes them so useful? Very roughly, an $\infty$-category not only contains \emph{$0$-morphisms} (objects) and \emph{$1$-morphism}, as an ordinary category, but also higher \emph{$n$-morphisms} for all $n\geqslant 2$. It turns out that all the usual results and constructions from category theory can be carried over to $\infty$-categories---however, getting $\infty$-category theory off the ground is \emph{much} more difficult than ordinary category theory: More than 30 years lie between the first definition of $\infty$-categories \cite{BoardmanVogt} and the first proof of the Yoneda lemma \cite{HTT}! But it's worth the effort. Among many other applications, which we'll not attempt to survey here, $\infty$-categories provide an incredibly powerful framework to do homotopy theory in. Already the vague idea explained above has a topological flavour: $n$-morphisms in an $\infty$-category, which run between morphisms of lower order, are reminiscent of $n$-cells in a CW-complexes, whose boundary is made up of cells of lower dimension. And indeed, every CW-complex (and then by CW-approximation every topological space) \emph{is} an example of an $\infty$-category! This is a key advantage of $\infty$-category theory over ordinary category theory:
 		\begin{alphanumerate}[label={}]\itshape
-			\item Ordinary category theory can be used to do homotopy theory---but homotopy theory is $\infty\text{-}$category theory.
+			\item Ordinary category theory can be used to do homotopy theory---but homotopy theory is \embrace{!} $\infty\text{-}$category theory.
 		\end{alphanumerate}
-		In particular, many formal $\infty$-categorical constructions, like presheaves or colimits, have a concrete topological meaning. It's surprising how many classical topological results can be reproved in a completely formal way just from abstract $\infty$-category theory! That number only increases through the introduction of the $\infty$-category of \emph{spectra}. Spectra combine the topological flavour of, well, topological spaces with the algebraic flavour of abelian groups; in particular, they admit a \emph{tensor product} and so it makes sense to talk about rings and modules in spectra. This allows us to bring algebra into the game---and again, algebra will not just be a \emph{tool} (like homology or homotopy groups) to prove classical theorems, but instead we'll be able to \emph{reinterpret} classical theorems as algebraic statements in the $\infty$-category of spectra.
+		In particular, many formal $\infty$-categorical constructions, like presheaves or colimits, have a concrete topological meaning. It's surprising how many classical topological results can be reproved in a completely formal way just from abstract $\infty$-category theory! That number only increases through the introduction of the $\infty$-category of \emph{spectra}. Spectra combine the topological flavour of, well, topological spaces with the algebraic flavour of abelian groups. In particular, spectra admit a \emph{tensor product} and so it makes sense to talk about rings and modules in spectra. This allows us to bring algebra into the game---and again, algebra will not just be a \emph{tool} to prove classical theorems (like homology or homotopy groups), but instead we'll be able to \emph{reinterpret} many classical theorems as algebraic statements in the $\infty$-category of spectra.
 		
-		For someone like me, how came from an algebra background originally, it's amazing to be able to do topology with just the tools I feel confident with: category theory and algebra. But $\infty$-category theory does wonderful things in algebra. For example, the theory of \emph{derived categories}---another notoriously technical subject---becomes \emph{so much clearer} once you know spectra and the associated notion of a \emph{stable $\infty$-category}. In general, the future of algebra and algebraic geometry is derived, and all things derived become much clearer if you approach them using $\infty$-category theory.
+		For someone like me, how came from an algebra background originally, it's amazing to be able to do topology with just the tools I feel confident with: category theory and algebra. But $\infty$-category theory also does wonderful things in algebra. For example, the theory of \emph{derived categories}---another notoriously technical subject---becomes \emph{so much clearer} once you know spectra and the associated notion of a \emph{stable $\infty$-category}. In general, the future of algebra and algebraic geometry is derived, and all things derived become much clearer if you approach them using $\infty$-category theory.
 		
-		All of this is to say: You should learn $\infty$-category theory! It will be painful at first, but once you're there, you'll see mathematics with fresh eyes.
+		All of this is to say: You should learn $\infty$-category theory! It will be painful, but once the pain eases, you'll never look at mathematics the same way again.
 		
 		
 	\end{numpar}
 	\begin{numpar}[Aim and scope of these notes.]
-		The goal of these notes is to introduce $\infty$-categories and to explain many of their applications to topology. As prerequisites, you should feel comfortable with ordinary category theory; in addition, it would be beneficial to have a solid background in commutative algebra and topology (at least, you should have heard of simplicial sets, homology, and homotopy groups). None of this is strictly necessary---we'll recall the necessary ordinary category theory in \cref{sec:CategoryTheory} and we'll reintroduce many classical topological constructions in a way that's convenient for us---but it would certainly help you not to get overwhelmed by the material.
+		The goal of these notes is to introduce $\infty$-categories and to explain many of their applications to topology. As prerequisites, you should feel comfortable with ordinary category theory; in addition, it would be beneficial to have a solid background in commutative algebra and topology (at least, you should have heard of simplicial sets, homology, and homotopy groups). None of these prerequisites are strictly necessary---we'll recall the necessary ordinary category theory in \cref{sec:CategoryTheory} and we'll reintroduce many classical topological constructions in a way that's convenient for us---but a solid background would certainly help you not to get overwhelmed by the material. Also, the more topology you already know, the more you'll be able to appreciate how the $\infty$-categorical viewpoint simplifies and clarifies classical topology.
 		
 		These notes roughly consist of four parts: In \crefrange{sec:SimplicialSets}{sec:Straightening} we'll introduce $\infty$-categories as well as the technical ingredients that go into Lurie's proof of Yoneda's lemma. Unfortunately, this part contains several minor black boxes and a major one: I won't be able to prove Lurie's \emph{straightening/unstraightening} equivalence. The second part is \cref{sec:InftyCategoryTheory}, in which we'll redevelop classical category theory in the setting of $\infty$-categories. In the third part, spanning \crefrange{sec:TowardsSpectra}{sec:TensorProduct}, we'll introduce spectra and their tensor product. Finally, the last part is \cref{sec:CoolTopologyApplications}, in which we'll apply our theory to topology (altough many more applications are scattered throughout the text up to this point). One highlight will be the construction of the Adams spectral sequence.
 	\end{numpar}
@@ -65,58 +67,19 @@
 		
 		The transition to (mostly) model-independent arguments will be reflected in a change of terminology: Throughout \crefrange{sec:SimplicialSets}{sec:Straightening}, we'll use the term  \emph{quasi-category}, we'll write $\F(\Cc,\Dd)$ for the mapping object in simplicial sets and we'll always write $\N(\Ee)$ for the quasi-category obtained as the nerve of an ordinary category $\Ee$. Starting from \cref{sec:InftyCategoryTheory}, we'll simply say \emph{$\infty$-category}, write $\Fun(\Cc,\Dd)$, and consider every ordinary category $\Ee$ implicitly as an $\infty$-category, suppressing $\N$ everywhere. Only when we're using non-model-independent arguments, we'll switch back to the old terminology, to emphasise that what we're doing is morally questionable.
 		
-		Also, since I'm doing my PhD in Bonn, I'm legally required to use the term \emph{anima} for what other people would call \emph{space} or \emph{$\infty$-groupoid} or (in non-model-independent language) \emph{Kan complex}.
+		Also, since I'm doing my PhD in Bonn, I'm legally obliged to use the term \emph{anima} for what most normal people would call \emph{space} or \emph{$\infty$-groupoid} or (in non-model-independent language) \emph{Kan complex}.
 	\end{numpar}
 	\begin{numpar}[Acknowledgments.]
-		First I'd like to thank Fabian Hebestreit for his amazing cycle of lectures on $\infty$-categories and $\K$-theory \cite{HigherCatsI}, \cite{HigherCatsII}, \cite{KTheory}. I learnt all of this stuff in Fabian's lectures and these notes loosely follow his course. I'd also like to thank the participants of my QED academy course, Andrea Lachmann, Peter Langer, Malena Wasmeier, and Melvin Weiß, for their interest and for creating a thoroughly enjoyable teaching experience. Last but not least, I'd like to thank Dave Bowman and Yordan Toshev for their valuable comments on earlier versions of these notes.
+		First I'd like to thank Fabian Hebestreit for his amazing cycle of lectures on $\infty$-categories and $\K$-theory \cite{HigherCatsI}, \cite{HigherCatsII}, \cite{KTheory}. His lectures taught me $\infty$-category theory and I can't stress enough how much I, as a mathematician, have benefitted from them. These notes loosely follow Fabian's courses.
+		
+		I'd also like to thank the participants of my QED academy course, Andrea Lachmann, Peter Langer, Malena Wasmeier, and Melvin Weiß, for their interest and for creating a thoroughly enjoyable teaching experience. Last but not least, I'd like to thank Dave Bowman and Yordan Toshev for their valuable comments on earlier versions of these notes.
 	\end{numpar}
 	
 	\newpage
 	\include{./Sections/inftyCats1-5}
 	\include{./Sections/inftyCats6}
 	\include{./Sections/inftyCats7}
-	
-	
-	\newpage
-	
-	
-	
-	
-	\newpage
-	\section{The tensor product of spectra}\label{sec:TensorProduct}
-	The overarching theme of these notes is to do topology without doing topology. So far, we've seen that many classical results are entirely formal consequences of abstract $\infty$-category theory. From now on, we'll show that many more classical results can be proved by doing \emph{algebra} in the stable $\infty$-category $\cat{Sp}$. We already know that $\cat{Sp}$ is additive (see the proof of \cref{lem:SpCGrpIsSp}) and so spectra can be viewed as homotopical generalisations of abelian groups. But to make the analogy between $\cat{Ab}$ and $\cat{Sp}$ really powerful, we need to be able to talk about \emph{algebras} and \emph{modules} in $\cat{Sp}$. This requires the construction of a tensor product on $\cat{Sp}$.
-	
-	In \cref{subsec:SymmetricMonoidal}, we'll study symmetric monoidal structures on arbitrary $\infty$-categories. In \cref{subsec:DayConvolution}, we'll construct many interesting examples, including the tensor product of spectra. In \cref{subsec:Homology}, we'll take the theory of algebras and modules in $\cat{Sp}$ for granted and use it to give the \enquote{correct} construction of homology and cohomology. Finally, there'll be a lengthy appendix. In \cref{subsec:InfinityOperads}, we'll sketch the missing theory of algebras and modules. In \cref{subsec:EnAlgebras}, we'll introduce the notion of \emph{$\IE_n$-algebras} for all $0\leqslant n\leqslant \infty$, which generalises the notions of $\IE_1$- and $\IE_\infty$-monoids that we already know. Finally, in \cref{subsec:LurieTensorProduct}, we'll prove more cool stuff about Lurie's magical $\infty$-category $\cat{Pr}^\L$ and sketch another construction of the tensor product on $\cat{Sp}$.
-	
-	
-	\subsection{Symmetric monoidal \texorpdfstring{$\infty$}{Infinity}-categories}\label{subsec:SymmetricMonoidal}
-	
-	\subsection{Day convolution}\label{subsec:DayConvolution}
-	
-	\subsection{Homology and cohomology}\label{subsec:Homology}
-	\begin{thm}\label{thm:DRIsModulesOverHR}
-		The Eilenberg--MacLane functor $\Dd(\IZ)\rightarrow \cat{Sp}$ from \cref{exm:EilenbergMacLaneSpectra} upgrades to an equivalence of stable $\infty$-categories
-		\begin{equation*}
-			\Dd(R)\overset{\simeq}{\longrightarrow} \cat{LMod}_{R}(\cat{Sp})
-		\end{equation*}
-		for every ordinary ring $R$. If $R$ is commutative, then $\cat{LMod}_{R}(\cat{Sp})\simeq \cat{Mod}_R(\cat{Sp})$ admits a canonical symmetric monoidal structure and the above equivalence can be made strictly monoidal if we equip $\Dd(R)$ with the symmetric monoidal structure induced by $-\lotimes_R-$.\hfill$\blacksquare$
-	\end{thm}
-	\begin{cor}\label{cor:Homology}
-		If $X\in\cat{An}$ is an anima, then the unreduced and reduced homology and cohomology of $X$ with coefficients in an abelian group $A$ are given by
-		\begin{align*}
-			\H_*(X,A)&\cong \pi_*\bigl(\IS[X]\otimes A\bigr)\,,& \widetilde{\H}_*(X,A)&\cong \pi_*\Bigl(\fib\bigl(\IS[X]\rightarrow \IS[*]\bigr)\otimes A\Bigr)\,,\\
-			\H^*(X,A)&\cong \pi_{-*}\hom_\IS\bigl(\IS[X], A\bigr)\,,& \widetilde{\H}^*(X,A)&\cong \pi_{-*}\hom_\IS\Bigl(\fib\bigl(\IS[X]\rightarrow \IS[*]\bigr), A\Bigr)\,.
-		\end{align*}
-	\end{cor}
-	
-	\newpage
-	
-	\sectionappendix{A glimpse of higher algebra}
-	\subsection{\texorpdfstring{$\infty$}{Infinity}-Operads}\label{subsec:InfinityOperads}
-	
-	\subsection{\texorpdfstring{$\IE_n$}{En}-Algebras and iterated loop animae}\label{subsec:EnAlgebras}
-	
-	\subsection{The Lurie tensor product}\label{subsec:LurieTensorProduct}
+	\include{./Sections/inftyCats8}
 	
 	
 	\newpage
