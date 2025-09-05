@@ -711,7 +711,7 @@ We've seen in \cref{thm:E1Loop}\cref{enum:E1LoopGrp} that $\IE_1$-groups in $\ca
 	\end{equation*}
 	Observe that for all $n\geqslant 0$, $\B$ and $\Omega$ induce inverse equivalences $\cat{CGrp}(\cat{An})_{\geqslant n+1}\simeq \cat{CGrp}(\cat{An})_{\geqslant n}$, where $\cat{CGrp}(\cat{An})_{\geqslant n}\subseteq \cat{CGrp}(\cat{An})$ is the full sub-$\infty$-category spanned by those $\IE_\infty$-groups $G$ that satisfy $\pi_i(G)\cong0$ for all $0\leqslant i<n$. Indeed, the case $n=0$ follows from \cref{thm:EinftyBOmegaEquivalence}\cref{enum:BOmegaEquivalence}. Since $\Omega$ \enquote{shifts homotopy groups down by one} (see \cref{lem:SuspensionLoopAdjunction}\cref{enum:LoopShiftsHomotopyGroups}), its inverse $\B$ must \enquote{shift homotopy groups up by one}. This implies that $\B\colon \cat{CGrp}(\cat{An})\rightarrow \cat{CGrp}(\cat{An})_{\geqslant 1}$ must map $\cat{CGrp}(\cat{An})_{\geqslant n}$ into $\cat{CGrp}(\cat{An})_{\geqslant n+1}$; similarly, $\Omega$ must map $\cat{CGrp}(\cat{An})_{\geqslant n+1}$ into $\cat{CGrp}(\cat{An})_{\geqslant n}$. Hence the equivalence from \cref{thm:EinftyBOmegaEquivalence}\cref{enum:BOmegaEquivalence} must restrict to an equivalence $\cat{CGrp}(\cat{An})_{\geqslant n+1}\simeq \cat{CGrp}(\cat{An})_{\geqslant n}$ for all $n\geqslant 0$, as claimed.
 	
-	Combining this observation with \cref{lem:HomInLimits}\cref{lem:HomInLimits} shows that $\B^\infty$ is fully faithful, with essential image given by
+	Combining this observation with \cref{lem:HomInLimits}\cref{enum:HomInLimits} shows that $\B^\infty$ is fully faithful, with essential image given by
 	\begin{equation*}
 		\B^\infty\colon \cat{CGrp}(\cat{An})\overset{\simeq}{\longrightarrow}\limit\left(\dotsb\overset{\Omega}{\longrightarrow} \cat{CGrp}(\cat{An})_{\geqslant 2}\overset{\Omega}{\longrightarrow} \cat{CGrp}(\cat{An})_{\geqslant 1}\overset{\Omega}{\longrightarrow} \cat{CGrp}(\cat{An})\right)\,.
 	\end{equation*}
@@ -994,7 +994,7 @@ As our final application to the theory of derived $\infty$-categories, we would 
 	that is, the Eilenberg--MacLane spectrum associated to $\RHom_R(M,N)\in\Dd(R)$ as in \cref{exm:EilenbergMacLaneSpectra}, but we suppress writing $\H$.
 \end{cor}
 \begin{proof}[Proof sketch]
-	By the uniqueneness statement from \cref{cor:hom}, it's enough to construct a functorial equivalence $\Omega^\infty\!\RHom_R(M,N)\simeq \Hom_\Dd(R)(M,N)$. Unravelling the construction in \cref{exm:EilenbergMacLaneSpectra}, we see that $\Omega^\infty\!\RHom_R(M,N)\simeq \K(\tau_{\geqslant 0}\RHom_R(M,N))$ is the Eilenberg--MacLane anima associated to the trunctation $\tau_{\geqslant}\RHom_R(M,N)$. Now any anima $X$ satisfies $X\simeq \Hom_{\cat{An}}(*,X)$ and then we can compute
+	By the uniqueneness statement from \cref{cor:hom}, it's enough to construct a functorial equivalence $\Omega^\infty\!\RHom_R(M,N)\simeq \Hom_{\Dd(R)}(M,N)$. Unravelling the construction in \cref{exm:EilenbergMacLaneSpectra}, we see that $\Omega^\infty\!\RHom_R(M,N)\simeq \K(\tau_{\geqslant 0}\RHom_R(M,N))$ is the Eilenberg--MacLane anima associated to the trunctation $\tau_{\geqslant}\RHom_R(M,N)$. Now any anima $X$ satisfies $X\simeq \Hom_{\cat{An}}(*,X)$ and then we can compute
 	\begin{align*}
 		\Hom_{\cat{An}}\left(*,\K(\tau_{\geqslant 0}\RHom_R(M,N))\right)&\simeq \Hom_{\Dd_{\geqslant 0}(\IZ)}\left(\IZ[0],\tau_{\geqslant 0}\RHom_R(M,N)\right)\\
 		&\simeq \Hom_{\Dd(\IZ)}\left(\IZ[0],\RHom_R(M,N)\right)\\
@@ -1003,7 +1003,7 @@ As our final application to the theory of derived $\infty$-categories, we would 
 	\end{align*}
 	In the first step, we use the adjunction $\C\colon \cat{An}\shortdoublelrmorphism \Dd_{\geqslant 0}(\IZ)\noloc \K$ from \cref{con:Homology}. In the second step, we use that $\tau_{\geqslant 0}\colon \Dd(\IZ)\rightarrow \Dd_{\geqslant 0}(\IZ)$ is right adjoint to the inclusion $\Dd_{\geqslant 0}(\IZ)\subseteq \Dd(\IZ)$, as we've seen in crash course~\cref{con:DerivedCategoryI}. In the third step, we use the \enquote{derived tensor-$\Hom$ adjunction}. To construct this, using the description from crash course~\cref{con:DerivedCategoryIII}, we only need to verify that the ordinary tensor-$\Hom$ adjunction refines to an adjunction of Kan-enriched categories, which is straightforward. The fourth step is obvious.
 	
-	Putting everything together, we get $\Omega^\infty\!\RHom_R(M,N)\simeq \Hom_\Dd(R)(M,N)$, as desired. Since all steps can easily be made functorial, we're done.
+	Putting everything together, we get $\Omega^\infty\!\RHom_R(M,N)\simeq \Hom_{\Dd(R)}(M,N)$, as desired. Since all steps can easily be made functorial, we're done.
 \end{proof}
 
 \subsection{Spectra and excisive functors}
@@ -1102,13 +1102,28 @@ In this subsection, we'll explain an alternative construction of $\cat{Sp}(\Cc)$
 	\begin{equation*}
 		\Hom_\Yy(y,z)\simeq\Hom_X(y,z)\,.
 	\end{equation*}
-	In a similar way, we obtain $\Hom_\Yy(y,*)\simeq \Hom_X(y,x)$ as well as $\Hom_\Yy(*,*)\simeq *$ and $\Hom_\Yy(*,z)\simeq \emptyset$. This finishes our description of $\Yy$. 
+	In a similar way, we obtain $\Hom_\Yy(y,*)\simeq \Hom_X(y,x)$ as well as $\Hom_\Yy(*,*)\simeq *$ and $\Hom_\Yy(*,z)\simeq \emptyset$. In total, we may picture $\Yy$ as follows: 
 	
+	\begin{center}
+		\begin{tikzpicture}[line cap=round, line join=round, line width=rule_thickness, decoration={markings,mark=at position 0.5 with {\arrow{to}}},scale=0.95]
+			\begin{scope}[xscale=0.84]
+				\draw[dashed,shift={(3.5,-0.25)}, dash phase=6.25,fill=white!93!black]%,preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
+				(-0.9,0) to[out=35,in=270] (-0.8,0.2) to[out=90,in=305] (-0.9,0.6) to[out=125,in=180]  (-0.2,1.1) to[out=0,in=140] (0.4,0.8) to[out=320,in=100] (0.85,0.6) to[out=280,in=45] (0.7,0) to[out=225,in=90] (0.6,-0.3) to[out=270,in=90] (0.65,-0.6) to[out=270,in=90] (0.75,-0.85) to[out=270,in=70] (0.65,-1.1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=0] (-0.4,-1.3) to[out=180,in=315] (-0.8,-1) to[out=135,in=340] (-0.9,-0.7) to[out=160,in=270] (-1.1,-0.5) to[out=90,in=270] (-1,-0.25) to[out=90,in=205] cycle;
+			\end{scope}
+			\fill (2.875,-0.75) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[below=0.5ex] {$x$};
+			\fill (2.8,0.25) circle (0.45ex) node[outer sep=0.5ex] (y) {};
+			\fill (5,-0.25) circle (0.45ex) node[outer sep=0.5ex] (ast) {} node[right] {$*$};
+			\draw[postaction={decorate}] (x) to (ast);
+			\draw [postaction={decorate}] (y) to[out=260,in=80] node[pos=0.5] (mid) {} (x);
+			\draw [postaction={decorate},dashed,dash phase=3] (y) to (ast);
+			\path (mid) to node[pos=0.475] {$\scriptscriptstyle/\!/\!/$} (ast);
+		\end{tikzpicture}
+	\end{center}
 	Now let $\Xx$ be the pushout in $\cat{Cat}_\infty$ of $\{x\}\rightarrow X$ along $\{x\}\simeq \{0\}\rightarrow \Delta^1$. We wish to construct a functor $\vartheta\colon \Xx\rightarrow \Yy$ and then to show that $\vartheta$ is an equivalence of $\infty$-categories. To this end, first consider the functor
 	\begin{equation*}
-		\varphi\colon X\simeq \{S^0\}\times_{\FinAn}\bigl(\FinAn\bigr)_{/(X,x)}\longrightarrow \Jj\times_{\FinAn}\bigl(\FinAn\bigr)_{/(X,x)}\simeq \Yy
+		\varphi\colon X\simeq \{S^0\}\times_{\FinAn}\bigl(\FinAn\bigr)_{/(X,x)}\longrightarrow \Jj\times_{\FinAn}\bigl(\FinAn\bigr)_{/(X,x)}\simeq \Yy\,;
 	\end{equation*}
-	(the equivalence on the left follows from the fact that the right fibration $\bigl(\FinAn\bigr)\vphantom{)}^\mathrm{\phantom{fin}}_{/(X,x)}\rightarrow \FinAn$ parametrises the functor $\Hom_{\FinAn}(-,(X,x))\colon \bigl(\FinAn\bigr)^{\smash{\op}}\rightarrow \cat{An}$ and so its fibre over $S^0$ is given by $\Hom_{\cat{An}_{*/}}(S^0,X)\simeq X$). Secondly, consider the functor $\psi\colon \Delta^1\rightarrow \Yy$ corresponding to the morphism $\psi\colon x\rightarrow *$ in $\Yy$ which in turn corresponds to $\id_x\in \Hom_X(x,x)\simeq \Hom_\Yy(x,*)$. By construction, $\varphi|_{\{x\}}\simeq \psi|_{\{0\}}$ and so by the universal property of pushouts, $\varphi$ and $\psi$ together determine a functor $\vartheta\colon \Xx\rightarrow \Yy$.\footnote{More precisely, every \emph{choice} of an equivalence $\varphi|_{\{x\}}\simeq \psi|_{\{0\}}$ determines a natural transformation between the span $X \leftarrow \{x\}\simeq \{0\}\rightarrow \Delta^1$ and the span $\const \Yy$ in $\Fun(\Lambda_0^2,\cat{Cat}_\infty)$. And every such transformation determines a viable $\vartheta$ by the universal property of colimits.}
+	the equivalence on the left follows from the fact that the right fibration $\bigl(\FinAn\bigr)\vphantom{)}^\mathrm{\phantom{fin}}_{/(X,x)}\rightarrow \FinAn$ parametrises the functor $\Hom_{\FinAn}(-,(X,x))\colon \bigl(\FinAn\bigr)^{\smash{\op}}\rightarrow \cat{An}$ and so its fibre over $S^0$ is given by $\Hom_{\cat{An}_{*/}}(S^0,X)\simeq X$. Secondly, consider the functor $\psi\colon \Delta^1\rightarrow \Yy$ corresponding to the morphism $\psi\colon x\rightarrow *$ in $\Yy$ which in turn corresponds to $\id_x\in \Hom_X(x,x)\simeq \Hom_\Yy(x,*)$. By construction, $\varphi|_{\{x\}}\simeq \psi|_{\{0\}}$ and so by the universal property of pushouts, $\varphi$ and $\psi$ together determine a functor $\vartheta\colon \Xx\rightarrow \Yy$.\footnote{More precisely, every \emph{choice} of an equivalence $\varphi|_{\{x\}}\simeq \psi|_{\{0\}}$ determines a natural transformation between the span $X \leftarrow \{x\}\simeq \{0\}\rightarrow \Delta^1$ and the span $\const \Yy$ in $\Fun(\Lambda_0^2,\cat{Cat}_\infty)$. And every such transformation determines a viable $\vartheta$ by the universal property of colimits.}
 	
 	If we can show that $\vartheta$ is an equivalence, we're done. Indeed, using \cref{lem:ColimitManipulations}\cref{claim:AssembleColimits} and our assumption $F(*)\simeq 0$, we see that $\colimit(F\circ s\circ \vartheta\colon \Xx\rightarrow \Cc)$ is precisely the pushout we're looking for! It's obvious that $\vartheta$ is essentially surjective, so we only need to prove that $\vartheta$ is fully faithful, and for that, we must understand $\Hom$ animae in $\Xx$. In general, there's no nice way to describe $\Hom$ in a pushout%
 	%
@@ -1257,7 +1272,7 @@ To prove \cref{lem:Spectrification}, we need a general lemma about adjunctions:
 	\end{equation*}
 	(in $\cat{An}$ or $\cat{An}_{*/}$, this doesn't matter by \cref{lem:ColimitsInSliceCategory}\cref{enum:ColimitsInSlice}). So $X\wedge Y$ is indeed the usual smash product from topology.%
 	%
-	\footnote{It's easy to turn the usual definition from topology into a functor $-\wedge Y\colon \cat{An}_{*/}\rightarrow \cat{An}_{*/}$ (more on that in [TODO]). This functor agrees with the functor we've constructed above. So far, we only know this on objects, but the equivalence as functors is not hard to check. Since both definitions of $S^0\wedge X$ agree, both functors must agree in $\Fun_*(\Ii,\cat{An}_{*/})$. From the universal property of left Kan extension, we then get a natural transformation between them for free. So knowing that they agree object-wise is enough by \cref{thm:EquivalencePointwise}.}
+	\footnote{It's easy to turn the usual definition from topology into a functor $-\wedge Y\colon \cat{An}_{*/}\rightarrow \cat{An}_{*/}$ (more on that in \cref{par:SmashProduct}). This functor agrees with the functor we've constructed above. So far, we only know this on objects, but the equivalence as functors is not hard to check. Since both definitions of $S^0\wedge X$ agree, both functors must agree in $\Fun_*(\Ii,\cat{An}_{*/})$. From the universal property of left Kan extension, we then get a natural transformation between them for free. So knowing that they agree object-wise is enough by \cref{thm:EquivalencePointwise}.}
 	
 	Now $\Omega^\infty\Sigma^\infty(Y,y)$ can be described as the value of $(-\wedge Y)^\mathrm{sp}$ on $S^0$. According to the formula from \cref{lem:Spectrification}, this value is given by
 	\begin{equation*}

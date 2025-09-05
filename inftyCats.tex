@@ -10,8 +10,9 @@
 %\includeonly{./Sections/inftyCats1-5,./Sections/inftyCats6}
 %\includeonly{./Sections/inftyCats6}
 %\includeonly{./Sections/inftyCats7}
-\includeonly{./Sections/inftyCats8}
+%\includeonly{./Sections/inftyCats8}
 %\includeonly{./Sections/inftyCats6,./Sections/inftyCats7}
+%\includeonly{./Sections/inftyCats6,./Sections/inftyCats8}
 %\includeonly{./Sections/inftyCats7,./Sections/inftyCats8}
 
 %\renewcommand{\sectionmark}[1]{\gdef\leftmark{#1}}
@@ -22,8 +23,8 @@
 	\tableofcontents
 	\addtocounter{section}{-1}
 	
-	\addtokomafont{section}{\S}
-	\addtokomafont{subsection}{\S}
+	\addtokomafont{section}{\textrm{\S}}
+	\addtokomafont{subsection}{\textrm{\S}}
 	\newpage
 	
 	
@@ -38,7 +39,7 @@
 		\begin{alphanumerate}[label={}]\itshape
 			\item Ordinary category theory can be used to do homotopy theory---but homotopy theory is \embrace{!} $\infty\text{-}$category theory.
 		\end{alphanumerate}
-		In particular, many formal $\infty$-categorical constructions, like presheaves or colimits, have a concrete topological meaning. It's surprising how many classical topological results can be reproved in a completely formal way just from abstract $\infty$-category theory! That number only increases through the introduction of the $\infty$-category of \emph{spectra}. Spectra combine the topological flavour of, well, topological spaces with the algebraic flavour of abelian groups. In particular, spectra admit a \emph{tensor product} and so it makes sense to talk about rings and modules in spectra. This allows us to bring algebra into the game---and again, algebra will not just be a \emph{tool} to prove classical theorems (like homology or homotopy groups), but instead we'll be able to \emph{reinterpret} many classical theorems as algebraic statements in the $\infty$-category of spectra.
+		In particular, many formal $\infty$-categorical constructions, like presheaves or colimits, have a concrete topological meaning. It's surprising how many classical topological results can be reproved in a completely formal way just from abstract $\infty$-category theory! That number only increases if you bring algebra into the game. The $\infty$-category of \emph{spectra} is still closely related to the homotopy theory of topological spaces, but at the same time it behaves a lot like the category of abelian groups. In particular, spectra admit a \emph{tensor product} and so it makes sense to talk about rings and modules in spectra and to do algebra with them. As it turns out, algebra in the $\infty$-category of spectra is not a \emph{tool}, like homology or homotopy groups in classical topology, but instead we'll be able to \emph{reinterpret} many classical theorems as algebraic statements in the $\infty$-category of spectra.
 		
 		For someone like me, how came from an algebra background originally, it's amazing to be able to do topology with just the tools I feel confident with: category theory and algebra. But $\infty$-category theory also does wonderful things in algebra. For example, the theory of \emph{derived categories}---another notoriously technical subject---becomes \emph{so much clearer} once you know spectra and the associated notion of a \emph{stable $\infty$-category}. In general, the future of algebra and algebraic geometry is derived, and all things derived become much clearer if you approach them using $\infty$-category theory.
 		
@@ -53,9 +54,9 @@
 	\end{numpar}
 	
 	\begin{numpar}[Model independence and notation.]\label{par:ModelIndependenceIntro}
-		The model for $\infty$-categories we use in these notes will be \emph{quasi-categories}. But there are many other approaches to $\infty$-categories, like \emph{topologically} or \emph{Kan-enriched categories}, \emph{complete Segal spaces}, \emph{$1$-complicial sets}, \ldots\ Of course, all these approaches should be equivalent, but it's usually a non-trivial task to tranfer a result proven in one model into another model. A general theory of model independence that allows for such non-trivial transfers has been developed by Emily Riehl and Dominic Verity \cite{RiehlVerity}.
+		The model for $\infty$-categories we use in these notes will be \emph{quasi-categories}. But there are many other approaches to $\infty$-categories, like \emph{topologically} or \emph{Kan-enriched categories}, \emph{complete Segal spaces}, \emph{$1$-complicial sets}, \ldots\ Of course, all these approaches should be equivalent, but it's usually a non-trivial task to tranfer a result proven in one model into another model. A general theory of model independence that allows for such non-trivial transfers has been developed by Emily Riehl and Dominic Verity \cite{RiehlVerity}. Another very interesting approach is being developed by Cisinksi--Cnossen--Nguyen--Walde \cite{FormalizationOfInftyCats}: Instead of defining what an $\infty$-category is supposed to be, they axiomatise what constructions one is allowed to do with them, and then develop $\infty$-category theory abstractly from these axioms. In a sense, this is a much more consequent implementation of our steps~\cref{enum:KeyStatements} and~\cref{enum:AllProofsModelIndependent} below.
 		
-		In these notes, we take a somewhat different approach towards a model-independent theory. We will, or at least we would, in an ideal version of these notes, proceed in the following steps:
+		Our approach towards a model-independent theory will, or at least we would, in an ideal version of these notes, proceed in the following steps:
 		\begin{alphanumerate}
 			\item First, we'll set up the framework of quasi-categories, by any means necessary.\label{enum:SetupQuasicategories}
 			\item After that, we'll prove (or black box) a few key statements in the model of quasi-categories. The statements themselves are model-independent, even though their proofs are not.\label{enum:KeyStatements}
@@ -90,7 +91,7 @@
 	\newpage
 	\renewcommand{\ParagraphOrNot}{}
 	
-	\setkomafont{section}{\rmfamily\bfseries\centering\Large}
+	\setkomafont{section}{\sffamily\bfseries\centering\Large}
 	\renewcommand{\bibfont}{\small}
 	
 	\printbibliography

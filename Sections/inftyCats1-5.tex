@@ -1,3 +1,5 @@
+\newcommand{\ho}{h} %homotopy category, \operatorname{ho}
+
 \section{Category theory}\label{sec:CategoryTheory}
 We assume you are familiar with categories, functors, natural transformations and the Yoneda lemma. In fact, you will probably be familiar with most of the stuff in this section, so we'll leave out many proofs (but give them later in the $\infty$-categorical context).
 
@@ -16,6 +18,7 @@ We assume you are familiar with categories, functors, natural transformations an
 		\end{equation*}
 		in the functor category $\Fun(\Cc^\op\times \Dd,\cat{Set})$. In this case we write $L\dashv R$.
 	\end{alphanumerate}
+	There are obvious dual notions of \emph{left adjoint objects/functors}.
 \end{defi}
 \begin{lem}[\enquote{Adjoints can be constructed pointwise}]\label{lem:1Adjunction}
 	A functor $L\colon \Cc\rightarrow \Dd$ has a right adjoint if and only if every $y\in \Dd$ has a right adjoint object $x\in \Cc$.
@@ -23,9 +26,9 @@ We assume you are familiar with categories, functors, natural transformations an
 \begin{proof}
 	One implication is trivial: If $R\colon \Dd\rightarrow \Cc$ is a right adjoint of $L$, then $R(y)$ is a right adjoint object of $y$ for every $y\in \Dd$. The other implication is left as an exercise. We'll prove an $\infty$-categorical variant in \cref{lem:Adjunction}.
 \end{proof}
-\begin{con}\label{con:1Unit}
+\begin{numpar}[Unit and counit.]\label{par:1Unit}
 	Let $L\colon \Cc \shortdoublelrmorphism \Dd\noloc R$ be an adjunction. For every $x\in \Cc$, the identity $\id_{L(x)}\colon L(x)\rightarrow L(x)$ is adjoint to a morphism $u_x\colon x\rightarrow RL(x)$. One can show that these morphisms assemble into a natural transformation $u\colon \id_\Cc\Rightarrow RL$, called the \emph{unit} of the adjunction. Dually, there is a \emph{counit} $c\colon LR\Rightarrow \id_\Dd$.
-\end{con}
+\end{numpar}
 \begin{lem}[Triangle identities]\label{lem:1TriangleIdentities}
 	Let $L\colon \Cc\shortdoublelrmorphism \Dd\noloc R$ be an adjunction. Then the diagrams 
 	\begin{equation*}
@@ -349,7 +352,7 @@ Let's give some first examples of simplicial sets and explain some basic constru
 	\end{equation*}
 	Concretely, $\N(\Cc)_n= \Hom_{\cat{Cat}}([n],\Cc)\cong \{x_0\rightarrow \dotsb\rightarrow x_n\text{ in $\Cc$}\}$ is the set of all chains of $n$ morphisms in $\Cc$. The face maps $d_i^*\colon \N(\Cc)_n\rightarrow \N(\Cc)_{n-1}$ compose the $(i-1)$\textsuperscript{st} and $i$\textsuperscript{th} morphism in the chain (in the cases $i=0$ or $i=n$, the face map $d_0^*$ just discards $x_0$ and $d_n^*$ just discards $x_n$). The degeneracy maps $s_j^*\colon \N(\Cc)_{n-1}\rightarrow \N(\Cc)_n$ insert an identity at the $j$\textsuperscript{th} position.
 	
-	Observe that the formula $\N(\Cc)_n\cong\Hom_{\cat{Cat}}([n],\Cc)$ is exactly of the form of a right-adjoint as in \cref{lem:1LanAlongYonedaHasRightAdjoint}! So what's the corresponding left adjoint? According to \cref{thm:1PShFreeCocompletion}, it has to be the unique colimit-preserving extension of the functor $U\colon\IDelta\rightarrow \cat{Cat}$ above.\footnote{Here we use implicitly that $\cat{Cat}$ has all colimits (which is easy to check, but not completely trivial, due to the same composition issues as in the description of $\operatorname{ho}(\Lambda_1^2)$).} We'll denote this extension by $\operatorname{ho}\colon \cat{sSet}\rightarrow\cat{Cat}$ and for a simplicial set $X$, we call $\operatorname{ho}(X)$ the \emph{homotopy category of $X$}. The objects of $\operatorname{ho}(X)$ are the set of $0$-simplices $X_0$. However, the morphisms of $\operatorname{ho}(X)$ are a little more difficult to describe. For example, $\operatorname{ho}(\Lambda_1^2)$ contains a morphism $\alpha\colon 0\rightarrow 1$ and a morphism $\beta\colon 1\rightarrow 2$; $\alpha$ and $\beta$ are induced by the functors $[1]\cong \operatorname{ho}(\Delta^{\{0,1\}})\rightarrow \operatorname{ho}(\Lambda_1^2)$ and $[1]\cong \operatorname{ho}(\Delta^{\{1,2\}})\rightarrow \operatorname{ho}(\Lambda_1^2)$. Hence $\operatorname{ho}(\Lambda_1^2)$ must also contain a morphism $\beta\circ\alpha\colon 0\rightarrow 2$, even though there's no $1$-simplex from $0$ to $2$ in $\Lambda_1^2$. So in general, not all morphisms in $\operatorname{ho}(X)$ come from $1$-simplices of $X$. Instead, we have to take \emph{chains} of $1$-simplices and quotient out a suitable equivalence relation. This is not too hard to make precise, but quite technical and we won't pursue it here. We'll see an explicit description in the case of quasi-categories in \cref{par:HomotopyCategory} below; the general description can be found in \cite[Construction/Proposition~II.24]{HigherCatsI}.
+	Observe that the formula $\N(\Cc)_n\cong\Hom_{\cat{Cat}}([n],\Cc)$ is exactly of the form of a right-adjoint as in \cref{lem:1LanAlongYonedaHasRightAdjoint}! So what's the corresponding left adjoint? According to \cref{thm:1PShFreeCocompletion}, it has to be the unique colimit-preserving extension of the functor $U\colon\IDelta\rightarrow \cat{Cat}$ above.\footnote{Here we use implicitly that $\cat{Cat}$ has all colimits (which is easy to check, but not completely trivial, due to the same composition issues as in the description of $\ho(\Lambda_1^2)$).} We'll denote this extension by $\ho\colon \cat{sSet}\rightarrow\cat{Cat}$ and for a simplicial set $X$, we call $\ho(X)$ the \emph{homotopy category of $X$}. The objects of $\ho(X)$ are the set of $0$-simplices $X_0$. However, the morphisms of $\ho(X)$ are a little more difficult to describe. For example, $\ho(\Lambda_1^2)$ contains a morphism $\alpha\colon 0\rightarrow 1$ and a morphism $\beta\colon 1\rightarrow 2$; $\alpha$ and $\beta$ are induced by the functors $[1]\cong \ho(\Delta^{\{0,1\}})\rightarrow \ho(\Lambda_1^2)$ and $[1]\cong \ho(\Delta^{\{1,2\}})\rightarrow \ho(\Lambda_1^2)$. Hence $\ho(\Lambda_1^2)$ must also contain a morphism $\beta\circ\alpha\colon 0\rightarrow 2$, even though there's no $1$-simplex from $0$ to $2$ in $\Lambda_1^2$. So in general, not all morphisms in $\ho(X)$ come from $1$-simplices of $X$. Instead, we have to take \emph{chains} of $1$-simplices and quotient out a suitable equivalence relation. This is not too hard to make precise, but quite technical and we won't pursue it here. We'll see an explicit description in the case of quasi-categories in \cref{par:HomotopyCategory} below; the general description can be found in \cite[Construction/Proposition~II.24]{HigherCatsI}.
 \end{numpar}
 \begin{numpar}[Mapping objects in simplicial sets.]\label{par:FInternalHom}
 	For every simplicial set $X$ the functor $-\times X\colon\cat{sSet}\rightarrow\cat{sSet}$ commutes with colimits.\footnote{Using that limits and colimits in $\cat{sSet}$ are computed degree-wise by \cref{lem:1ColimitsInFunctorCategories}, this can be reduced to the fact that products in $\cat{Set}$ commute with colimits, which is straightforward to check.} Hence, by \cref{thm:1PShFreeCocompletion}, it must be the unique colimit-preserving extension of the functor $\IDelta\rightarrow\cat{sSet}$ sending $[n]\mapsto \Delta^n\times X$. But more importantly, $-\times X$ must have a right adjoint, which we denote $\F(X,-)\colon \cat{sSet}\rightarrow\cat{sSet}$. By the formula in \cref{lem:1LanAlongYonedaHasRightAdjoint}, the right adjoint is given by $\F(X,Y)_n\cong \F(\Delta^n\times X,Y)$.
@@ -357,7 +360,7 @@ Let's give some first examples of simplicial sets and explain some basic constru
 
 At this point, let's take a moment to appreciate the power of \cref{thm:1PShFreeCocompletion}: It gave us adjunctions
 \begin{equation*}
-	\abs*{\,\cdot\,}\colon \cat{sSet}\doublelrmorphism\cat{Top}\noloc {\Sing}\,,\quad \operatorname{ho}\colon \cat{sSet}\doublelrmorphism\cat{Cat}\noloc {\N}\,,\quad\text{and}\quad -\times X\colon \cat{sSet}\doublelrmorphism \cat{sSet}\noloc {\F(X,-)}
+	\abs*{\,\cdot\,}\colon \cat{sSet}\doublelrmorphism\cat{Top}\noloc {\Sing}\,,\quad \ho\colon \cat{sSet}\doublelrmorphism\cat{Cat}\noloc {\N}\,,\quad\text{and}\quad -\times X\colon \cat{sSet}\doublelrmorphism \cat{sSet}\noloc {\F(X,-)}
 \end{equation*}
  essentially for free!
 
@@ -380,7 +383,7 @@ In this subsection, we'll introduce \emph{quasi-categories}, a class of simplici
 				\Delta^n\urar[dashed]
 			\end{tikzcd}
 		\end{equation*}
-		has a unique solution. Furthermore, if $X$ is a simplicial set with this horn filling property, then $X\cong \N(\Cc)$ for some category $\Cc$ \embrace{which is necessarily the homotopy category $\operatorname{ho}(X)$}.
+		has a unique solution. Furthermore, if $X$ is a simplicial set with this horn filling property, then $X\cong \N(\Cc)$ for some category $\Cc$ \embrace{which is necessarily the homotopy category $\ho(X)$}.
 	\end{alphanumerate}
 \end{lem}
 \begin{proof}[Proof sketch]
@@ -518,32 +521,32 @@ The rest of \cref{sec:SimplicialSets} as well as the entirety of \cref{sec:Joyal
 	Concretely, $\vartheta|_{\Delta^{\{0,1,2\}}}$ and $\vartheta|_{\Delta^{\{0,1,3\}}}$ are $2$-simplices that witness $\gamma$ and $\gamma'$ being compositions of $\alpha$ and $\beta$, whereas $\vartheta|_{\Delta^{\{1,2,3\}}}=s_1^*(\beta)\colon \Delta^{\{1,2,3\}}\rightarrow\Cc$ is a degenerate simplex. By \cref{def:QuasiCategory}, we can extend $\vartheta$ to a map $\ov\vartheta\colon \Delta^3\rightarrow \Cc$ and then the face $\ov\sigma\coloneqq\ov\vartheta|_{\Delta^{\{0,2,3\}}}$ is a $2$-simplex witnessing an equivalence $\gamma\simeq\gamma'$.
 \end{numpar}
 \begin{numpar}[The homotopy category.]\label{par:HomotopyCategory}
-	We can now describe the homotopy category $\operatorname{ho}(\Cc)$ from \cref{par:Nerve} in more explicit terms. As already explained there, the objects of $\operatorname{ho}(\Cc)$ are the $0$-simplices $\Cc_0$, that is, the objects of $\Cc$. We've seen in \cref{par:Nerve} that the morphism may cause some problems since we might need to add compositions. However, by \cref{par:Composition} above, compositions already exist in $\Cc$, they just might not be unique. So we find that the set of morphisms of $\operatorname{ho}(\Cc)$ is given by $\Cc_1/\!\simeq$, the set of $1$-simplices modulo the equivalence condition from \cref{par:Composition}.
+	We can now describe the homotopy category $\ho(\Cc)$ from \cref{par:Nerve} in more explicit terms. As already explained there, the objects of $\ho(\Cc)$ are the $0$-simplices $\Cc_0$, that is, the objects of $\Cc$. We've seen in \cref{par:Nerve} that the morphism may cause some problems since we might need to add compositions. However, by \cref{par:Composition} above, compositions already exist in $\Cc$, they just might not be unique. So we find that the set of morphisms of $\ho(\Cc)$ is given by $\Cc_1/\!\simeq$, the set of $1$-simplices modulo the equivalence condition from \cref{par:Composition}.
 	
-	To make this argument precise, one would have to check that $\operatorname{ho}(\Cc)$ as described above satisfies the universal property of the colimit $\colimit_{(n,\Delta^n\rightarrow\Cc)}[n]$ in $\cat{Cat}$. This is technical, but straightforward, and we leave the details to you.
+	To make this argument precise, one would have to check that $\ho(\Cc)$ as described above satisfies the universal property of the colimit $\colimit_{(n,\Delta^n\rightarrow\Cc)}[n]$ in $\cat{Cat}$. This is technical, but straightforward, and we leave the details to you.
 \end{numpar}
 As a consequence, we can prove that the construction $\F(-,-)$ from \cref{par:FInternalHom} is compatible with the functor category construction for ordinary categories.
 \begin{lem}\label{lem:SimplicialHoNerveAdjunction}
 	If $\Cc$ is a quasi-category and $\Dd$ is an ordinary category, then there is an isomorphism of simplicial sets
 	\begin{equation*}
-		\F\bigl(\Cc,\N(\Dd)\bigr)\cong \N\bigl(\Fun(\operatorname{ho}(\Cc),\Dd)\bigr)
+		\F\bigl(\Cc,\N(\Dd)\bigr)\cong \N\bigl(\Fun(\ho(\Cc),\Dd)\bigr)
 	\end{equation*}
 	In particular, if $\Cc\cong \N(\Cc')$ is the nerve of an ordinary category $\Cc'$, we get an isomorphism $\F(\N(\Cc'),\N(\Dd))\cong \N(\Fun(\Cc',\Dd))$.
 \end{lem}
 \begin{proof}[Proof sketch]
 	For all $n\geqslant 0$, we obtain the following chain of bijections, all of which are compatible with the simplicial structure maps:
 	\begin{align*}
-		\F\bigl(\Cc,\N(\Dd)\bigr)_n\cong \Hom_{\cat{sSet}}\bigl(\Delta^n\times \Cc,\N(\Dd)\bigr)&\cong \Hom_{\cat{Cat}}\bigl(\operatorname{ho}(\Delta^n\times \Cc),\Dd\bigr)\\
-		&\cong \Hom_{\cat{Cat}}\bigl(\operatorname{ho}(\Cc)\times[n],\Dd\bigr)\\
-		&\cong \Hom_{\cat{Cat}}\bigl([n],\Fun(\operatorname{ho}(\Cc),\Dd)\bigr)\\
-		&\cong \N\bigl(\Fun(\operatorname{ho}(\Cc),\Dd)\bigr)_n\,.
+		\F\bigl(\Cc,\N(\Dd)\bigr)_n\cong \Hom_{\cat{sSet}}\bigl(\Delta^n\times \Cc,\N(\Dd)\bigr)&\cong \Hom_{\cat{Cat}}\bigl(\ho(\Delta^n\times \Cc),\Dd\bigr)\\
+		&\cong \Hom_{\cat{Cat}}\bigl(\ho(\Cc)\times[n],\Dd\bigr)\\
+		&\cong \Hom_{\cat{Cat}}\bigl([n],\Fun(\ho(\Cc),\Dd)\bigr)\\
+		&\cong \N\bigl(\Fun(\ho(\Cc),\Dd)\bigr)_n\,.
 	\end{align*} 
-	In the first step, we use the definition of $\F(-,-)$ from \cref{par:FInternalHom}. In the second step, we use the adjunction $\operatorname{ho}\colon\cat{sSet}\shortdoublelrmorphism \cat{Cat}\noloc\N$ from \cref{par:Nerve}. In the third step, we use that $\operatorname{ho}$ commutes with products of quasi-categories, which follows from the description in \cref{par:HomotopyCategory}. In the fourth step, we use \enquote{currying} for ordinary categories. Finally, in the fifth step we plug in the definition of $\N(\Fun(\operatorname{ho}(\Cc),\Dd))$.
+	In the first step, we use the definition of $\F(-,-)$ from \cref{par:FInternalHom}. In the second step, we use the adjunction $\ho\colon\cat{sSet}\shortdoublelrmorphism \cat{Cat}\noloc\N$ from \cref{par:Nerve}. In the third step, we use that $\ho$ commutes with products of quasi-categories, which follows from the description in \cref{par:HomotopyCategory}. In the fourth step, we use \enquote{currying} for ordinary categories. Finally, in the fifth step we plug in the definition of $\N(\Fun(\ho(\Cc),\Dd))$.
 	
-	To prove the \enquote{in particular}, it suffices to see that the unit $u_{\Cc'}\colon\Cc'\rightarrow \operatorname{ho}\N(\Cc')$ of the adjunction $\operatorname{ho}\dashv \N$ from \cref{par:Nerve} is an isomorphism of categories (and we really need an isomorphism, not just an equivalence of categories). This is easy to check using \cref{lem:LiftingConditions}\cref{enum:LiftingN} and the explicit description of $\operatorname{ho}\N(\Cc)$ from \cref{par:HomotopyCategory}.%(also note that, by \cref{lem:1FullyFaithfulConservativeAdjunction}\cref{enum:1FullyFaithfulIffUnitEquivalence}, this implies that $\N\colon \cat{Cat}\rightarrow\cat{sSet}$ is fully faithful).
+	To prove the \enquote{in particular}, it suffices to see that the unit $u_{\Cc'}\colon\Cc'\rightarrow \ho\N(\Cc')$ of the adjunction $\ho\dashv \N$ from \cref{par:Nerve} is an isomorphism of categories (and we really need an isomorphism, not just an equivalence of categories). This is easy to check using \cref{lem:LiftingConditions}\cref{enum:LiftingN} and the explicit description of $\ho\N(\Cc)$ from \cref{par:HomotopyCategory}.%(also note that, by \cref{lem:1FullyFaithfulConservativeAdjunction}\cref{enum:1FullyFaithfulIffUnitEquivalence}, this implies that $\N\colon \cat{Cat}\rightarrow\cat{sSet}$ is fully faithful).
 \end{proof}
 \begin{numpar}[Equivalences in quasi-categories.]\label{par:Equivalence}
-	We say that a morphism $\alpha\colon x\rightarrow y$ in $\Cc$ is an \emph{equivalence} if it becomes an isomorphism in the homotopy category $\operatorname{ho}(\Cc)$. Equivalently, $\alpha$ is an equivalence if and only if the horns $\sigma_\mathrm{left}\colon\Lambda_0^2\rightarrow\Cc$ and $\sigma_\mathrm{right}\colon\Lambda_2^2\rightarrow \Cc$ represented by\label{enum:Equivalence}
+	We say that a morphism $\alpha\colon x\rightarrow y$ in $\Cc$ is an \emph{equivalence} if it becomes an isomorphism in the homotopy category $\ho(\Cc)$. Equivalently, $\alpha$ is an equivalence if and only if the horns $\sigma_\mathrm{left}\colon\Lambda_0^2\rightarrow\Cc$ and $\sigma_\mathrm{right}\colon\Lambda_2^2\rightarrow \Cc$ represented by\label{enum:Equivalence}
 	\begin{equation*}
 		\sigma_\mathrm{left}=\begin{tikzpicture}[commutative diagrams/every diagram,baseline=(mid.base)]
 			\path node[outer sep=0.25ex] (0) at (0,0) {$x$} ++(0:3.8em) node[text depth=0pt,outer sep=0.25ex] (1) {$y$} ++ (120:3.8em) node[outer sep=0.25ex] (2) {$x$};
@@ -696,7 +699,7 @@ If $X$, $Y$ are Kan complexes, then $\F(X,Y)$ is a Kan complex too, as we'll see
 \begin{equation*}
 	\Hom_{\cat{An}}(X,Y)\overset{\cong}{\longrightarrow}\Hom_{\cat{Cat}_\infty}(X,Y)
 \end{equation*}
-is an isomorphism of simplicial sets. In general, \cref{thm:CordierPorter} below describes the $\Hom$ anima from \cref{par:HomInQuasiCategories} in a simplicial nerve. A relatively short proof of that theorem was given by Achim Krause and Fabian in \cite{AchimFabian}.
+is an isomorphism of simplicial sets. In general, \cref{thm:CordierPorter} below describes the $\Hom$ anima from \cref{par:HomInQuasiCategories} in a simplicial nerve. A relatively short proof of that theorem was given by Fabian Hebestreit and Achim Krause in \cite{AchimFabian}.
 \begin{thm}\label{thm:CordierPorter}
 	Let $\Cc$ be a Kan-enriched category. Then there is a homotopy equivalence of Kan complexes
 	\begin{equation*}
@@ -1164,7 +1167,7 @@ At this point it seems natural to leave a few words about \emph{model categories
 \begin{exm}\label{exm:JoyalModelStructure}
 	As the Kan--Quillen model structure \enquote{models} the quasi-category $\cat{An}$ from  \cref{exm:SimplicialNerve}, it seems natural to ask whether there is another model structure on $\cat{sSet}$ that \enquote{models} $\cat{Cat}_\infty$. The naive attempt would be to ask that fibrations be inner fibrations and that trivial cofibrations be inner anodyne maps. But there are examples of cofibrations between quasi-categories that are equivalences in $\Cat_\infty$, but not inner anodyne; for example, the functor $\{0\}\rightarrow \N(J)$, where $J=\left\{\InlineJ\right\}$ is the \enquote{free-living isomorphism}. It was an insight of Joyal how this can be fixed: There is a model structure on $\cat{sSet}$, called the \emph{Joyal model structure} such that cofibrations are just that and weak equivalences are those maps $A\rightarrow B$ such that $\pi_0\core\F(B,\Cc)\rightarrow \pi_0\core\F(A,\Cc)$ is bijective for every quasi-category $\Cc$. Here $\pi_0\core$ means the set of equivalence classes of objects; once we've proved the hard part of \cref{thm:AnimaeAreKanComplexes}, this notation will be consistent with \cref{def:Homotopy}\cref{enum:Pi0}. Weak equivalences in the Joyal model structure are called \emph{Joyal equivalences}. We'll give another characterisation in \cref{lem:JoyalEquivalence} below.
 	
-	Fibrant objects in the Joyal model structure are precisely quasi-categories. General fibrations in the Joyal model structure are harder to pin down. However, fibrations between quasi-categories are characterised by a lifting property: They are those inner fibrations that also have lifing against $\{0\}\rightarrow\N(J)$. We'll call these \emph{isofibrations} and we'll meet them again in model category fact~\cref{par:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}. For proofs see \cite[Theorem~\href{https://mat.uab.cat/~kock/crm/hocat/advanced-course/Quadern45-2.pdf\#page=153}{6.12}]{JoyalQuasiCategoriesAndApplications} or \cite[Theorem~VIII.23]{HigherCatsII}.
+	Fibrant objects in the Joyal model structure are precisely quasi-categories. General fibrations in the Joyal model structure are harder to pin down. However, fibrations between quasi-categories are characterised by a lifting property: They are those inner fibrations that also have lifing against $\{0\}\rightarrow\N(J)$. We'll call these \emph{isofibrations} and we'll meet them again in \enquote{Definition}~\cref{def:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}. For proofs see \cite[Theorem~\href{https://mat.uab.cat/~kock/crm/hocat/advanced-course/Quadern45-2.pdf\#page=153}{6.12}]{JoyalQuasiCategoriesAndApplications} or \cite[Theorem~VIII.23]{HigherCatsII}.
 \end{exm}
 \begin{lem}\label{lem:JoyalEquivalence}
 	A map $A\rightarrow B$ of simplicial sets is a Joyal equivalence if and only if $\F(B,\Cc)\rightarrow\F(A,\Cc)$ is an equivalence in $\cat{Cat}_\infty$ for every quasi-category $\Cc$.
@@ -1172,7 +1175,7 @@ At this point it seems natural to leave a few words about \emph{model categories
 \begin{proof}
 	The \enquote{if} part is trivial, so assume $A\rightarrow B$ is a Joyal equivalence as in \cref{exm:JoyalModelStructure}.  By \cref{lem:SmallObjectArgument}, we may choose an inner anodyne map $B\rightarrow\Bb$ into a quasi-category and a factorisation $A\rightarrow\Aa\rightarrow\Bb$ into an inner anodyne map followed by an inner fibration. Then $\Aa$ is a quasi-category too. Note that $\F(\Aa,\Cc)\rightarrow \F(A,\Cc)$ is a trivial fibration by \cref{cor:FKanFibration} and thus an equivalence of quasi-categories by \cref{lem:TrivialFibrationHomotopyEquivalence}; the same is true for $\F(\Bb,\Cc)\rightarrow \F(B,\Cc)$. So it's enough to show that $\F(\Bb,\Cc)\rightarrow\F(\Aa,\Cc)$ is an equivalence of quasi-categories, and for this, it's enough to show that our functor $F\colon \Aa\rightarrow\Bb$ is an equivalence of quasi-categories.
 	
-	We know that $F^*\colon \pi_0\core\F(\Bb,\Cc)\rightarrow\pi_0\core\F(\Aa,\Cc)$ is bijective for every quasi-category $\Cc$. Plugging in $\Cc=\Aa$ and choosing a preimage of $\id_\Aa$ yields a functor $G\colon \Bb\rightarrow\Aa$ together with an equivalence $G\circ F\simeq \id_\Aa$. Since $F^*$ and $(G\circ F)^*$ are bijective, it follows that $G^*\colon \pi_0\core\F(\Aa,\Cc)\rightarrow\pi_0\core\F(\Bb,\Cc)$ must too be bijective for every quasi-category $\Cc$. By the same argument, we obtain $H\colon \Aa\rightarrow \Bb$ together with an equivalence $H\circ G\simeq \id_\Bb$. Then $G$ must be an isomorphism in $\operatorname{ho}(\cat{Cat}_\infty)$ and so $F$ must be too. This shows that $F$ is an equivalence in $\cat{Cat}_\infty$, as desired.
+	We know that $F^*\colon \pi_0\core\F(\Bb,\Cc)\rightarrow\pi_0\core\F(\Aa,\Cc)$ is bijective for every quasi-category $\Cc$. Plugging in $\Cc=\Aa$ and choosing a preimage of $\id_\Aa$ yields a functor $G\colon \Bb\rightarrow\Aa$ together with an equivalence $G\circ F\simeq \id_\Aa$. Since $F^*$ and $(G\circ F)^*$ are bijective, it follows that $G^*\colon \pi_0\core\F(\Aa,\Cc)\rightarrow\pi_0\core\F(\Bb,\Cc)$ must too be bijective for every quasi-category $\Cc$. By the same argument, we obtain $H\colon \Aa\rightarrow \Bb$ together with an equivalence $H\circ G\simeq \id_\Bb$. Then $G$ must be an isomorphism in $\ho(\cat{Cat}_\infty)$ and so $F$ must be too. This shows that $F$ is an equivalence in $\cat{Cat}_\infty$, as desired.
 \end{proof}
 \begin{exm}\label{exm:QuillenAdjunction}
 	There are also several model structures on $\cat{Top}$. For example, there is the \emph{Serre--Quillen model structure}, in which cofibrations are retracts of relative CW-inclusions, weak equivalences are just that, and fibrations are Serre fibrations.
@@ -1333,7 +1336,7 @@ A similar miracle as \cref{thm:EquivalencePointwise} is the following theorem.
 \end{thm}
 \begin{rem}\label{rem:FullyFaithfulImpliesInjectiveOnPi0Core}
 	The \enquote{only if} part of \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective} is easy. For later use, we remark that $F\colon \Cc\rightarrow\Dd$ being fully faithful implies that $\pi_0\core(\Cc)\rightarrow\pi_0\core(\Dd)$ is injective. %Indeed, we have to show that $x\simeq y$ in $\Cc$ if and only if $F(x)\simeq F(y)$ in $\Dd$, which follows from the homotopy equivalences $\Hom_\Cc(x,x)\simeq \Hom_\Dd(F(x),F(x))$, $\Hom_\Cc(x,y)\simeq \Hom_\Dd(F(x),F(y))$, $\Hom_\Cc(y,y)\simeq \Hom_\Dd(F(y),F(y))$, and $\Hom_\Cc(y,x)\simeq \Hom_\Dd(F(y),F(x))$.
-	Indeed, this is purely an assertion about the homotopy categories of $\Cc$ and $\Dd$ and it follows from the fact that if $F\colon \Cc\rightarrow\Dd$ is a fully faithful functor of quasi-categories, then $\operatorname{ho}(F)\colon \operatorname{ho}(\Cc)\rightarrow \operatorname{ho}(\Dd)$ is a fully faithful functor of ordinary categories. This in turn follows from the fact that $\Hom_{\operatorname{ho}(\Cc)}(x,y)\cong \pi_0\Hom_\Cc(x,y)$, which is straightforward to check from \cref{par:HomotopyCategory}.
+	Indeed, this is purely an assertion about the homotopy categories of $\Cc$ and $\Dd$ and it follows from the fact that if $F\colon \Cc\rightarrow\Dd$ is a fully faithful functor of quasi-categories, then $\ho(F)\colon \ho(\Cc)\rightarrow \ho(\Dd)$ is a fully faithful functor of ordinary categories. This in turn follows from the fact that $\Hom_{\ho(\Cc)}(x,y)\cong \pi_0\Hom_\Cc(x,y)$, which is straightforward to check from \cref{par:HomotopyCategory}.
 \end{rem}
 To prove the \enquote{if} part of \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective}, let's first consider the case where $\Cc$ and $\Dd$ are animae.
 \begin{lem}\label{lem:FullyFaithfulAnimae}
@@ -1364,7 +1367,7 @@ Furthermore we need:
 	
 	\emph{Case $K=*$.} Since $\core \F(*,\Cc)\cong \core(\Cc)$, we must show that $\core(\Cc)\rightarrow\core(\Dd)$ is a homotopy equivalence of animae. By \cref{lem:NonFullSubcategory}, $\Hom_{\core (\Cc)}(x,y)\rightarrow \Hom_\Cc(x,y)$ is an equivalence onto those path components that correspond to equivalences from $x$ to $y$. The same is true for $\Dd$, whence $\core (\Cc)\rightarrow\core(\Dd)$ is fully faithful again. Clearly, it is essentially surjective too, so \cref{lem:FullyFaithfulAnimae} shows that $\core (\Cc)\rightarrow\core(\Dd)$ must be a homotopy equivalence.
 	
-	\emph{Case $K=\Delta^n$, $n\geqslant1$.} Let $I^n\coloneqq\bigcup_{i=0}^{n-1}\Delta^{\{i-1,i\}}\subseteq \Delta^n$. It's straightforward to check that $I^n\rightarrow\Delta^n$ is inner anodyne, so $\F(\Delta^n,\Cc)\rightarrow\F(I^n,\Cc)$ is a trivial fibration by \cref{cor:FKanFibration}. The same is true for $\Dd$. We may thus replace $K=\Delta^n$ by $K=I^n$. Now we claim:
+	\emph{Case $K=\Delta^n$, $n\geqslant1$.} Let $I^n\coloneqq\bigcup_{i=1}^{n}\Delta^{\{i-1,i\}}\subseteq \Delta^n$ be the \emph{$n$-spine}. It's straightforward to check that $I^n\rightarrow\Delta^n$ is inner anodyne, so $\F(\Delta^n,\Cc)\rightarrow\F(I^n,\Cc)$ is a trivial fibration by \cref{cor:FKanFibration}. The same is true for $\Dd$. We may thus replace $K=\Delta^n$ by $K=I^n$. Now we claim:
 	\begin{alphanumerate}\itshape
 		\item[\boxtimes] If $i\colon A\rightarrow B$ is a cofibration of simplicial sets, then $i^*\colon\core \F(B,\Cc)\rightarrow\core\F(A,\Cc)$ is a Kan fibration. Furthermore, for all $x_0,x_1,\dotsc,x_n\in\Cc$, the following diagram is a pullback diagram of Kan complexes and its vertical arrows are Kan fibrations:\label{claim:Pullback}
 		\begin{equation*}
@@ -1456,10 +1459,10 @@ Furthermore we need:
 	Since $\core(\Dd)$ is a Kan complex by \cref{cor:AnimaKanComplexes}, $\F(\N(J),\core(\Dd))$ is a Kan complex by \cref{cor:FIsKanComplex} and so $\core\F(\N(J),\core(\Dd))\cong \F(\N(J),\core(\Dd))$. By analogous arguments, we get isomorphisms $\core\F^{\{0\rightarrow 1\}}(\Delta^1,\Dd)\cong \core\F^{\{0\rightarrow 1\}}(\Delta^1,\core (\Dd))\cong \F(\Delta^1,\core(\Dd))$. Now $\Delta^1\rightarrow \N(J)$ is anodyne (in fact, both left and right anodyne) by an explicit horn filling argument. Hence $\F(\N(J),\core(\Dd))\rightarrow\F(\Delta^1,\core(\Dd))$ is a trivial fibration by \cref{cor:FKanFibration}. This finishes the proof of \cref{claim:TrivialFibration} and we are done.
 \end{proof}
 \begin{numpar}[Corollary/Warning.]\label{cor:Localisation}\itshape
-	If $\Cc$ is a \embrace{small} ordinary category and $W$ a collection of morphisms in $\Cc$, then the localisation $\N(\Cc)[W^{-1}]$ from \cref{con:Localisation} is not necessarily the nerve of an ordinary category. But the homotopy category $\operatorname{ho}(\N(\Cc)[W^{-1}])$ is equivalent to the localisation of $\Cc$ at $W$ in the world of ordinary categories.
+	If $\Cc$ is a \embrace{small} ordinary category and $W$ a collection of morphisms in $\Cc$, then the localisation $\N(\Cc)[W^{-1}]$ from \cref{con:Localisation} is not necessarily the nerve of an ordinary category. But the homotopy category $\ho(\N(\Cc)[W^{-1}])$ is equivalent to the localisation of $\Cc$ at $W$ in the world of ordinary categories.
 \end{numpar}
 \begin{proof}[Proof sketch]
-	For counterexamples see \cref{thm:AnAsALocalisation} or the discussion in \cref{con:DerivedCategoryI} below. The assertion about $\operatorname{ho}(\N(\Cc)[W^{-1}])$ follows easily from a combination of \cref{lem:Localisation} and \cref{lem:SimplicialHoNerveAdjunction} as well as the universal property of localisations in ordinary category theory.
+	For counterexamples see \cref{thm:AnAsALocalisation} or the discussion in \cref{con:DerivedCategoryI} below. The assertion about $\ho(\N(\Cc)[W^{-1}])$ follows easily from a combination of \cref{lem:Localisation} and \cref{lem:SimplicialHoNerveAdjunction} as well as the universal property of localisations in ordinary category theory.
 \end{proof}
 
 So localisations provide another way to construct non-trivial examples of quasi-categories. In fact, both $\cat{An}$ and $\cat{Cat}_\infty$ can be constructed in this way:
@@ -1484,7 +1487,7 @@ So localisations provide another way to construct non-trivial examples of quasi-
 	\begin{equation*}
 		\Aa_\infty\coloneqq \N(\Aa^\mathrm{cf})\left[\{\text{weak equivalences}\}^{-1}\right]
 	\end{equation*}
-	the \emph{underlying quasi-category of $\Aa$}. Its homotopy category $\operatorname{ho}(\Aa_\infty)$ is called the \emph{homotopy category of $\Aa$}. By Corollary/Warning~\cref{cor:Localisation}, this agrees with the ordinary localisation of $\Aa^\mathrm{cf}$ at the weak equivalences. Furthermore, if the factorisations from \cref{def:ModelCategory}\cref{enum:ModelCategoryFactorisations} can be chosen functorially (which is always the case in practice), then $\Aa_\infty$ could be obtained equally well by inverting the weak equivalences in either of $\Aa^\mathrm{c}$, $\Aa^\mathrm{f}$, or $\Aa$ itself, where $\Aa^\mathrm{c},\Aa^\mathrm{f}\subseteq \Aa$ denote the full subcategories spanned by the cofibrant or fibrant objects, respectively. So in practice, all possible alternative definitions of $\Aa_\infty$ agree. 
+	the \emph{underlying quasi-category of $\Aa$}. Its homotopy category $\ho(\Aa_\infty)$ is called the \emph{homotopy category of $\Aa$}. By Corollary/Warning~\cref{cor:Localisation}, this agrees with the ordinary localisation of $\Aa^\mathrm{cf}$ at the weak equivalences. Furthermore, if the factorisations from \cref{def:ModelCategory}\cref{enum:ModelCategoryFactorisations} can be chosen functorially (which is always the case in practice), then $\Aa_\infty$ could be obtained equally well by inverting the weak equivalences in either of $\Aa^\mathrm{c}$, $\Aa^\mathrm{f}$, or $\Aa$ itself, where $\Aa^\mathrm{c},\Aa^\mathrm{f}\subseteq \Aa$ denote the full subcategories spanned by the cofibrant or fibrant objects, respectively. So in practice, all possible alternative definitions of $\Aa_\infty$ agree. 
 	
 	We'll sketch the argument why $\N(\Aa^\mathrm{c})\rightarrow \N(\Aa)$ becomes an equivalences after localisation at all weak equivalences; the other cases are entirely analogous. Let's assume that $\Aa$ has functorial cofibrant replacements. That is, for $x\in \Aa$ the map from the initial object to $x$ factors functorially through a trivial fibration $\eta_x\colon c(x)\rightarrow x$, where $c(x)$ is cofibrant. Then we get a natural transformation $\eta\colon c(-)\Rightarrow \id_{\N(\Aa)}$ of endofunctors of $\N(\Aa)$. Using \cref{lem:Localisation}, we can show that this natural transformation passes to the localisation at all weak equivalences.\footnote{Here's the full argument: Put $W\coloneqq\{\text{weak equivalences}\}$ for short; we wish to construct a natural transformation $\N(\Aa)[W^{-1}]\times \Delta^1\rightarrow \N(\Aa)[W^{-1}]$. It's clear from the construction that $\N(\Aa)[W^{-1}]\times\Delta^1$ can also be described as the localisation of $\N(\Aa)\times \Delta^1$ at $W\times\{\id_0\}\cup W\times\{\id_1\}$. Thus, by \cref{lem:Localisation}, it's enough to provide a natural transformation $\N(\Aa)\times\Delta^1\rightarrow \N(\Aa)[W^{-1}]$ that sends these morphisms to equivalences. Now the composition of $\eta\colon \N(\Aa)\times\Delta^1\rightarrow \N(\Aa)$ with the localisation functor $\N(\Aa)\rightarrow \N(\Aa)[W^{-1}]$ does just that.} After the localisation, $\eta$ becomes an equivalence of endofunctors by \cref{thm:EquivalencePointwise}. Then $\N(\Aa^\mathrm{c})\rightarrow \N(\Aa)$ and $c\colon \N(\Aa)\rightarrow \N(\Aa^\mathrm{c})$ become equivalences of quasi-categories after localisation at all weak equivalences, as desired. 
 	
@@ -1504,107 +1507,115 @@ We've seen in~\cref{par:HomInQuasiCategories} how to construct the $\Hom$ animae
 %\setcounter{theorem}{-1}
 \begin{numpar}[Some informal motivation.]\label{par:StraighteningMotivation}
 	Let's think about what a functor $F\colon \Cc\rightarrow\cat{Cat}_\infty$ looks like. Suppose $x,y\in \Cc$ are objects and $\alpha\colon x\rightarrow y$ is a morphism. Then $F(x)$, $F(y)$ will be quasi-categories and $F(\alpha)\colon F(x)\rightarrow F(y)$ will be a functor between them. So for every $u\in F(x)$, there will be an associated object $v\simeq F(\alpha)(u)\in F(y)$. In a picture, this could look as follows:
+	\def\TikzScaleFactor{0.09}
 	\begin{center}
-		%\vspace{-1ex}
-		\begin{tikzpicture}[line cap=round, line join=round, line width=rule_thickness, decoration={markings,mark=at position 0.5 with {\arrow{to}}},scale=0.95]
-			\begin{scope}[yshift=-3.5cm]
-				\begin{scope}[xscale=0.64,xshift=-0.15cm]
-					\draw[dashed,shift={(0,-0.25)},fill=white!93!black]%,preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
-					 (-0.8,0) to[out=35,in=270] (-0.6,0.2) to[out=90,in=305] (-0.8,0.6) to[out=125,in=180]  (-0.2,1) to[out=0,in=140] (0.4,0.65) to[out=320,in=100] (0.8,0.45) to[out=280,in=45] (0.6,0) to[out=225,in=90] (0.45,-0.3) to[out=270,in=135] (0.5,-0.6) to[out=315,in=90] (0.6,-0.85) to[out=270,in=70] (0.5,-1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=315] (-0.6,-1) to[out=135,in=340] (-0.8,-0.7) to[out=160,in=270] (-0.9,-0.5) to[out=90,in=270] (-0.8,-0.25) to[out=90,in=205] cycle;
-				\end{scope}
-				\begin{scope}[xscale=0.64,xshift=2.1cm]
-					\draw[dashed,shift={(3.5,-0.25)}, dash phase=3,fill=white!93!black]%preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
-					(-0.9,0) to[out=35,in=270] (-0.8,0.2) to[out=90,in=305] (-0.9,0.6) to[out=125,in=180]  (-0.2,1.1) to[out=0,in=140] (0.4,0.8) to[out=320,in=100] (0.85,0.6) to[out=280,in=45] (0.7,0) to[out=225,in=90] (0.6,-0.3) to[out=270,in=90] (0.65,-0.6) to[out=270,in=90] (0.75,-0.85) to[out=270,in=70] (0.65,-1.1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=0] (-0.4,-1.3) to[out=180,in=315] (-0.8,-1) to[out=135,in=340] (-0.9,-0.7) to[out=160,in=270] (-1.1,-0.5) to[out=90,in=270] (-1,-0.25) to[out=90,in=205] cycle;
-				\end{scope}
-				\fill (0,0) circle (0.45ex) node[outer sep=0.5ex] (u) {} node[above left] {$u$};
-				\fill (3.5,0) circle (0.45ex) node[outer sep=0.5ex] (v) {} node[above right] {$v$};
-				\fill (3.5,-1) circle (0.45ex) node[outer sep=0.5ex] (w) {} node[below right] {$w$};
-				\draw[postaction={decorate}] (v) to node[pos=0.5] (mid) {} (w);
-				\draw[|-to] (u) to (v);
-				\draw[-to] (0.4,-0.5) to node[pos=0.5,below,outer sep=0.25ex] {$\scriptstyle F(\alpha)$} (2.75,-0.5);
-				\node at (-1.15,-0.5) {$F(x)$};
-				\node at (4.55,-0.5) {$F(y)$};
+		\begin{tikzpicture}[xscale=\TikzScaleFactor,yscale=-\TikzScaleFactor,line cap=round, line join=round, line width=rule_thickness,decoration={markings,mark=at position 0.5 with {\arrow{to}}}]
+			% F(x)
+			\draw [dashed,fill=white!93!black,dash phase=2] (30.3,21.9) .. controls ++(0.6,-0.6) and ++(0.0,1.1) .. ++(1.2,-1.9) .. controls ++(0.0,-1.7) and ++(0.6,1.4) .. ++(-1.2,-3.8) .. controls ++(-1.0,-2.2) and ++(-1.7,0.0) .. ++(3.6,-3.8) .. controls ++(1.7,0.0) and ++(-1.3,-1.7) .. ++(3.6,3.3) .. controls ++(0.8,1.1) and ++(-0.2,-1.6) .. ++(2.4,1.9) .. controls ++(0.2,1.8) and ++(0.8,-1.3) .. ++(-1.2,4.3) .. controls ++(-0.6,0.9) and ++(0.0,-1.2) .. ++(-0.9,2.8) .. controls ++(0.0,1.1) and ++(-0.5,-0.8) .. ++(0.3,2.8) .. controls ++(0.5,0.7) and ++(0.0,-1.0) .. ++(0.6,2.4) .. controls ++(0.0,0.7) and ++(0.1,-0.6) .. ++(-0.6,1.4) .. controls ++(-0.4,1.6) and ++(1.1,0.0) .. ++(-2.4,1.9) .. controls ++(-1.7,0.0) and ++(1.2,1.9) .. ++(-4.3,-1.9) .. controls ++(-0.6,-0.9) and ++(0.8,0.5) .. ++(-1.2,-2.9) .. controls ++(-0.5,-0.3) and ++(0.0,0.8) .. ++(-0.6,-1.9) .. controls ++(0.0,-1.0) and ++(0.0,1.0) .. ++(0.6,-2.4) .. controls ++(0.0,-0.9) and ++(-0.5,0.4) .. ++(0.0,-2.4) -- cycle;
+			
+			% F(y)
+			\draw [dashed,fill=white!93!black] (64.7,21.9) .. controls ++(0.4,-0.5) and ++(0.0,0.8) .. ++(0.6,-1.9) .. controls ++(0.0,-1.5) and ++(0.6,1.3) .. ++(-0.6,-3.8) .. controls ++(-1.2,-2.6) and ++(-2.0,0.0) .. ++(4.3,-4.8) .. controls ++(1.6,0.0) and ++(-1.2,-1.6) .. ++(3.6,2.8) .. controls ++(0.9,1.2) and ++(-0.2,-1.8) .. ++(2.7,1.9) .. controls ++(0.3,2.3) and ++(1.0,-1.6) .. ++(-0.9,5.7) .. controls ++(-0.5,0.8) and ++(0.0,-1.2) .. ++(-0.6,2.8) .. controls ++(0.0,1.1) and ++(0.0,-1.1) .. ++(0.3,2.8) .. controls ++(0.0,1.0) and ++(0.0,-1.0) .. ++(0.6,2.4) .. controls ++(0.0,1.0) and ++(0.2,-0.9) .. ++(-0.6,2.4) .. controls ++(-0.5,2.0) and ++(1.3,0.0) .. ++(-3.3,0.9) .. controls ++(-1.2,0.0) and ++(1.2,0.0) .. ++(-3.0,1.0) .. controls ++(-1.2,0.0) and ++(0.8,1.3) .. ++(-2.4,-2.8) .. controls ++(-0.5,-0.8) and ++(0.7,0.4) .. ++(-0.6,-2.9) .. controls ++(-0.6,-0.4) and ++(0.0,1.1) .. ++(-1.2,-1.9) .. controls ++(0.0,-1.0) and ++(0.0,1.0) .. ++(0.6,-2.4) .. controls ++(0.0,-1.0) and ++(-0.6,0.4) .. ++(0.6,-2.4) -- cycle ;
+			draw  (35.8,21.0) .. controls ++(8.5,8.5) and ++(0.0,0.0) .. ++(31.1,8.2) ;
+			
+			% Cat_\infty
+			\draw [dotted] (-17.0,35.7) .. controls ++(-1.8,-6.1) and ++(0.4,5.6) .. ++(5.6,-9.2) .. controls ++(-0.3,-5.3) and ++(-4.8,1.7) .. ++(14.0,-5.5) .. controls ++(3.3,-1.2) and ++(0.6,5.0) .. ++(6.2,-5.8) .. controls (8.4,10.8) and (16.8,10.0) .. (21.2,9.2) .. controls (28.2,7.9) and (35.3,8.3) .. (42.5,7.9) .. controls ++(4.5,-0.2) and ++(-4.5,-0.9) .. ++(13.1,-0.1) .. controls ++(5.8,1.2) and ++(-5.9,-0.3) .. ++(17.8,0.3) .. controls ++(4.8,0.2) and ++(-4.8,-0.2) .. ++(10.9,2.3) .. controls ++(3.2,0.1) and ++(3.9,-5.0) .. ++(8.7,4.1) .. controls ++(-2.8,3.6) and ++(-2.8,-1.1) .. ++(10.5,3.4) .. controls ++(5.1,1.9) and ++(-5.1,-2.9) .. ++(2.9,5.2) .. controls ++(3.5,2.0) and ++(-3.9,-1.1) .. ++(5.3,5.5) .. controls ++(3.6,1.0) and ++(1.4,-4.2) .. ++(6.3,7.2) ;
+			
+			\coordinate (u) at (35,19);
+			\coordinate (v) at (69,19);
+			\coordinate (w) at (69,29);
+			\fill (u) circle (0.45ex/\TikzScaleFactor) node[shift=(120:0.3)] {$u$};
+			\fill (v) circle (0.45ex/\TikzScaleFactor) node[shift=(30:0.3)] {$v$};
+			\fill (w) circle (0.45ex/\TikzScaleFactor) node[shift=(-30:0.32)] {$w$};
+			
+			\draw[|-to] ($(u) + (20:1.1ex/\TikzScaleFactor)$)  to[out=20,in=165] node[pos=0.5,above] {$\scriptstyle F(\alpha)$} ($(v) + (165:1.1ex/\TikzScaleFactor)$);
+			\draw[postaction={decorate}] ($(v) + (90:1.1ex/\TikzScaleFactor)$)  to ($(w) + (-90:1.1ex/\TikzScaleFactor)$);
+				
+			\node at (24,19) {$F(x)$};
+			\node at (81,24) {$F(y)$};
+			\node at (-2,28) {$\cat{Cat}_\infty$};
+			
+			\begin{scope}[yshift=-70cm]
+				\coordinate (x) at (35,55);
+				\coordinate (y) at (69,55);
+				\fill (x) circle (0.45ex/\TikzScaleFactor) node[left=3] {$x$};
+				\fill (y) circle (0.45ex/\TikzScaleFactor) node[right=3] {$\smash{y}\vphantom{x}$};
+				\draw[postaction={decorate}] ($(x) + (20:1.1ex/\TikzScaleFactor)$)  to[out=20,in=165] node[pos=0.5,below] {$\scriptstyle\alpha$} ($(y) + (165:1.1ex/\TikzScaleFactor)$);
+				\node at (20,55) {$\Cc$};
+				
+				%C
+				\draw [dotted] (38.0,53.2) .. controls ++(5.8,2.7) and ++(-6.5,0.7) .. ++(15.6,1.6) .. controls ++(6.1,-0.5) and ++(-2.3,1.1) .. ++(12.1,-2.0) ;
+				\draw [dotted] (39.0,53.6) .. controls ++(3.4,-1.1) and ++(-4.6,0.2) .. ++(9.1,-1.7) .. controls ++(11.6,-0.5) and ++(-2.2,-0.8) .. ++(16.3,1.4) ;
+				\draw [dotted] (17.6,59.0) .. controls ++(4.5,2.5) and ++(-2.1,-2.6) .. ++(16.5,4.0) .. controls ++(2.9,3.7) and ++(-5.9,-0.4) .. ++(19.6,2.9) .. controls ++(10.0,0.6) and ++(-3.8,-0.5) .. ++(14.2,-0.9) .. controls ++(6.0,0.9) and ++(-4.7,2.2) .. ++(13.8,-5.5) .. controls ++(11.2,-5.4) and ++(11.9,1.8) .. ++(-6.9,-10.4) .. controls ++(-13.9,-2.1) and ++(11.8,-0.3) .. ++(-33.4,-0.6) .. controls ++(-7.6,0.2) and ++(7.0,-2.0) .. ++(-23.2,3.2) .. controls ++(-10.6,3.0) and ++(-4.2,-2.4) .. ++(-0.6,7.2) -- cycle ;
+				\draw[|-to,shorten <=1.1ex] (x) to ++(0,25.5);
+				\draw[|-to,shorten <=1.1ex] (y) to ++(0,25.5);
 			\end{scope}
-			\draw[dotted] (-4,-5) to[out=90,in=270] (-3.5,-4) to[out=90,in=195] (-3,-3.6) to[out=15,in=290] (-2,-3) to[out=110,in=180] (0,-2.2) to[out=0,in=180] (1.75,-2) to[out=0,in=180] (3,-2.1) to[out=0,in=135] (4.75,-2.5) to[out=315,in=100] (5.4,-2.8) to[out=280,in=85] (5.2,-3.1) to[out=265,in=160] (5.4,-3.3) to[out=340,in=90] (6,-3.5) to[out=270,in=80] (5.7,-3.8) to[out=260,in=90] (6.6,-4.3) to[out=270,in=90] (7.5,-5);
-			\node at (-2.9,-3.1) {$\cat{Cat}_\infty$};
-			\begin{scope}[yshift=3.65cm]
-				\begin{scope}[yscale=0.3,xscale=0.7,shift={(1.2,-12.7)}]
-					\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (1,2.5) to[out=0,in=180] (1.95,2.2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.75) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
-				\end{scope}
-				\node (Cc) at (-1.15,-3.4) {$\Cc$};
-				\fill (0,-3.8) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[left=0.5ex] (xlabel) {$x$};
-				\fill (3.5,-3.8) circle (0.45ex) node[outer sep=0.5ex] (y) {} node[right=0.5ex] {$\smash{y}\vphantom{x}$};
-				\draw[postaction={decorate}] (x) to node[pos=0.5,above,outer sep=0.25ex] (alpha) {$\scriptstyle\alpha$} (y);
-				\draw[|-to,shorten >=4.5ex] (x) to (u);
-				\draw[|-to,shorten >=4.5ex] (y) to (v);
-			\end{scope}
-			%\draw[very thick,-to] (alpha) ++ (0,-1) to ++(0,-2);
-			%\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=170] (4.2,0.75) to[out=350,in=120] (4.9,0.3) to[out=300,in=90] (5.5,-0.1) to[out=270,in=60] (5,-0.7) to[out=240,in=135] (5.2,-1) to[out=315,in=90] (4.9,-1.3) to[out=270,in=120] (4.95,-1.4) to[out=300,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.78,-1.25) to [out=105,in=270] (-1.2,-0.75) to[out=90,in=270] (-2,-0.2) to[out=90,in=270] (-1.5,0.2) to[out=90,in=300] (-1.3,0.4) to[out=120,in=190] cycle;
-			%\begin{scope}[scale=0.9,shift={(0.4,-0.1)}]
-			%\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (0,2.2) to[out=0,in=180] (1.75,2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.25) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
-			%\end{scope}
-			%\draw[|-to] (0,-1.65) to (x);
-			%\node (Uu) at (-2,0.75) {$\Uu$};
-			%\draw[very thick,-to] (1.75,-2.1) to (alpha);
-			%\draw[dashed, shorten <=1.25ex] (-0.9,-0.8) to (x);
-			%\draw[dashed, shorten <=0.75ex,dash phase=1.5] (0.6,-1.1) to (x);
-			%\draw[dashed,shorten <=1.5ex, dash phase=0] (2.595,-0.8) to (y);
-			%\draw[dashed, shorten >=0.75ex,dash phase=0] (y) to (4.245,-1.15);
-			%\draw[|-to] (3.5,-1.65) to (y);
 		\end{tikzpicture}
 	\end{center}
-	Now let's turn this picture upside down! Take $F(x)$ and $F(y)$ and place them above $x$ and $y$, respectively. We would like to think of them as the fibres over $x$ and $y$ in some kind of fibration $p\colon \Uu\rightarrow \Cc$:
+	Now let's turn this picture upside down! Take $F(x)$ and $F(y)$ and place them above $x$ and $y$. We would like to think of them as the fibres over $x$ and $y$ in some kind of fibration $p\colon \Uu\rightarrow \Cc$:
 	\begin{center}
-		\vspace{-1ex}
-		\begin{tikzpicture}[line cap=round, line join=round, line width=rule_thickness, decoration={markings,mark=at position 0.5 with {\arrow{to}}},scale=0.95]
-			\begin{scope}[xscale=0.64,xshift=-0.15cm]
-				\draw[dashed,shift={(0,-0.25)},fill=white!93!black]%preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
-				(-0.8,0) to[out=35,in=270] (-0.6,0.2) to[out=90,in=305] (-0.8,0.6) to[out=125,in=180]  (-0.2,1) to[out=0,in=140] (0.4,0.65) to[out=320,in=100] (0.8,0.45) to[out=280,in=45] (0.6,0) to[out=225,in=90] (0.45,-0.3) to[out=270,in=135] (0.5,-0.6) to[out=315,in=90] (0.6,-0.85) to[out=270,in=70] (0.5,-1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=315] (-0.6,-1) to[out=135,in=340] (-0.8,-0.7) to[out=160,in=270] (-0.9,-0.5) to[out=90,in=270] (-0.8,-0.25) to[out=90,in=205] cycle;
-			\end{scope}
-			\begin{scope}[xscale=0.64,xshift=2.1cm]
-				\draw[dashed,shift={(3.5,-0.25)}, dash phase=3,fill=white!93!black]%,preaction={pattern={Lines[xshift=-0.4em,angle=150, line width=0.2em, distance=0.4em]}}, pattern color=white!93!black]
-				(-0.9,0) to[out=35,in=270] (-0.8,0.2) to[out=90,in=305] (-0.9,0.6) to[out=125,in=180]  (-0.2,1.1) to[out=0,in=140] (0.4,0.8) to[out=320,in=100] (0.85,0.6) to[out=280,in=45] (0.7,0) to[out=225,in=90] (0.6,-0.3) to[out=270,in=90] (0.65,-0.6) to[out=270,in=90] (0.75,-0.85) to[out=270,in=70] (0.65,-1.1) to[out=250,in=0] (0.1,-1.2) to[out=180,in=0] (-0.4,-1.3) to[out=180,in=315] (-0.8,-1) to[out=135,in=340] (-0.9,-0.7) to[out=160,in=270] (-1.1,-0.5) to[out=90,in=270] (-1,-0.25) to[out=90,in=205] cycle;
-			\end{scope}
-			\fill (-0.1,0) circle (0.45ex) node[outer sep=0.5ex] (u) {} node[above left,xshift=0.4ex] {$u$};
-			\fill (3.5,0) circle (0.45ex) node[outer sep=0.5ex] (v) {} node[above right] {$v$};
-			\fill (3.5,-1) circle (0.45ex) node[outer sep=0.5ex] (w) {} node[below right] {$w$};
-			\draw[postaction={decorate}] (u) to node[pos=0.5,above,outer sep=0.25ex] {$\scriptstyle\varphi$} (v);
-			\draw[postaction={decorate}] (v) to node[pos=0.5] (mid) {} (w);
-			\draw[postaction={decorate}] (u) to (w);
-			\begin{scope}[yscale=0.3,xscale=0.7,shift={(1.2,-12.7)}]
-				\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (1,2.5) to[out=0,in=180] (1.95,2.2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.75) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
-			\end{scope}
-			\node at (0,1.25) {$F(x)$};
-			\node at (3.5,1.25) {$F(y)$};
-			\fill (-0.1,-3.8) circle (0.45ex) node[outer sep=0.5ex] (x) {} node[below=0.5ex] {$x$};
-			\fill (3.5,-3.8) circle (0.45ex) node[outer sep=0.5ex] (y) {} node[below=0.5ex] {$y$};
-			\draw[postaction={decorate}] (x) to node[pos=0.5,above,outer sep=0.25ex] (alpha) {$\scriptstyle\alpha$} (y);
-			%\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=175] (4.5,0.75) (4.6,-1.7) to[out=185,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.7,-1.25) to [out=105,in=340] (-1.35,-1);
-			\draw[dotted] (-0.95,0.5) to[out=10,in=180] (-0.25,0.85) to[out=0,in=170] (0.25,0.7) to[out=350,in=190] (2,0.7) to[out=10,in=200] (3.15,0.85) to[out=20,in=180] (3.45,0.95) to[out=0,in=170] (4.2,0.75) to[out=350,in=120] (4.9,0.3) to[out=300,in=90] (5.5,-0.1) to[out=270,in=60] (5,-0.7) to[out=240,in=135] (5.2,-1) to[out=315,in=90] (4.9,-1.3) to[out=270,in=120] (4.95,-1.4) to[out=300,in=350] (3.74,-1.57) to[out=170,in=0] (3.33,-1.65) to[out=180,in=350] (3,-1.5) to[out=170,in=35] (2.2,-1.7) to[out=215,in=0] (0,-1.57) to[out=180,in=285] (-0.7,-1.25) to [out=105,in=270] (-1.2,-0.75) to[out=90,in=270] (-2,-0.2) to[out=90,in=270] (-1.5,0.2) to[out=90,in=300] (-1.3,0.4) to[out=120,in=190] cycle;
-			%\begin{scope}[scale=0.9,shift={(0.4,-0.1)}]
-			%\draw[dotted] (-3,0) to[out=90,in=270] (-2.4,0.5) to[out=90,in=300] (-2,1) to[out=120,in=270] (-2.2,1.6) to[out=90,in=180] (-0.8,2) to[out=0,in=180] (0,2.2) to[out=0,in=180] (1.75,2) to[out=0,in=135] (4.5,1.4) to[out=315,in=160] (4.7,0.8) to[out=340,in=90] (5.7,0) to[out=270,in=60] (4.9,-0.8) to[out=240,in=135] (5.2,-1.2) to[out=315,in=90] (4.7,-1.7) to[out=270,in=90] (4.8,-1.9) to[out=270,in=0] (3.6,-2.2) to[out=180,in=0] (2.75,-2.5) to[out=180,in=305] (0,-2.5) to[out=125,in=275] (-2,-1.25) to [out=95,in=270] (-2.5,-0.75) to[out=90,in=270] cycle;
-			%\end{scope}
-			%\draw[|-to] (0,-1.65) to (x);
-			%\node (Uu) at (-2,0.75) {$\Uu$};
-			\node (Uu) at (-1.7,0.55) {$\Uu$};
-			\node (Cc) at (-1.15,-3.4) {$\Cc$};
-			%\draw[very thick,-to] (1.75,-2.1) to (alpha);
-			\draw[dashed, shorten >=0.25ex] (x) to (-0.675,-0.8);
-			\draw[dashed] (x) to (0.29,-1.1);
-			\draw[dashed,shorten >=0.25ex] (y) to (2.88,-0.8);
-			\draw[dashed,shorten >=1.25ex] (y) to (4.06,-1.15);
-			\path (u) to node[pos=0.75] {$\scriptscriptstyle/\!/\!/$} (mid);
-			%\draw[dashed, shorten <=1.25ex] (-0.9,-0.8) to (x);
-			%\draw[dashed, shorten <=0.75ex,dash phase=1.5] (0.6,-1.1) to (x);
-			%\draw[dashed,shorten <=1.5ex, dash phase=0] (2.595,-0.8) to (y);
-			%\draw[dashed, shorten >=0.75ex,dash phase=0] (y) to (4.245,-1.15);
-			%\draw[|-to] (3.5,-1.65) to (y);
+		\begin{tikzpicture}[xscale=\TikzScaleFactor,yscale=-\TikzScaleFactor,line cap=round, line join=round, line width=rule_thickness]
+			% F(x)
+			\draw [dashed,fill=white!93!black,dash phase=2] (30.3,21.9) .. controls ++(0.6,-0.6) and ++(0.0,1.1) .. ++(1.2,-1.9) .. controls ++(0.0,-1.7) and ++(0.6,1.4) .. ++(-1.2,-3.8) .. controls ++(-1.0,-2.2) and ++(-1.7,0.0) .. ++(3.6,-3.8) .. controls ++(1.7,0.0) and ++(-1.3,-1.7) .. ++(3.6,3.3) .. controls ++(0.8,1.1) and ++(-0.2,-1.6) .. ++(2.4,1.9) .. controls ++(0.2,1.8) and ++(0.8,-1.3) .. ++(-1.2,4.3) .. controls ++(-0.6,0.9) and ++(0.0,-1.2) .. ++(-0.9,2.8) .. controls ++(0.0,1.1) and ++(-0.5,-0.8) .. ++(0.3,2.8) .. controls ++(0.5,0.7) and ++(0.0,-1.0) .. ++(0.6,2.4) .. controls ++(0.0,0.7) and ++(0.1,-0.6) .. ++(-0.6,1.4) .. controls ++(-0.4,1.6) and ++(1.1,0.0) .. ++(-2.4,1.9) .. controls ++(-1.7,0.0) and ++(1.2,1.9) .. ++(-4.3,-1.9) .. controls ++(-0.6,-0.9) and ++(0.8,0.5) .. ++(-1.2,-2.9) .. controls ++(-0.5,-0.3) and ++(0.0,0.8) .. ++(-0.6,-1.9) .. controls ++(0.0,-1.0) and ++(0.0,1.0) .. ++(0.6,-2.4) .. controls ++(0.0,-0.9) and ++(-0.5,0.4) .. ++(0.0,-2.4) -- cycle;
+			
+			% F(y)
+			\draw [dashed,fill=white!93!black] (64.7,21.9) .. controls ++(0.4,-0.5) and ++(0.0,0.8) .. ++(0.6,-1.9) .. controls ++(0.0,-1.5) and ++(0.6,1.3) .. ++(-0.6,-3.8) .. controls ++(-1.2,-2.6) and ++(-2.0,0.0) .. ++(4.3,-4.8) .. controls ++(1.6,0.0) and ++(-1.2,-1.6) .. ++(3.6,2.8) .. controls ++(0.9,1.2) and ++(-0.2,-1.8) .. ++(2.7,1.9) .. controls ++(0.3,2.3) and ++(1.0,-1.6) .. ++(-0.9,5.7) .. controls ++(-0.5,0.8) and ++(0.0,-1.2) .. ++(-0.6,2.8) .. controls ++(0.0,1.1) and ++(0.0,-1.1) .. ++(0.3,2.8) .. controls ++(0.0,1.0) and ++(0.0,-1.0) .. ++(0.6,2.4) .. controls ++(0.0,1.0) and ++(0.2,-0.9) .. ++(-0.6,2.4) .. controls ++(-0.5,2.0) and ++(1.3,0.0) .. ++(-3.3,0.9) .. controls ++(-1.2,0.0) and ++(1.2,0.0) .. ++(-3.0,1.0) .. controls ++(-1.2,0.0) and ++(0.8,1.3) .. ++(-2.4,-2.8) .. controls ++(-0.5,-0.8) and ++(0.7,0.4) .. ++(-0.6,-2.9) .. controls ++(-0.6,-0.4) and ++(0.0,1.1) .. ++(-1.2,-1.9) .. controls ++(0.0,-1.0) and ++(0.0,1.0) .. ++(0.6,-2.4) .. controls ++(0.0,-1.0) and ++(-0.6,0.4) .. ++(0.6,-2.4) -- cycle ;
+			draw  (35.8,21.0) .. controls ++(8.5,8.5) and ++(0.0,0.0) .. ++(31.1,8.2) ;
+			
+			% U
+			\draw (26.5,9.0) .. controls ++(5.0,2.2) and ++(-3.1,-3.1) .. ++(11.6,3.6) .. controls ++(3.8,3.8) and ++(-6.1,0.9) .. ++(16.2,1.4) .. controls ++(8.0,-1.1) and ++(-3.9,0.1) .. ++(14.1,-3.8) .. controls ++(3.9,-0.1) and ++(-2.9,1.0) .. ++(8.2,-1.1) ;
+			\draw (28.3,9.6) .. controls ++(4.5,-1.8) and ++(-6.1,0.4) .. ++(18.4,-2.0) .. controls ++(20.0,-1.2) and ++(-2.8,-1.7) .. ++(28.4,1.8) ;
+			\draw (7.1,22.7) .. controls ++(5.8,5.2) and ++(-2.7,-5.4) .. ++(21.4,8.1) .. controls ++(3.8,7.7) and ++(-11.3,-1.1) .. ++(26.1,6.2) .. controls ++(13.1,1.3) and ++(-4.9,-1.1) .. ++(18.8,-1.7) .. controls ++(7.9,1.7) and ++(-6.1,4.6) .. ++(17.5,-11.5) .. controls ++(14.6,-11.0) and ++(15.6,3.7) .. ++(-9.0,-21.3) .. controls ++(-18.2,-4.3) and ++(15.5,-0.6) .. ++(-44.7,-0.8) .. controls ++(-10.0,0.4) and ++(9.2,-4.1) .. ++(-29.2,6.2) .. controls ++(-13.9,6.2) and ++(-5.5,-4.9) .. ++(-0.8,14.8) -- cycle ;
+			
+			%C
+			\draw [dotted] (38.0,53.2) .. controls ++(5.8,2.7) and ++(-6.5,0.7) .. ++(15.6,1.6) .. controls ++(6.1,-0.5) and ++(-2.3,1.1) .. ++(12.1,-2.0) ;
+			\draw [dotted] (39.0,53.6) .. controls ++(3.4,-1.1) and ++(-4.6,0.2) .. ++(9.1,-1.7) .. controls ++(11.6,-0.5) and ++(-2.2,-0.8) .. ++(16.3,1.4) ;
+			\draw [dotted] (17.6,59.0) .. controls ++(4.5,2.5) and ++(-2.1,-2.6) .. ++(16.5,4.0) .. controls ++(2.9,3.7) and ++(-5.9,-0.4) .. ++(19.6,2.9) .. controls ++(10.0,0.6) and ++(-3.8,-0.5) .. ++(14.2,-0.9) .. controls ++(6.0,0.9) and ++(-4.7,2.2) .. ++(13.8,-5.5) .. controls ++(11.2,-5.4) and ++(11.9,1.8) .. ++(-6.9,-10.4) .. controls ++(-13.9,-2.1) and ++(11.8,-0.3) .. ++(-33.4,-0.6) .. controls ++(-7.6,0.2) and ++(7.0,-2.0) .. ++(-23.2,3.2) .. controls ++(-10.6,3.0) and ++(-4.2,-2.4) .. ++(-0.6,7.2) -- cycle ;
+			\coordinate (u) at (35,19);
+			\coordinate (v) at (69,19);
+			\coordinate (w) at (69,29);
+			\coordinate (x) at (35,55);
+			\coordinate (y) at (69,55);
+			\draw [dashed,shorten <=1.35ex] (x) to (29.8,27.5);
+			\draw [dashed,shorten <=1.35ex] (x) to (38.8,30.0);
+			\draw [dashed,shorten <=1.35ex] (y) to (63.6,27.5);
+			\draw [dashed,shorten <=1.35ex] (y) to (74.1,32.3);
+			\fill (u) circle (0.45ex/\TikzScaleFactor) node[shift=(120:0.3)] {$u$};
+			\fill (v) circle (0.45ex/\TikzScaleFactor) node[shift=(30:0.3)] {$v$};
+			\fill (w) circle (0.45ex/\TikzScaleFactor) node[shift=(-30:0.32)] {$w$};
+			\fill (x) circle (0.45ex/\TikzScaleFactor) node[below=3] {$x$};
+			\fill (y) circle (0.45ex/\TikzScaleFactor) node[below=3] {$y$};
+			\begin{scope}[decoration={markings,mark=at position 0.5 with {\arrow{to}}}]
+				\draw[postaction={decorate}] ($(u) + (20:1.1ex/\TikzScaleFactor)$)  to[out=20,in=165] node[pos=0.5,above] {$\scriptstyle\varphi$} ($(v) + (165:1.1ex/\TikzScaleFactor)$);
+				\draw[postaction={decorate}] ($(u) + (50:1.1ex/\TikzScaleFactor)$)  to[out=50,in=170] node[pos=0.5] (mid) {} ($(w) + (170:1.1ex/\TikzScaleFactor)$);
+				\draw[postaction={decorate}] ($(v) + (90:1.1ex/\TikzScaleFactor)$)  to ($(w) + (-90:1.1ex/\TikzScaleFactor)$);
+				\draw[postaction={decorate}] ($(x) + (20:1.1ex/\TikzScaleFactor)$)  to[out=20,in=165] node[pos=0.5,below] {$\scriptstyle\alpha$} ($(y) + (165:1.1ex/\TikzScaleFactor)$);
+			\end{scope}			
+			\path (v) to node[pos=0.67] {$\scriptscriptstyle/\!/\!/$} (mid);
+			\node at (24,19) {$F(x)$};
+			\node at (81,24) {$F(y)$};
+			\node at (8,15) {$\Uu$};
+			\node at (20,55) {$\Cc$};
 		\end{tikzpicture}
 	\end{center}
 	But, of course, $\Uu$ shouldn't just be a disjoint union of some fibres. Instead, we need to capture somehow that the values $F(x)$ of the functor $F$ \enquote{vary functorially in $x$}. To do this, we connect every $u\in F(x)$ to its image $v\simeq F(\alpha)(u)$ by a new $1$-simplex $\varphi\colon u\rightarrow v$. Then we keep adding further simplices to make sure that the object we end up with is a quasi-category. For example, in our picture we have a morphism $v\rightarrow w$ in $F(y)$, so we have to add a $2$-simplex $\sigma\colon \Delta^2\rightarrow \Uu$ in such a way that $\sigma|_{\Delta^{\{0,2\}}}\colon u\rightarrow w$ is a composition of $\varphi$ and $v\rightarrow w$.
 	
-	To summarise, we've given some vague motivation why functors $F\colon \Cc\rightarrow\cat{Cat}_\infty$ should correspond to certain fibrations $p\colon \Uu\rightarrow \Cc$, in such a way that the values $F(x)$ correspond to the fibres $p^{-1}\{x\}$. Furthermore, we've motivated that for every $\alpha\colon x\rightarrow y$ in $\Cc$ and every $u\in p^{-1}\{x\}\simeq F(x)$, there should be a special $1$-simplex $\varphi\colon u\rightarrow v$ that connects $u$ to its image under $F(\alpha)$. Every other $1$-simplex from $u$ to an object in $p^{-1}\{y\}$ should arise as a composition with some morphism $v\rightarrow w$ in $p^{-1}\{y\}\simeq F(y)$. These vague ideas are captured in a precise sense by the following definition:
+	Here's a hopefully enlightening example. For any (not necessarily commutative ring) $R$ let $\cat{LMod}_R$ denote the category of left $R$-modules. Intuitively, we would expect that there exists a functor $\cat{LMod}_{(-)}$ which sends a ring $R$ to $\cat{LMod}_R$ and a morphism of rings $R\rightarrow R'$ to the base change functor $R'\otimes_R-\colon \cat{LMod}_R\rightarrow \cat{LMod}_{R'}$. However, $\cat{LMod}_{(-)}$ cannot take values in the category of categories $\cat{Cat}$. The problem is that $R''\otimes_{R'}(R'\otimes_R-)\simeq R''\otimes_R-$ only holds as an \emph{equivalence} of functors, but not as an \emph{equality}. In other words, $\cat{LMod}_{(-)}$ can only be a functor
+	\begin{equation*}
+		\cat{LMod}_{(-)}\colon \N(\cat{Ring})\longrightarrow \cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty
+	\end{equation*}
+	into the \emph{$2$-category of categories} from \cref{exm:CatAs2Category}, which is a full sub-quasi-category of $\cat{Cat}_\infty$.
+	
+	It's not clear how one would construct the functor $\cat{LMod}_{(-)}\colon \N(\cat{Ring})\rightarrow \cat{Cat}_\infty$ by hand. So instead, let's guess the fibration $p\colon \Uu\rightarrow \N(\cat{Ring})$ that corresponds to it. To this end, let $\cat{LMod}$ be the category of pairs $(R,M)$, where $R$ is a ring and $M$ is a left $R$-module. Morphisms $(R,M)\rightarrow (R',M')$ in $\cat{LMod}$ consist of a morphism of rings $R\rightarrow R'$ and a morphism of left $R'$-modules $R'\otimes_RM\rightarrow M'$. We claim that $p$ should precisely be the induced functor of quasi-categories
+	\begin{equation*}
+		p\colon \N(\cat{LMod})\longrightarrow \N(\cat{Ring})\,.
+	\end{equation*}
+	Note that the fibres of $p$ are $p^{-1}\{R\}\simeq \N(\{R\}\times_{\cat{Ring}}\cat{LMod})\simeq \N(\cat{LMod}_R)$ since $\N$ commutes with pullbacks. So the fibres indeed match up with the values of our desired functor. Moreover, the special $1$-simplices $\varphi$ from above occur naturally: Namely, for any $(R,M)\in\cat{LMod}$ and any $R\rightarrow R'$ there's a canonical morphism $\varphi\colon (R,M)\rightarrow (R',R'\otimes_RM)$ in $\cat{LMod}$. Any other morphism $(R,M)\rightarrow (R',M')$ can be written uniquely as a composition of $\varphi$ and a morphism $(R',R'\otimes_RM)\rightarrow (R',M')$ in $\cat{LMod}_{R'}$, so the corresponding $1$-simplex in $\N(\cat{LMod})$ is indeed given by adding a suitable $2$-simplex $\sigma\colon \Delta^2\rightarrow \N(\cat{LMod})$ as above.
+	
+	To summarise, we've given some motivation and an example that functors $F\colon \Cc\rightarrow\cat{Cat}_\infty$ should correspond to certain fibrations $p\colon \Uu\rightarrow \Cc$, in such a way that the values $F(x)$ correspond to the fibres $p^{-1}\{x\}$. Furthermore, we've seen that for every $\alpha\colon x\rightarrow y$ in $\Cc$ and every $u\in p^{-1}\{x\}\simeq F(x)$, there should be a special $1$-simplex $\varphi\colon u\rightarrow v$ that connects $u$ to its image under $F(\alpha)$. Every other $1$-simplex from $u$ to an object in $p^{-1}\{y\}$ should arise as a composition of $\varphi$ with some morphism $v\rightarrow w$ in $p^{-1}\{y\}\simeq F(y)$.
 \end{numpar}
+
+ These vague ideas are captured in a precise sense by the following definition:
+
 \begin{defi}\label{def:Cocartesian}
 	Let $p\colon \Uu\rightarrow\Cc$ be an inner fibration of quasi-categories.
 	\begin{alphanumerate}
@@ -1627,6 +1638,11 @@ We've seen in~\cref{par:HomInQuasiCategories} how to construct the $\Hom$ animae
 	\end{alphanumerate}
 	There are dual notions of \emph{$p$-cartesian morphisms} and \emph{cartesian fibrations}, in which we use $\Delta^{\{n-1,n\}}\subseteq \Lambda_n^n\rightarrow \Delta^n$ and $\{1\}\rightarrow \Delta^1$ instead.
 \end{defi}
+%\begin{numpar}[More informal motivation]
+%	Suppose $\varphi\colon u\rightarrow v$ is a $p$-cocartesian morphism in $\Uu$, lying over a morphism $\alpha\colon x\rightarrow y$ in $\Cc$. Let $\sigma\colon \Lambda_0^2\rightarrow \Uu$ be a horn such that $\Delta^{\{0,1\}}\subseteq \Lambda_0^2$ is sent to $\varphi$. Let $\psi\colon u\rightarrow w$ be the image of $\Delta^{\{0,2\}}\subseteq \Lambda_0^2$. As we've explained in \cref{par:StraighteningMotivation}, $\psi$ needs to be the composition of $\varphi$ with some morphism $v\rightarrow w$ in $p^{-1}\{y\}$. If we choose a $2$-simplex $\ov\sigma\colon \Delta^2\rightarrow \Uu$ that witnesses $\psi$ being the composition of $\varphi$ and $v\rightarrow w$, then $\ov\sigma$ is a filler for the horn $\sigma$. This shows that the horn lifting problem from \cref{def:Cocartesian}\cref{enum:CocartesianMorphism} can be solved, at least in this special case for $n=2$. 
+%\end{numpar}
+
+
 It's easy to identify those cocartesian fibrations that correspond to functors $F\colon \Cc\rightarrow \cat{An}$.
 \begin{lem}[\enquote{Left fibrations are cocartesian fibrations whose fibres are animae}]\label{lem:CocartesianLeft}
 	For a cocartesian fibration $p\colon \Uu\rightarrow\Cc$, the following conditions are equivalent:
@@ -1654,7 +1670,7 @@ It's easy to identify those cocartesian fibrations that correspond to functors $
 	such that $\sigma=\ov\sigma\circ d_1$ (note that $d_1$ maps $\Delta^{\{0,1\}}$ to $\Delta^{\{0,2\}}$, so $\varphi$ is now the image of $\Delta^{\{0,2\}}$ under $\ov\sigma$). Since $p$ is an inner fibration, we'll be able to solve the new lifting problem and get a solution for our original one.
 	
 	
-	Let's construct $\ov\sigma$! By \cref{def:Cocartesian}\cref{enum:CocartesianFibration}, applied to $p(\varphi)\colon \Delta^1\rightarrow \Cc$, we can choose a $p$-cocartesian morphism $\varphi'\colon u\rightarrow v'$ such that $v'\in p^{-1}\{p(v)\}$. By \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, applied to a suitable $\Lambda_0^2\rightarrow \Uu$, we can find a morphism $\psi\colon v'\rightarrow v$ such that $\varphi\simeq \psi\circ \varphi'$. Note that $\psi$ is an equivalence since $p^{-1}\{p(v)\}$ is an anima by assumption. Now we construct $\ov\sigma$ piece by piece. We put $\ov\sigma|_{d_1(\Lambda_0^n)}\coloneqq \sigma$ and we send $\{1\}$ to $v'$ as well as $\Delta^{\{0,1\}}$ to $\varphi'$. Furthermore, we send $\Delta^{\{0,1,2\}}$ to the $2$-simplex witnessing $\varphi\simeq \psi\circ \varphi'$. The rest of $\Lambda_1^{n+1}\smallsetminus (d_1(\Lambda_0^n)\cup \Delta^{\{0,1,2\}})$ can be filled by a sequence of horn filling problems in which either the first edge is $\varphi'$, so a filler exists by \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, or the first edge is $\psi\colon v\rightarrow v'$, so a filler exists by Joyal's lifting theorem (\cref{thm:JoyalLifting}) since $\psi$ is an equivalence. As usual, we skip the horn filling combinatorics.
+	Let's construct $\ov\sigma$! By \cref{def:Cocartesian}\cref{enum:CocartesianFibration}, applied to $p(\varphi)\colon \Delta^1\rightarrow \Cc$, we can choose a $p$-cocartesian morphism $\varphi'\colon u\rightarrow v'$ such that $v'\in p^{-1}\{p(v)\}$. By \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, applied to a suitable $\Lambda_0^2\rightarrow \Uu$, we can find a morphism $\psi\colon v'\rightarrow v$ such that $\varphi\simeq \psi\circ \varphi'$. Note that $\psi$ is an equivalence since $p^{-1}\{p(v)\}$ is an anima by assumption. Now we construct $\ov\sigma$ piece by piece. We put $\ov\sigma|_{d_1(\Lambda_0^n)}\coloneqq \sigma$ and we send $\{1\}$ to $v'$ as well as $\Delta^{\{0,1\}}$ to $\varphi'$. Furthermore, we send $\Delta^{\{0,1,2\}}$ to a $2$-simplex witnessing $\varphi\simeq \psi\circ \varphi'$. The rest of $\Lambda_1^{n+1}\smallsetminus (d_1(\Lambda_0^n)\cup \Delta^{\{0,1,2\}})$ can be filled by a sequence of horn filling problems in which either the first edge is $\varphi'$, so a filler exists by \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, or the first edge is $\psi\colon v\rightarrow v'$, so a filler exists by Joyal's lifting theorem (\cref{thm:JoyalLifting}) since $\psi$ is an equivalence. As usual, we skip the horn filling combinatorics.
 \end{proof}
 We can now state the straightening/unstraightening equivalence. As was, unfortunately, clear from the beginning, we won't give a proof here. The most readable proof available is probably due to Gijs Heuts \cite{HeutsStraightening} with contributions by Fabian Hebestreit and Jaco Ruit, building on previous work by Cisinski and Nguyen. Lurie's original proof can be found in \cite[\S\href{https://people.math.harvard.edu/~lurie/papers/HTT.pdf\#section.3.2}{3.2}]{HTT}. There's also another approach by Cisinski \cite{Cisinski} in which straightening/unstraightening is much easier to obtain, but much more work is needed to identify $\cat{An}\subseteq \cat{Cat}_\infty$ with the full sub-quasi-category spanned by the Kan complexes.
 \begin{thm}[Straightening/unstraightening]\label{thm:Straightening}
@@ -1662,25 +1678,34 @@ We can now state the straightening/unstraightening equivalence. As was, unfortun
 	\begin{alphanumerate}
 		\item Let $\cat{Cocart}(\Cc)\subseteq\cat{Cat}_{\infty/\Cc}$ be the \embrace{non-full!} sub-quasi-category spanned by cocartesian fibrations over $\Cc$ and those maps that preserve cocartesian morphisms \embrace{see \cref{par:SubQuasiCategories}}. Then there are inverse equivalences of quasi-categories\label{enum:CocartesianStraightening}
 		\begin{equation*}
-			\operatorname{St}^{(\mathrm{cocart})}\colon \cat{Cocart}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{Cat}_\infty)\noloc \operatorname{Un}^{(\mathrm{cocart})}\vphantom{\overset{\simeq}{\overline{x}}}
+			\operatorname{St}^{\mathrm{cocart}}\colon \cat{Cocart}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{Cat}_\infty)\noloc \operatorname{Un}^{\mathrm{cocart}}\vphantom{\overset{\simeq}{\overline{x}}}
 		\end{equation*}
-		called \enquote{straightening} and \enquote{unstraightening}. For a cocartesian fibration $p\colon \Uu\rightarrow \Cc$, the value of $\operatorname{St}^{(\mathrm{cocart})}(p)\colon \Cc\rightarrow\cat{Cat}_\infty$ at $x\in \Cc$ is given by the fibre $p^{-1}\{x\}$. Furthermore, $F\colon \Cc\rightarrow \Dd$ is a functor, then the unstraightening equivalence sends the precomposition functor $-\circ F\colon \F(\Dd,\cat{Cat}_\infty)\rightarrow \F(\Cc,\cat{Cat}_\infty)$ to the pullback $F^*\colon \cat{Cocart}(\Dd)\rightarrow\cat{Cocart}(\Cc)$.
+		called \enquote{straightening} and \enquote{unstraightening}. For a cocartesian fibration $p\colon \Uu\rightarrow \Cc$, the value of $\operatorname{St}^{\mathrm{cocart}}(p)\colon \Cc\rightarrow\cat{Cat}_\infty$ at $x\in \Cc$ is given by the fibre $p^{-1}\{x\}$. Furthermore, $F\colon \Cc\rightarrow \Dd$ is a functor, then the unstraightening equivalence sends the precomposition functor $-\circ F\colon \F(\Dd,\cat{Cat}_\infty)\rightarrow \F(\Cc,\cat{Cat}_\infty)$ to the pullback $F^*\colon \cat{Cocart}(\Dd)\rightarrow\cat{Cocart}(\Cc)$.
 		\item Let $\cat{Left}(\Cc)\subseteq \cat{Cat}_{\infty/\Cc}$ be the full sub-quasi-category spanned by the left fibrations over $\Cc$ \embrace{see \cref{par:SubQuasiCategories}}. Then the equivalences from \cref{enum:CocartesianStraightening} restrict to equivalences\label{enum:LeftStraightening}
 		\begin{equation*}
-			\operatorname{St}^{(\mathrm{left})}\colon \cat{Left}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{An})\noloc \operatorname{Un}^{(\mathrm{left})}\vphantom{\overset{\simeq}{\overline{x}}}\,.
+			\operatorname{St}^{\mathrm{left}}\colon \cat{Left}(\Cc) \underset{\simeq}{\overset{\simeq}{\doublelrmorphism}}\F(\Cc,\cat{An})\noloc \operatorname{Un}^{\mathrm{left}}\vphantom{\overset{\simeq}{\overline{x}}}\,.
 		\end{equation*}
 	\end{alphanumerate}
 	Dually, there are equivalences $\cat{Cart}(\Cc)\simeq \F(\Cc^\op,\cat{Cat}_\infty)$ and $\cat{Right}(\Cc)\simeq \F(\Cc^\op,\cat{An})$. Here $\Cc^\op$ is the opposite quasi-category from \cref{par:Opposite}.\hfill$\blacksquare$
 \end{thm}
-Most of the time, one can treat \cref{thm:Straightening} as a black box and work purely with the statement, without knowing how exactly and we don't need to know how exactly the functors $\operatorname{St}^{(\mathrm{cocart})}$ and $\operatorname{Un}^{(\mathrm{cocart})}$ are constructed! 
+Most of the time, one can treat \cref{thm:Straightening} as a black box and work purely with the statement, without knowing how exactly and we don't need to know how exactly the functors $\operatorname{St}^{\mathrm{cocart}}$ and $\operatorname{Un}^{\mathrm{cocart}}$ are constructed! 
 
-Still, we'll spend the rest of \cref{subsec:Straightening} to give you some idea how the construction works. In \cref{par:StraighteningOnMorphisms}, we'll explain the effect of straightening on morphisms. After that, we'll discuss two (hopefully enlightening) classical examples in the language of straightening/unstraightening in~\cref{par:Stacks} and~\cref{par:Coverings}. But let's begin by giving some examples.
+Still, we'll spend the rest of \cref{subsec:Straightening} to give you some idea how the construction works. We'll start with a few examples that will become very relevant in~\labelcref{exm:Straightening}. After that, we'll explain the effect of straightening on morphisms and discuss two classical examples in~\cref{par:Stacks} and~\cref{par:Coverings}.
+
 \begin{exm}\label{exm:Straightening}
 	Let $\Cc$ be a quasi-category. The following are examples of cocartesian fibrations and their unstraightenings.
 	\begin{alphanumerate}
 		\item For every quasi-category $\Dd$, the unique functor $\Dd\rightarrow *$ is a cocartesian fibrations, with the cocartesian morphisms given by the equivalences in $\Dd$. This is an easy application of Joyal's lifting theorem (\cref{thm:JoyalLifting}). Furthermore, since cocartesian fibrations are clearly preserved under pullbacks, we see that $\pr_2\colon \Dd\times \Cc\rightarrow\Cc$ is a cocartesian fibration for every quasi-category $\Cc$. The $\pr_2$-cocartesian morphisms in $\Dd\times\Cc$ are precisely those that are equivalences in the $\Dd$-component. The straightening of $\pr_2\colon \Dd\times \Cc\rightarrow\Cc$ is the constant functor $\const \Dd\colon \Cc\rightarrow \cat{Cat}_\infty$; this follows from the pullback statement in \cref{thm:Straightening}\cref{enum:CocartesianStraightening}, but it's probably also pretty clear intuitively.\label{enum:ProjectionsStraightenToConstantFunctors}
-		\item For every $x\in \Cc$, we've seen in \cref{cor:HomAnima} that $t\colon \Cc_{x/}\rightarrow \Cc$ is even a left fibration. The fibre of $t$ over $y\in\Cc$ is $\Hom_\Cc(x,y)$ by \cref{par:HomInQuasiCategories}, so we can use the straightening of $t$ as our definition of the Hom functor $\Hom_\Cc(x,-)\colon \Cc\rightarrow \cat{An}$. Analogously, the dual construction $s\colon \Cc_{/y}\rightarrow \Cc$ is a right fibration and its cartesian straightening is, by definition, the contravariant Hom functor $\Hom_\Cc(-,y)\colon \Cc^\op\rightarrow \cat{An}$. This still leaves the question how to construct the two-variable Hom functor $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$, which we'll discuss in \cref{con:HomInTwoVariables,con:HomTwAr} below.\label{enum:SliceLeftFibration}
-		\item The target projection $t\colon \Ar(\Cc)\rightarrow \Cc$ from \cref{par:HomInQuasiCategories} is a cocartesian fibration, and its is our definition of the functor $\Cc_{/-}\colon \Cc\rightarrow\cat{Cat}_\infty$ that sends $x\in\Cc$ to the slice quasi-category $\Cc_{/x}$. A morphism $\varphi\colon (\alpha\colon u\rightarrow u')\rightarrow (\beta\colon v\rightarrow v')$ in $\Ar(\Cc)$, that is, a commutative diagram\label{enum:ArCocartesianFibration}
+		\item For every $x\in \Cc$, we've seen in \cref{cor:HomAnima} that $t\colon \Cc_{x/}\rightarrow \Cc$ is even a left fibration. The fibre of $t$ over $y\in\Cc$ is $\Hom_\Cc(x,y)$ by \cref{par:HomInQuasiCategories}, so we can use the straightening of $t$ as our definition of the Hom functor 
+		\begin{equation*}
+			\Hom_\Cc(x,-)\colon \Cc\longrightarrow \cat{An}\,.
+		\end{equation*}
+		Analogously, the dual construction $s\colon \Cc_{/y}\rightarrow \Cc$ is a right fibration and its cartesian straightening is, by definition, the contravariant Hom functor $\Hom_\Cc(-,y)\colon \Cc^\op\rightarrow \cat{An}$. This still leaves the question how to construct the two-variable Hom functor $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$, which we'll discuss in \cref{con:HomInTwoVariables,con:HomTwAr} below.\label{enum:SliceLeftFibration}
+		\item The target projection $t\colon \Ar(\Cc)\rightarrow \Cc$ from \cref{par:HomInQuasiCategories} is a cocartesian fibration, and its is our definition of the functor
+		\begin{equation*}
+			\Cc_{/-}\colon \Cc\longrightarrow\cat{Cat}_\infty
+		\end{equation*}
+		that sends $x\in\Cc$ to the slice quasi-category $\Cc_{/x}$. A morphism $\varphi\colon (\alpha\colon u\rightarrow u')\rightarrow (\beta\colon v\rightarrow v')$ in $\Ar(\Cc)$, that is, a commutative diagram\label{enum:ArCocartesianFibration}
 		\begin{equation*}
 			\begin{tikzcd}
 				u\rar\dar["\alpha"']\drar[commutes] & v\dar["\beta"]\\
@@ -1690,16 +1715,21 @@ Still, we'll spend the rest of \cref{subsec:Straightening} to give you some idea
 		in $\Cc$, is $t$-cocartesian if and only if $u\rightarrow v$ is an equivalence in $\Cc$. Proving this is a somewhat subtle and will lead us on a detour in \cref{subsec:HomotopyPullbacks}. One way to see the \enquote{if}-part (which is the difficult part) would be to reformulate a lifting problem for $t$ against $\Lambda_0^n\rightarrow \Delta^n$ into a lifting problem for $\Cc\rightarrow *$ against $\Lambda_0^n\times \Delta^1\sqcup_{\Lambda_0^n\times\{1\}}\Delta^n\times\{1\}\rightarrow \Delta^n\times\Delta^1$, as in the proof of \cref{cor:FKanFibration}. Then one proves, using Joyal's lifting problem (\cref{thm:JoyalLifting}), that a lifting problem of the latter kind is always solvable if the original lifting problem maps $\Delta^{\{0,1\}}\subseteq\Lambda_0^n$ to a morphism $\varphi$ as above.
 		
 		However, a much nicer proof of the \enquote{if}-part  is provided by \cref{lem:HomInArrowCategories} and \cref{lem:CocartesianMorphisms} below (except that there are some black boxes involved \ldots). For the \enquote{only if}-part, it's enough to write down the correct lifting diagrams; we leave this to you.
+		\item In the example from~\cref{par:StraighteningMotivation}, it's not hard to show that $p\colon \N(\cat{LMod})\longrightarrow \N(\cat{Ring})$ is a cocartesian fibration (compare the arguments in~\cref{par:Stacks} below). Cocartesian lifts of a morphism $R\rightarrow R'$ have the form $(R,M)\rightarrow (R',R'\otimes_RM)$. In particular, we can define a functor 
+		\begin{equation*}
+			\cat{LMod}_{(-)}\colon \cat{Ring}\longrightarrow \cat{Cat}_\infty
+		\end{equation*}
+		as the straightening of the cocartesian fibration $\N(\cat{LMod})\rightarrow \N(\cat{Ring})$. As we've already seen in~\cref{par:StraighteningMotivation}, the fibres are given by $\N(\cat{LMod}_R)$. These are nerves of $1$-categories and so $\cat{LMod}_{(-)}$ factors through $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$, as desired.
 	\end{alphanumerate}
 \end{exm}
 \begin{numpar}[Straightening/unstraightening on morphisms]\label{par:StraighteningOnMorphisms}
-	Suppose we're given a cocartesian fibration $p\colon \Uu\rightarrow \Cc$ and let $F\colon \Cc\rightarrow \cat{Cat}_\infty$ be its straightening. We know what $F$ does on objects: It sends $x\in \Cc$ to the fibre $p^{-1}\{x\}$. We'll now explain what $F$ does on morphisms. To this end, let $\Ar^{(\mathrm{cocart})}(\Uu)\subseteq \Ar(\Uu)$ denote the full sub-quasi-category spanned by the $p$-cocartertesian morphisms. Then 
+	Suppose we're given a cocartesian fibration $p\colon \Uu\rightarrow \Cc$ and let $F\colon \Cc\rightarrow \cat{Cat}_\infty$ be its straightening. We know what $F$ does on objects: It sends $x\in \Cc$ to the fibre $p^{-1}\{x\}$. We'll now explain what $F$ does on morphisms. To this end, let $\Ar^{\mathrm{cocart}}(\Uu)\subseteq \Ar(\Uu)$ denote the full sub-quasi-category spanned by the $p$-cocartertesian morphisms. Then 
 	\begin{equation*}
-		\Ar^{(\mathrm{cocart})}(\Uu)\longrightarrow \Ar(\Cc)\times_{s,\Cc}\Uu
+		\Ar^{\mathrm{cocart}}(\Uu)\longrightarrow \Ar(\Cc)\times_{s,\Cc}\Uu
 	\end{equation*}
-	is a trivial fibration.\footnote{Intuitively, this says that given a morphism $\alpha\colon x\rightarrow y$ in $\Cc$ and an object $u\in p^{-1}\{x\}$, then lifting $\alpha$ to a $p$-cocartesian morphism $\varphi\colon u\rightarrow v$ can not only be done, but even in a unique way (up to contractible ambiguity). This fits perfectly into the picture from \cref{par:StraighteningMotivation}: Such a $p$-cocartesian lift $\varphi$ connects $u\in p^{-1}\{x\}\simeq F(x)$ to its image under $F(\alpha)\colon F(x)\rightarrow F(y)$. So $\varphi$ should be unique.} To see this, first consider the case where $p$ is a left fibration. Then $\Ar^{(\mathrm{cocart})}(\Uu)= \Ar(\Uu)$ by \cref{lem:CocartesianLeft}\cref{enum:EveryMorphismCocartesian}. Furthermore, $\{0\}\rightarrow \Delta^1$ is left anodyne. Hence the map above is a trivial fibration by \cref{cor:FKanFibration}. In general, we can adapt the proof of \cref{cor:FKanFibration} to show that $\Ar^{(\mathrm{cocart})}(\Uu)\rightarrow \Ar(\Cc)\times_{s,\Cc}\Uu$ has lifting against $\partial\Delta^n\rightarrow\Delta^n$: Rewrite such a lifting problem as a lifting problem for $p\colon \Uu\rightarrow \Cc$ against $\partial\Delta^n\times\Delta^1\sqcup_{\partial\Delta^n\times\{0\}}\Delta^n\times\{0\}\rightarrow \Delta^n\times\Delta^1$. The latter is a sequence of horn lifting problems, each of which can be solved either because $p$ is an inner fibration or by employing \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}.%As usual, we skip the simplicial combinatorics.
+	is a trivial fibration.\footnote{Intuitively, this says that given a morphism $\alpha\colon x\rightarrow y$ in $\Cc$ and an object $u\in p^{-1}\{x\}$, then lifting $\alpha$ to a $p$-cocartesian morphism $\varphi\colon u\rightarrow v$ can not only be done, but even in a unique way (up to contractible ambiguity). This fits perfectly into the picture from \cref{par:StraighteningMotivation}: Such a $p$-cocartesian lift $\varphi$ connects $u\in p^{-1}\{x\}\simeq F(x)$ to its image under $F(\alpha)\colon F(x)\rightarrow F(y)$. So $\varphi$ should be unique.} To see this, first consider the case where $p$ is a left fibration. Then $\Ar^{\mathrm{cocart}}(\Uu)= \Ar(\Uu)$ by \cref{lem:CocartesianLeft}\cref{enum:EveryMorphismCocartesian}. Furthermore, $\{0\}\rightarrow \Delta^1$ is left anodyne. Hence the map above is a trivial fibration by \cref{cor:FKanFibration}. In general, we can adapt the proof of \cref{cor:FKanFibration} to show that $\Ar^{\mathrm{cocart}}(\Uu)\rightarrow \Ar(\Cc)\times_{s,\Cc}\Uu$ has lifting against $\partial\Delta^n\rightarrow\Delta^n$: Rewrite such a lifting problem as a lifting problem for $p\colon \Uu\rightarrow \Cc$ against $\partial\Delta^n\times\Delta^1\sqcup_{\partial\Delta^n\times\{0\}}\Delta^n\times\{0\}\rightarrow \Delta^n\times\Delta^1$. The latter is a sequence of horn lifting problems, each of which can be solved either because $p$ is an inner fibration or by employing \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}.%As usual, we skip the simplicial combinatorics.
 	
-	Given a morphism $\alpha\colon x\rightarrow y$ in $\Cc$, we can now give the desired description of the functor $F(\alpha)\colon p^{-1}\{x\}\rightarrow p^{-1}\{y\}$ as follows: Pull back $\Ar^{(\mathrm{cocart})}(\Uu)\rightarrow \Ar(\Cc)\times_{s,\Cc}\Uu$ along $\{\alpha\}\rightarrow \Ar(\Cc)$ to obtain a trivial fibration $\{\alpha\}\times_{\Ar(\Cc)}\Ar(\Uu)\rightarrow \{\alpha\}\times_{s,\Cc}\Uu\cong \{x\}\times_\Cc\Uu\cong p^{-1}\{x\}$. Every trivial fibration admits a section. By choosing such a section and composing with the target projections $t\colon \Ar(\Uu)\rightarrow \Uu$ and $t\colon \Ar(\Cc)\rightarrow \Cc$, we obtain (up to natural equivalence) the desired functor
+	Given a morphism $\alpha\colon x\rightarrow y$ in $\Cc$, we can now give the desired description of the functor $F(\alpha)\colon p^{-1}\{x\}\rightarrow p^{-1}\{y\}$ as follows: Pull back $\Ar^{\mathrm{cocart}}(\Uu)\rightarrow \Ar(\Cc)\times_{s,\Cc}\Uu$ along $\{\alpha\}\rightarrow \Ar(\Cc)$ to obtain a trivial fibration $\{\alpha\}\times_{\Ar(\Cc)}\Ar(\Uu)\rightarrow \{\alpha\}\times_{s,\Cc}\Uu\cong \{x\}\times_\Cc\Uu\cong p^{-1}\{x\}$. Every trivial fibration admits a section. By choosing such a section and composing with the target projections $t\colon \Ar(\Uu)\rightarrow \Uu$ and $t\colon \Ar(\Cc)\rightarrow \Cc$, we obtain (up to natural equivalence) the desired functor
 	\begin{equation*}
 		F(\alpha)\colon p^{-1}\{x\}\longrightarrow \{\alpha\}\times_{\Ar(\Cc)}\Ar(\Uu)\overset{t}{\longrightarrow} \{y\}\times_{\Cc}\Uu\cong p^{-1}\{y\}\,.
 	\end{equation*}	
@@ -1708,12 +1738,14 @@ Still, we'll spend the rest of \cref{subsec:Straightening} to give you some idea
 \begin{numpar}[Straightening/unstraightening and stacks]\label{par:Stacks}
 	We'll briefly explain the relation between \cref{thm:Straightening} and the language of stacks from algebraic geometry. If you already know stacks, this will hopefully make \cref{thm:Straightening} less mysterious. If you'd like to learn about stacks, this remark will hopefully make the literature on stacks less mysterious. If you don't care about stacks at all, you can safely skip this remark.
 	
-	In algebraic geometry, one is naturally lead to functors whose values should be groupoids. For example, given a scheme $S$ and a group scheme $G$ acting on $S$, one would like to study the functor $[S/G]\colon (\cat{Sch}_{/S})^\op\rightarrow \cat{Grpd}$ that sends any scheme $X$ over $S$ to the groupoid of $G_X$-torsors, where $G_X\coloneqq G\times_SX$ is the base change of $G$ to $X$. A morphism $f\colon X\rightarrow Y$ in $\cat{Sch}_{/S}$ should be sent to the pullback functor $f^*\colon \{G_Y\text{-torsors}\}\rightarrow \{G_X\text{-torsors}\}$. Here one quickly runs into a problem: If $g\colon Y\rightarrow Z$ is another morphism in $\cat{Sch}_{/S}$, then the associated pullback functors come with a natural \emph{equivalence} $f^*\circ g^*\simeq (g\circ f)^*$, but that equivalence is not an \emph{equality}. So $[S/G]$ can't exist as a functor $[S/G]\colon (\cat{Sch}_{/S})^\op\rightarrow \cat{Grpd}$ into the category of groupoids; instead, it's a functor
+	In algebraic geometry, one is naturally lead to functors whose values should be groupoids. For example, given a scheme $S$ and a group scheme $G$ acting on $S$, one would like to study the functor $[S/G]\colon (\cat{Sch}_{/S})^\op\rightarrow \cat{Grpd}$ that sends any scheme $X$ over $S$ to the groupoid of $G_X$-torsors, where $G_X\coloneqq G\times_SX$ is the base change of $G$ to $X$. A morphism $f\colon X\rightarrow Y$ in $\cat{Sch}_{/S}$ should be sent to the pullback functor $f^*\colon \{G_Y\text{-torsors}\}\rightarrow \{G_X\text{-torsors}\}$. Here we run into a similar problem as in \cref{par:StraighteningMotivation}: If $g\colon Y\rightarrow Z$ is another morphism in $\cat{Sch}_{/S}$, then the associated pullback functors come with a natural \emph{equivalence} $f^*\circ g^*\simeq (g\circ f)^*$, but that equivalence is not an \emph{equality}. So $[S/G]$ can't exist as a functor $[S/G]\colon (\cat{Sch}_{/S})^\op\rightarrow \cat{Grpd}$ into the category of groupoids; instead, it's a functor
 	\begin{equation*}
 		[S/G]\colon \N\left(\cat{Sch}_{/S}\right)^\op\longrightarrow \cat{Grpd}^{(2)}
 	\end{equation*}
-	into the \emph{$2$-category of groupoids} as introduced in \cref{exm:CatAs2Category}. The ancient algebraic geometers didn't have the language to deal with functors into a $2$-category, but they made do with the tools of their time: They instead constructed a functor $p\colon \Uu\rightarrow \cat{Sch}_{/S}$ in such a way that $\N(p)\colon \N(\Uu)\rightarrow \N(\cat{Sch}_{/S})$ is a right fibration whose straightening $\operatorname{St}^{(\mathrm{right})}(\N(p))\simeq [S/G]$ is the functor above.%
-	\footnote{\label{footnote:UnstraighteningOrdinaryCategory}It's not a coincidence that the unstraightening of $[S/G]$ is the nerve of an ordinary category. Let $\Cc$ be any ordinary category, let $F\colon \N(\Cc)^\op\rightarrow \cat{Cat}_\infty$ be any functor that lands in the full sub-quasi-category $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$ from \cref{exm:CatAs2Category}, and let $p\colon \Uu\rightarrow\N(\Cc)$ be the cartesian unstraightening of $F$. Then $\Uu$ is equivalent to the nerve of an ordinary category. We'll give a sketch of the proof, which uses the notion of \emph{homotopy pullbacks} from \cref{subsec:HomotopyPullbacks}. First, it's enough to show that $\Hom_\Uu(u,v)$ is a discrete anima for all $u,v\in \Uu$, because then the essentialy surjective functor $u_\Uu\colon \Uu\rightarrow \N(\operatorname{ho}(\Uu))$ (given by the unit of the adjunction $\operatorname{ho}\dashv \N$) is also fully faithful, hence an equivalence by \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective}. To prove that $\Hom_\Uu(u,v)$ is discrete, observe that we have a map $\Hom_\Uu(u,v)\rightarrow \Hom_{\N(\Cc)}(p(u),p(v))$. Since the target is a discrete anima, the source $\Hom_\Uu(u,v)$ is a disjoint union of the fibres of this map. So it's enough to show that each individual fibre is a discrete anima. Restricting to the fibre over $\alpha\in\Hom_{\N(\Cc)}(p(u),p(v))$ amounts to base changing along the map $\alpha\colon \Delta^1\rightarrow \N(\Cc)$. So we may assume $\N(\Cc)\cong \Delta^1$.
+	into the \emph{$2$-category of groupoids} as introduced in \cref{exm:CatAs2Category}.
+	
+	The ancient algebraic geometers didn't have the language to deal with functors into a $2$-category, but they made do with the tools of their time: They instead constructed a functor $p\colon \Uu\rightarrow \cat{Sch}_{/S}$ in such a way that $\N(p)\colon \N(\Uu)\rightarrow \N(\cat{Sch}_{/S})$ is a right fibration whose straightening $\operatorname{St}^{\mathrm{right}}(\N(p))\simeq [S/G]$ is the functor above.%
+	\footnote{\label{footnote:UnstraighteningOrdinaryCategory}It's not a coincidence that the unstraightening of $[S/G]$ is the nerve of an ordinary category. Let $\Cc$ be any ordinary category, let $F\colon \N(\Cc)^\op\rightarrow \cat{Cat}_\infty$ be any functor that lands in the full sub-quasi-category $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$ from \cref{exm:CatAs2Category}, and let $p\colon \Uu\rightarrow\N(\Cc)$ be the cartesian unstraightening of $F$. Then $\Uu$ is equivalent to the nerve of an ordinary category. We'll give a sketch of the proof, which uses the notion of \emph{homotopy pullbacks} from \cref{subsec:HomotopyPullbacks}. First, it's enough to show that $\Hom_\Uu(u,v)$ is a discrete anima for all $u,v\in \Uu$, because then the essentialy surjective functor $u_\Uu\colon \Uu\rightarrow \N(\ho(\Uu))$ (given by the unit of the adjunction $\ho\dashv \N$) is also fully faithful, hence an equivalence by \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective}. To prove that $\Hom_\Uu(u,v)$ is discrete, observe that we have a map $\Hom_\Uu(u,v)\rightarrow \Hom_{\N(\Cc)}(p(u),p(v))$. Since the target is a discrete anima, the source $\Hom_\Uu(u,v)$ is a disjoint union of the fibres of this map. So it's enough to show that each individual fibre is a discrete anima. Restricting to the fibre over $\alpha\in\Hom_{\N(\Cc)}(p(u),p(v))$ amounts to base changing along the map $\alpha\colon \Delta^1\rightarrow \N(\Cc)$. So we may assume $\N(\Cc)\cong \Delta^1$.
 	
 	Now $\{0\}\rightarrow \Delta^1$ is fully faithful. Hence, if $\Uu_0\coloneqq \{0\}\times_{\Delta^1}\Uu$ denotes the fibre over $0$, then $\Uu_0\rightarrow \Uu$ is fully faithful too. But $\Uu_0$ is also equivalent to the nerve of an ordinary category, because we assume our original functor $F$ takes values in $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$. So if $u,v\in \Uu_0$, then $\Hom_\Uu(u,v)\simeq \Hom_{\Uu_0}(u,v)$ is a discrete anima. The same reasoning applies if $u$ and $v$ both belong to the fibre over $1$. If $p(u)=1$ and $p(v)=0$, then the map $\Hom_\Uu(u,v)\rightarrow \Hom_{\Delta^1}(1,0)\simeq\emptyset$ forces $\Hom_\Uu(u,v)\simeq \emptyset$, which is discrete too. It remains to deal with the case $p(u)=0$ and $p(v)=1$. After choosing a $p$-cartesian lift $\varphi\colon u'\rightarrow v$ of $0\rightarrow 1$, the dual of \cref{lem:CocartesianMorphisms} below provides a homotopy pullback
 	\begin{equation*}
@@ -1726,9 +1758,9 @@ Still, we'll spend the rest of \cref{subsec:Straightening} to give you some idea
 	Explicitly, $\Uu$ is the category of pairs $(X,\Pp)$, where $X\in\cat{Sch}_{/S}$ and $\Pp$ is a $G_X$-torsor. Morphisms $(X,\Pp)\rightarrow (Y,\Qq)$ in $\Uu$ are pairs $(f,\alpha)$ where $f\colon X\rightarrow Y$ is a morphism in $\cat{Sch}_{/S}$ and $\alpha\colon f^*\Qq\overset{\simeq}{\longrightarrow}\Pp$ is an isomorphism of $G_X$-torsors.
 	See \cite[Example~8.1.10]{OlssonStacks} or \cite[\stackstag{036Z}]{Stacks}.
 	
-	More generally, a \emph{fibred category} is a functor $p\colon \Uu\rightarrow \Cc$ of ordinary categories such that $\N(p)\colon \N(\Uu)\rightarrow\N(\Cc)$ is a cartesian fibration.\footnote{It follows from the uniqueness statement in \cref{lem:LiftingConditions}\cref{enum:LiftingN} that any map between nerves of ordinary categories is automatically an inner fibration. So to check whether such a map is a cartesian fibration, it's enough to show the existence of cartesian lifts.} The classical definition of cartesian morphisms, see \cite[Definition~3.1.1]{OlssonStacks} or \cite[\stackstag{02XK}]{Stacks}, differs from \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, but it's still equivalent, as we'll see in \cref{lem:CocartesianMorphisms}. By \cref{thm:Straightening}, the data of a fibred category defines a functor $\operatorname{St}^{(\mathrm{cart})}\colon \N(\Cc)^\op\rightarrow \cat{Cat}_\infty$, which necessarily factors through the full sub-quasi-category $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$ from \cref{exm:CatAs2Category}, because the fibres of $\N(p)\colon \N(\Uu)\rightarrow\N(\Cc)$ must be nerves of ordinary categories again, Conversely, we show in footnote~\cref{footnote:UnstraighteningOrdinaryCategory} below that the unstraightening of such a functor is necessarily the nerve of an ordinary category.
+	More generally, a \emph{fibred category} is a functor $p\colon \Uu\rightarrow \Cc$ of ordinary categories such that $\N(p)\colon \N(\Uu)\rightarrow\N(\Cc)$ is a cartesian fibration.\footnote{It follows from the uniqueness statement in \cref{lem:LiftingConditions}\cref{enum:LiftingN} that any map between nerves of ordinary categories is automatically an inner fibration. So to check whether such a map is a cartesian fibration, it's enough to show the existence of cartesian lifts.} The classical definition of cartesian morphisms, see \cite[Definition~3.1.1]{OlssonStacks} or \cite[\stackstag{02XK}]{Stacks}, differs from \cref{def:Cocartesian}\cref{enum:CocartesianMorphism}, but it's still equivalent, as we'll see in \cref{lem:CocartesianMorphisms}. By \cref{thm:Straightening}, the data of a fibred category defines a functor $\operatorname{St}^{\mathrm{cart}}\colon \N(\Cc)^\op\rightarrow \cat{Cat}_\infty$, which necessarily factors through the full sub-quasi-category $\cat{Cat}^{(2)}\subseteq \cat{Cat}_\infty$ from \cref{exm:CatAs2Category}, because the fibres of $\N(p)\colon \N(\Uu)\rightarrow\N(\Cc)$ must be nerves of ordinary categories again, Conversely, we show in footnote~\cref{footnote:UnstraighteningOrdinaryCategory} below that the unstraightening of such a functor is necessarily the nerve of an ordinary category.
 	
-	A \emph{category fibred in groupoids} is a fibred category $p\colon \Uu\rightarrow \Cc$ such that all fibres are groupoids; equivalently, the associated functor $\operatorname{St}^{(\mathrm{cart})}\colon \N(\Cc)^\op\rightarrow \cat{Cat}^{(2)}$ factors through $\cat{Grpd}^{(2)}\subseteq \cat{Cat}^{(2)}$. Finally, if $\Cc$ is equipped with a Grothendieck topology, we call $p\colon \Uu\rightarrow \Cc$ a \emph{stack} if the functor $\operatorname{St}^{(\mathrm{right})}(\N(p))\colon \Cc^\op\rightarrow \cat{Grpd}^{(2)}$ is a sheaf. To formulate the sheaf condition, one needs an appropriate notion of limits in $\cat{Grpd}^{(2)}$ (or in $\cat{An}$), which we'll see in \cref{def:Colimits}. Fortunately, these limits can be pinned down in explicit terms; for example, it's not too hard to unravel \cref{lem:ColimitsInAnima} to arrive at the description from \cite[\S4.2]{OlssonStacks} or \cite[\stackstag{026B}]{Stacks}. In particular, the result is (the nerve of) a groupoid again.
+	A \emph{category fibred in groupoids} is a fibred category $p\colon \Uu\rightarrow \Cc$ such that all fibres are groupoids; equivalently, the associated functor $\operatorname{St}^{\mathrm{cart}}\colon \N(\Cc)^\op\rightarrow \cat{Cat}^{(2)}$ factors through $\cat{Grpd}^{(2)}\subseteq \cat{Cat}^{(2)}$. Finally, if $\Cc$ is equipped with a Grothendieck topology, we call $p\colon \Uu\rightarrow \Cc$ a \emph{stack} if the functor $\operatorname{St}^{\mathrm{right}}(\N(p))\colon \Cc^\op\rightarrow \cat{Grpd}^{(2)}$ is a sheaf. To formulate the sheaf condition, one needs an appropriate notion of limits in $\cat{Grpd}^{(2)}$ (or in $\cat{An}$), which we'll see in \cref{def:Colimits}. Fortunately, these limits can be pinned down in explicit terms; for example, it's not too hard to unravel \cref{lem:ColimitsInAnima} to arrive at the description from \cite[\S4.2]{OlssonStacks} or \cite[\stackstag{026B}]{Stacks}. In particular, the result is (the nerve of) a groupoid again.
 	
 	Thus, by exclusively working on the fibration side of the cartesian straightening equivalence, the theory of stacks can be and has been developed within the framework of ordinary category theory. But with today's tools, its actually possible to talk about stacks in the intended way: as functors into $\cat{Grpd}^{(2)}$. I find the latter much easier.
 \end{numpar}
@@ -1737,7 +1769,7 @@ We've seen in \cref{par:Stacks} that \cref{thm:Straightening} is already interes
 \begin{numpar}[Straightening/unstraightening and covering theory.]\label{par:Coverings}
 	An anima is called \emph{discrete} if it is homotopy equivalent to a disjoint union of copies of the point $*$. Equivalently, all path components are contractible. Considering sets as discrete animae, it's easy to construct a functor $\N(\cat{Set})\rightarrow \cat{An}$; this functor is fully faithful and an equivalence onto the full sub-quasi-category spanned by the discrete animae.\footnote{Let's sketch how to do this: One can equip $\cat{Set}$ with a trivial Kan enrichment $\cat{Set}^\Delta$ in which $\F_{\cat{Set}^\Delta}(S,T)$ is just a disjoint union of $\Hom_{\cat{Set}}(S,T)$ many points. Sending $S\mapsto \coprod_{s\in S}*$ then defines a fully faithful simplicially enriched functor $\cat{Set}^\Delta\rightarrow \cat{Kan}^\Delta$. Applying $\N^\Delta(-)$, we obtain a fully faithful functor of quasi-categories $\N(\cat{Set})\cong \N^\Delta(\cat{Set}^\Delta)\rightarrow \N^\Delta(\cat{Kan}^\Delta)$, whose essential image are precisely the discrete animae.}
 	
-	Let $X$ be an anima. A \emph{covering of $X$} is a Kan fibration (or equivalently a left fibration, see \cref{cor:LeftFibrationsOverAnima}) $p\colon X'\rightarrow X$ such that for all $x\in X$, the fibres $p^{-1}\{x\}$ are discrete animae. This recovers the usual notion of coverings from topology. More precisely, let's call a covering $p\colon X'\rightarrow X$ \emph{strict} if the fibres $p^{-1}\{x\}$ are not only equivalent to but \emph{isomorphic} to disjoint unions of copies of $*$. Then every covering is equivalent to a strict covering and the adjunction $\abs*{\,\cdot\,}\colon \cat{Kan}\shortdoublelrmorphism \cat{Top}\noloc \Sing$ from \cref{par:GeometricRealisation} transform strict coverings of animae into usual coverings of topological spaces and vice versa.\footnote{To see that every covering $p\colon X'\rightarrow X$ is equivalent to a strict one, we need to use some details of the construction of the equivalence from \cref{thm:Straightening}\cref{enum:LeftStraightening}: Since the functor $F\colon X\rightarrow \cat{An}$ associated to $X$ lands in discrete animae, we can factor it, up to equivalence, through a functor $F_0\colon X\rightarrow \N(\cat{Set})$. By \cref{lem:SimplicialHoNerveAdjunction}, $F_0$ is induced by a functor of ordinary categories $\overline{F}_0\colon \operatorname{ho}(X)\rightarrow\cat{Set}$. If $\overline{p}\colon \Uu\rightarrow \operatorname{ho}(X)$ is the \emph{Grothendieck construction} of $\overline{F}_0$, then $\N(\overline{p})\colon \N(\Uu)\rightarrow \N(\operatorname{ho}(X))$ can be shown to be a strict covering. Hence the pullback $\N(\Uu)\times_{\N(\operatorname{ho}(X))}X\rightarrow X$ is a strict covering too and equivalent to our original covering $p$.
+	Let $X$ be an anima. A \emph{covering of $X$} is a Kan fibration (or equivalently a left fibration, see \cref{cor:LeftFibrationsOverAnima}) $p\colon X'\rightarrow X$ such that for all $x\in X$, the fibres $p^{-1}\{x\}$ are discrete animae. This recovers the usual notion of coverings from topology. More precisely, let's call a covering $p\colon X'\rightarrow X$ \emph{strict} if the fibres $p^{-1}\{x\}$ are not only equivalent to but \emph{isomorphic} to disjoint unions of copies of $*$. Then every covering is equivalent to a strict covering and the adjunction $\abs*{\,\cdot\,}\colon \cat{Kan}\shortdoublelrmorphism \cat{Top}\noloc \Sing$ from \cref{par:GeometricRealisation} transform strict coverings of animae into usual coverings of topological spaces and vice versa.\footnote{To see that every covering $p\colon X'\rightarrow X$ is equivalent to a strict one, we need to use some details of the construction of the equivalence from \cref{thm:Straightening}\cref{enum:LeftStraightening}: Since the functor $F\colon X\rightarrow \cat{An}$ associated to $X$ lands in discrete animae, we can factor it, up to equivalence, through a functor $F_0\colon X\rightarrow \N(\cat{Set})$. By \cref{lem:SimplicialHoNerveAdjunction}, $F_0$ is induced by a functor of ordinary categories $\overline{F}_0\colon \ho(X)\rightarrow\cat{Set}$. If $\overline{p}\colon \Uu\rightarrow \ho(X)$ is the \emph{Grothendieck construction} of $\overline{F}_0$, then $\N(\overline{p})\colon \N(\Uu)\rightarrow \N(\ho(X))$ can be shown to be a strict covering. Hence the pullback $\N(\Uu)\times_{\N(\ho(X))}X\rightarrow X$ is a strict covering too and equivalent to our original covering $p$.
 		
 	Now suppose $p\colon X'\rightarrow X$ is a strict covering. Using that the fibres of $p$ are disjoint unions of copies of $*$ together with the lifting properties of Kan fibrations, it's easy to see that for every $\Delta^n\rightarrow X$, the pullback $\Delta^n\times_XX'$ consists of a disjoint union of copies of $\Delta^n$. This means that the preimage of any cell in the CW-complex $\abs*{X}$ under $\abs*{p}\colon \abs*{X'}\rightarrow \abs*{X}$ is a disjoint union of copies of that cell. Via some technical arguments that we omit, this shows that $\abs*{p}$ is a covering in the usual sense. Conversely, if $q\colon Y'\rightarrow Y$ is a covering of topological spaces, $q$ is Serre fibration. $\Sing$ turns Serre fibrations into Kan fibrations because $\abs*{\,\cdot\,}\colon \cat{Kan}\shortdoublelrmorphism \cat{Top}\noloc \Sing$ is a Quillen adjunction (even a Quillen equivalence) by \cref{exm:QuillenAdjunction}. Hence $\Sing q\colon \Sing Y'\rightarrow\Sing Y$ is a Kan fibration. This could also be shown by an easy direct argument (observe that the pair $(\abs*{\Delta^n},\abs*{\Lambda_i^n})$ is homeomorphic to $([0,1]^{n-1}\times[0,1],[0,1]^{n-1}\times\{0\})$ and use the homotopy lifting property of covering spaces, see \cite[Proposition~\href{https://pi.math.cornell.edu/~hatcher/AT/AT.pdf\#page=69}{1.30}]{Hatcher} for example). Since $\Sing$ preserves pullbacks and sends discrete topological spaces to disjoint unions of copies of $*$, we see that $\Sing q$ is indeed a strict covering.}
 	
@@ -1745,22 +1777,22 @@ We've seen in \cref{par:Stacks} that \cref{thm:Straightening} is already interes
 	\begin{equation*}
 		\cat{Cov}(X)\overset{\simeq}{\longrightarrow}\F\bigl(X,\N(\cat{Set})\bigr)\,.
 	\end{equation*}
-	Now recall $\F(X,\N(\cat{Set}))\cong \N(\Fun(\operatorname{ho}(X),\cat{Set}))$ from \cref{lem:SimplicialHoNerveAdjunction}. But what is $\operatorname{ho}(X)$? We know $X\simeq \Sing {\abs*{X}}$ from the simplicial approximation theorem, hence $\operatorname{ho}(X)\simeq \operatorname{ho}(\Sing{\abs*{X}})$. By the description in \cref{par:HomotopyCategory}, the objects of $\operatorname{ho}(\Sing{\abs*{X}})$ are given by $\Sing_0{\abs*{X}}$, the points of $\abs*{X}$. The morphisms of $\operatorname{ho}(\Sing{\abs*{X}})$ are equivalence classes of $\Sing_1{\abs*{X}}$, that is, equivalence classes of paths in $X$. A quick unravelling of definitions shows that the equivalence relation is precisely for two paths to be homotopic. Hence $\operatorname{ho}(\Sing{\abs*{X}})$ is precisely the \emph{fundamental groupoid} $\Pi_1\abs{X}$ of the topological space $\abs*{X}$, and therefore $\operatorname{ho}(X)\simeq \Pi_1\abs{X}$. We have thus proved a classical classification result from topology:
+	Now recall $\F(X,\N(\cat{Set}))\cong \N(\Fun(\ho(X),\cat{Set}))$ from \cref{lem:SimplicialHoNerveAdjunction}. But what is $\ho(X)$? We know $X\simeq \Sing {\abs*{X}}$ from the simplicial approximation theorem, hence $\ho(X)\simeq \ho(\Sing{\abs*{X}})$. By the description in \cref{par:HomotopyCategory}, the objects of $\ho(\Sing{\abs*{X}})$ are given by $\Sing_0{\abs*{X}}$, the points of $\abs*{X}$. The morphisms of $\ho(\Sing{\abs*{X}})$ are equivalence classes of $\Sing_1{\abs*{X}}$, that is, equivalence classes of paths in $X$. A quick unravelling of definitions shows that the equivalence relation is precisely for two paths to be homotopic. Hence $\ho(\Sing{\abs*{X}})$ is precisely the \emph{fundamental groupoid} $\Pi_1\abs{X}$ of the topological space $\abs*{X}$, and therefore $\ho(X)\simeq \Pi_1\abs{X}$. We have thus proved a classical classification result from topology:
 \end{numpar}
 \begin{thm}[Classification of covering animae]\label{thm:CoveringTheory}
 	Let $X$ be an anima. Then $\cat{Cov}(X)$ is equivalent to the nerve of the ordinary category $\Fun(\Pi_1\abs{X},\cat{Set})$. In particular, there's an equivalence of ordinary categories
 	\begin{equation*}
-		\operatorname{ho}\bigl(\cat{Cov}(X)\bigr)\simeq \Fun\bigl(\Pi_1\abs{X},\cat{Set}\bigr)\,.
+		\ho\bigl(\cat{Cov}(X)\bigr)\simeq \Fun\bigl(\Pi_1\abs{X},\cat{Set}\bigr)\,.
 	\end{equation*}
 \end{thm}
-It might not be immediately obvious, but \cref{thm:CoveringTheory} comprises all you would ever want to know about covering theory. Since it fits the theme of these notes, let us spell this out in detail:
+It might not be immediately obvious, but \cref{thm:CoveringTheory} comprises all you would ever want to know about covering theory. Since it fits the theme of these notes, let us spell this out:
 
 \begin{cor}\label{cor:CoveringTheory}
 	Suppose $X$ is connected and let a basepoint $x\in X$ be chosen.
 	\begin{alphanumerate}
 		\item There's a Galois correspondence \embrace{that is, a bijection} between connected coverings of $X$ and subgroups $H\subseteq \pi_1(X,x)$.\label{enum:GaloisCorrespondence}
 		\item $X$ is simply connected \embrace{that is, $\pi_1(X,x)\cong 0$} if and only if every covering $p\colon X'\rightarrow X$ admits a section $s\colon X\rightarrow X'$ if and only if every covering of $X$ splits into a disjoint union of copies of $X$.\label{enum:SplitCovering}
-		\item $\cat{Cov}(X)$ contains a unique object $\widetilde{p}\colon \widetilde{X}\rightarrow X$ \embrace{up to equivalence} with the property that $\widetilde{X}$ is simply connected. This covering $\widetilde{p}\colon \widetilde{X}\rightarrow X$ is called the universal covering of $X$. If $\Aut_X(\widetilde{X})$ denotes the group of deck transformations of $\widetilde{X}$, that is, the automorphism group of $p\colon \widetilde{X}\rightarrow X$ in $\operatorname{ho}(\cat{Cov}(X))$, then $\Aut_X(\widetilde{X})\cong \pi_1(X,x)$.\label{enum:UniversalCovering}
+		\item $\cat{Cov}(X)$ contains a unique object $\widetilde{p}\colon \widetilde{X}\rightarrow X$ \embrace{up to equivalence} with the property that $\widetilde{X}$ is simply connected. This covering $\widetilde{p}\colon \widetilde{X}\rightarrow X$ is called the universal covering of $X$. If $\Aut_X(\widetilde{X})$ denotes the group of deck transformations of $\widetilde{X}$, that is, the automorphism group of $p\colon \widetilde{X}\rightarrow X$ in $\ho(\cat{Cov}(X))$, then $\Aut_X(\widetilde{X})\cong \pi_1(X,x)$.\label{enum:UniversalCovering}
 		\item Suppose $p'\colon X'\rightarrow X$ is a covering and $x'\in X'$ is a point such that $p(x')=x$. Let $f\colon (Z,z)\rightarrow (X,x)$ be a morphism of pointed animae, where $Z$ is connected too. Then the pointed lifting problem\label{enum:LiftingPropertyOfCoverings}
 		\begin{equation*}
 			\begin{tikzcd}
@@ -1799,17 +1831,16 @@ After getting acquainted with straightening/unstraightening, our next goal is to
 	\end{equation*}
 	that commutes up to homotopy or up to natural equivalence, respectively (so that the corresponding diagram in $\cat{An}$ or $\cat{Cat}_\infty$-commutes; see the discussion in \cref{exm:SimplicialNerve}). We say that the diagram is a \emph{homotopy pullback} if its image in $\cat{An}$ or $\cat{Cat}_\infty$ is a pullback in the $\infty$-categorical sense (which we will only define in \cref{def:Colimits}\cref{enum:Colimit} below).
 	
-	As stated, this \enquote{definition} doesn't lead to vicious circles, but once you try to prove anything with it, it surely does. So let's just say there is a way to define homotopy pullbacks properly, in any model category. This is done in any sensible treatment of model categories; see \cite[Definition~{\href{https://cisinski.app.uni-regensburg.de/CatLR.pdf\#thm.2.3.22}{2.3.22}}]{Cisinski} or \cite[Definition~VIII.49(vi)]{HigherCatsII}. For the Kan--Quillen model structure and the Joyal model structure on $\cat{sSet}$ (see \cref{exm:KanQuillenModelStructure,exm:JoyalModelStructure}) the above \enquote{definition} is recovered, albeit not obviously so.\hfill$\blacksquare$
-\end{numpar}
-\begin{numpar}[Model category fact.]\label{par:HomotopyPullback}
-	A pullback diagram in a model category is automatically a homotopy pullback diagram if all objects are fibrant and at least one of the legs is a fibration. See \cite[Proposition~{\href{https://cisinski.app.uni-regensburg.de/CatLR.pdf\#thm.2.3.27}{2.3.27}}]{Cisinski} for a proof. In the examples at hand, we deduce:
+	As stated, this \enquote{definition} doesn't lead to vicious circles, but once you try to prove anything with it, it surely does. So let us give a workable definition, which is equivalent (albeit not obviously so):
 	\begin{alphanumerate}
-		\item A pullback of Kan complexes is automatically a homotopy pullback if at least one if its legs is a Kan fibration.\label{enum:HomotopyPullbackOfKanComplexes}
-		\item A pullback of quasi-categories is automatically a homotopy pullback if at least one of its legs is an \emph{isofibration} (or \emph{categorical fibration} in Lurie's terminology). That is, it is an inner fibration and has the lifting property against $\{0\}\rightarrow \N(J)$. Here $J\coloneqq \{\InlineJ\}$ is the category of two objects and a pair of mutually inverse isomorphisms between them, so lifting against $\{0\}\rightarrow \N(J)$ means that we can lift equivalences.\label{enum:HomotopyPullbackOfQuasicategories}
+		\item A diagram of Kan complexes is a \emph{homotopy pullback} if it is homotopy equivalent to an honest pullback of Kan complexes in which one leg is a Kan fibration.\label{enum:HomotopyPullbackOfKanComplexes}
+		\item A diagram of quasi-categories is a \emph{homotopy pullback} if it is equivalent to an honest pullback of quasi-categories legs in which one leg is an \emph{isofibration} (or \emph{categorical fibration} in Lurie's terminology). That is, it is an inner fibration and has the lifting property against $\{0\}\rightarrow \N(J)$. Here $J\coloneqq \{\InlineJ\}$ is the category of two objects and a pair of mutually inverse isomorphisms between them, so lifting against $\{0\}\rightarrow \N(J)$ means that we can lift equivalences.\label{enum:HomotopyPullbackOfQuasicategories}
 	\end{alphanumerate}
 	So homotopy pullbacks, or equivalently, pullbacks in $\cat{An}$ or $\cat{Cat}_\infty$ can be computed as follows: First write down the diagram as a diagram of simplicial sets. Then replace one of its legs by an equivalence followed by a Kan fibration or an isofibration; this can be done by \cref{lem:SmallObjectArgument}.\footnote{To replace a functor of quasi-categories by an equivalence followed by an isofibration, a small variation of the argument from \cref{lem:SmallObjectArgument} is needed. The problem is that $\N(J)$ has countably many non-degenerate simplices, whereas $\Lambda_i^n$ had only finitely many. This has the effect that it's no longer sufficient to iterate the construction of $S(f)$ countably many times. To fix this, we simply do $\aleph_1$ many iterations instead of $\aleph_0$ many.} Finally, take the usual pullback along that Kan or isofibration.
-	
-	As a consequence, with some care, homotopy pullbacks can usually be manipulated in the same way as ordinary pullbacks. We'll use this freely throughout the rest of this section.\hfill$\blacksquare$
+\end{numpar}
+As a consequence, with some care, homotopy pullbacks can usually be manipulated in the same way as ordinary pullbacks. We'll use this freely throughout the rest of this section.
+\begin{numpar}[Model category fact.]\label{par:HomotopyPullback}
+	There's a notion of \emph{homotopy pullbacks} in any model category. This is done in any sensible treatment of model categories; see for example \cite[Definition~{\href{https://cisinski.app.uni-regensburg.de/CatLR.pdf\#thm.2.3.22}{2.3.22}}]{Cisinski} or \cite[Definition~VIII.49(vi)]{HigherCatsII}. An honest pullback diagram in a model category is automatically a homotopy pullback as well if all objects are fibrant and at least one of the legs is a fibration; see e.g.\  \cite[Proposition~{\href{https://cisinski.app.uni-regensburg.de/CatLR.pdf\#thm.2.3.27}{2.3.27}}]{Cisinski} for a proof. Thus, for the Kan--Quillen model structure and the Joyal model structure on $\cat{sSet}$ (see \cref{exm:KanQuillenModelStructure,exm:JoyalModelStructure}) the above \enquote{definition} is recovered.\hfill$\blacksquare$
 \end{numpar}
 \begin{lem}\label{lem:HomInArrowCategories}
 	Let $\Cc$ be a quasi-category and let $\alpha\colon x\rightarrow y$, $\alpha'\colon x'\rightarrow y'$ be morphisms in $\Cc$. Then there exists a homotopy pullback diagram of animae
@@ -1824,7 +1855,7 @@ After getting acquainted with straightening/unstraightening, our next goal is to
 \begin{rem}
 	The only proof I know is in Fabian's handwritten notes \cite[Proposition~VIII.5]{HigherCatsII}. It's not particularly difficult: You work directly with the definition of $\Hom_{\Ar(\Cc)}$ to write it as an honest pullback in which both legs are Kan fibrations. Then you check that the corners of the pullback are homotopy equivalent to $\Hom_\Cc(x,x')$, $\Hom_\Cc(y,y')$, and $\Hom_\Cc(x,y')$, respectively. Along the way, you should also check (but this will be quite apparent from the description in~\cref{par:StraighteningOnMorphisms}) that the maps you obtain are really the pre- and postcomposition maps $\alpha^*$ and $\alpha'_*$ as defined above. 
 	
-	Also note that in the case where $\Cc$ is an ordinary category we recover our original description of morphisms in an arrow category from \cref{con:1ArrowCategory}. Indeed, in this case all Hom animae are discrete (that is, sets), hence the ambiguity of $\alpha^*$ and $\alpha'_*$ up to homotopy goes away. Furthermore, any map of discrete Kan complexes is automatically a Kan fibration, so the homotopy pullback is a pullback on the nose by model category fact~\cref{par:HomotopyPullback}\cref{enum:HomotopyPullbackOfKanComplexes}. If you think about this pullback briefly, that's exactly how morphisms in $\Ar(\Cc)$ are described.
+	Also note that in the case where $\Cc$ is an ordinary category we recover our original description of morphisms in an arrow category from \cref{con:1ArrowCategory}. Indeed, in this case all Hom animae are discrete (that is, sets), hence the ambiguity of $\alpha^*$ and $\alpha'_*$ up to homotopy goes away. Furthermore, any map of discrete Kan complexes is automatically a Kan fibration, so the homotopy pullback agrees with the pullback on the nose by \enquote{Definition}~\cref{def:HomotopyPullback}\cref{enum:HomotopyPullbackOfKanComplexes}. If you think about this pullback, that's exactly how morphisms in $\Ar(\Cc)$ are described.
 \end{rem}
 \begin{cor}\label{cor:HomInSliceCategories}
 	Let $\Cc$ be a quasi-category, let $y\in \Cc$ be an object, and let $\alpha\colon x\rightarrow y$ and $\alpha'\colon x'\rightarrow y$ be morphisms in $\Cc$. Then there exists a homotopy pullback diagram of animae
@@ -1861,8 +1892,8 @@ To finish our excursion into homotopy pullbacks, we introduce a variant of cocar
 \begin{defi}\label{def:LocallyCocartesian}
 	Let $p\colon \Uu\rightarrow \Cc$ be an inner fibration of quasi-categories.
 	\begin{alphanumerate}
-		\item Let $\varphi\colon u\rightarrow v$ be a morphism in $\Uu$, corresponding to a map $\varphi\colon \Delta^1\rightarrow \Uu$. We call $\varphi$ a \emph{locally $p$-cocartesian morphism} if it is $p_{p\circ \varphi}$-cocartesian, where $p_{p\circ \varphi}\colon \Delta^1\times_{p\circ \varphi,\Cc}\Uu\rightarrow \Delta^1$ denotes the pullback of $p$ along $p\circ \varphi\colon \Delta^1\rightarrow \Cc$.
-		\item We call $p$ a \emph{locally cocartesian fibration} if the pullback $p_\alpha\colon \Delta^1\times_{\alpha,\Cc}\Uu\rightarrow \Delta^1$ is a cocartesian fibration for every $\alpha\colon \Delta^1\rightarrow \Cc$.
+		\item Let $\varphi\colon u\rightarrow v$ be a morphism in $\Uu$, corresponding to a map $\varphi\colon \Delta^1\rightarrow \Uu$. We call $\varphi$ a \emph{locally $p$-cocartesian morphism} if it is $p_{p\circ \varphi}$-cocartesian, where $p_{p\circ \varphi}\colon \Delta^1\times_{p\circ \varphi,\Cc}\Uu\rightarrow \Delta^1$ denotes the pullback of $p$ along $p\circ \varphi\colon \Delta^1\rightarrow \Cc$.\label{enum:LocallyCocartesianMorphism}
+		\item We call $p$ a \emph{locally cocartesian fibration} if the pullback $p_\alpha\colon \Delta^1\times_{\alpha,\Cc}\Uu\rightarrow \Delta^1$ is a cocartesian fibration for every $\alpha\colon \Delta^1\rightarrow \Cc$.\label{enum:LocallyCocartesianFibration}
 	\end{alphanumerate}
 	There are dual notions of \emph{locally $p$-cartesian morphisms} and \emph{locally cartesian fibrations}.
 \end{defi}
@@ -1891,7 +1922,7 @@ To finish our excursion into homotopy pullbacks, we introduce a variant of cocar
 	Hence the outer rectangle must be a homotopy pullback too. Since $\Hom_{\Delta^1}(0,0)\simeq *\simeq \{\id_{p(w)}\}$, it follows that the left square in \cref{eq:HomotopyFibre} is a homotopy pullback. Since, by assumption, any choice of composition $\psi\circ \varphi$ is locally $p$-cocartesian, the same argument can be used to show that the outer rectangle in \cref{eq:HomotopyFibre} is a homotopy pullback too. This proves that  $\Hom_{\Uu_{p(w)}}(v',w)$ agrees with both homotopy fibres in question and we're done.
 \end{proof}
 
-\subsection{Yoneda's lemma}\label{subsec:Yoneda}
+\subsection{The Yoneda lemma}\label{subsec:Yoneda}
 \begin{thm}[Quasi-categorical Yoneda lemma]\label{thm:Yoneda}
 	Let $\Cc$ be a quasi-category, $x\in \Cc$ an object, and $E\colon \Cc\rightarrow \cat{An}$ a functor. Then evaluation at $\id_x$ induces an equivalence of animae
 	\begin{equation*}
@@ -1944,9 +1975,9 @@ For the proof we need, more or less, the fact that $*\simeq \{\id_x\}\rightarrow
 			\core(\Uu)\rar & \core (\Cc)
 		\end{tikzcd}
 	\end{equation*}
-	For the left one, we use \cref{lem:WeaklyLeftAnodyne} and model category fact~\cref{par:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}: We only need to check that $p\colon \Uu\rightarrow\Cc$ is an isofibration. But any left fibration has lifting against $\{0\}\rightarrow \N(J)$, as this map is left anodyne (by an explicit horn filling argument). To see that the right square is a homotopy pullback too, we need to check that $\core\colon \cat{QCat}\rightarrow \cat{Kan}$ preserves homotopy pullbacks. The deeper reason for this is of course that $\core\colon \cat{Cat}_\infty\rightarrow\cat{An}$ is right adjoint to the inclusion $\cat{An}\subseteq\cat{Cat}_\infty$ (see \cref{exm:Adjunctions}\cref{enum:AnToCatInfty}). For a direct argument, we can use \cref{par:HomotopyPullback}: By an easy application of Joyal's lifting theorem (\cref{thm:JoyalLifting}), $\core$ transforms isofibrations into Kan fibrations and then by arguments as in the proof of \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective} we can show that $\core$ preserves pullbacks of quasi-categories in which at least one leg is an isofibration.
+	For the left one, we use \cref{lem:WeaklyLeftAnodyne} and \enquote{Definition}~\cref{def:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}: We only need to check that $p\colon \Uu\rightarrow\Cc$ is an isofibration. But any left fibration has lifting against $\{0\}\rightarrow \N(J)$, as this map is left anodyne (by an explicit horn filling argument). To see that the right square is a homotopy pullback too, we need to check that $\core\colon \cat{QCat}\rightarrow \cat{Kan}$ preserves homotopy pullbacks. The deeper reason for this is of course that $\core\colon \cat{Cat}_\infty\rightarrow\cat{An}$ is right adjoint to the inclusion $\cat{An}\subseteq\cat{Cat}_\infty$ (see \cref{exm:Adjunctions}\cref{enum:AnToCatInfty}). For a direct argument, we can use \cref{par:HomotopyPullback}: By an easy application of Joyal's lifting theorem (\cref{thm:JoyalLifting}), $\core$ transforms isofibrations into Kan fibrations and then by arguments as in the proof of \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective} we can show that $\core$ preserves pullbacks of quasi-categories in which at least one leg is an isofibration.
 	
-	Combining the homotopy pullbacks so far (this kind of manipulation is fine by~\cref{par:HomotopyPullback}), we find that
+	Combining the homotopy pullbacks so far (this kind of manipulation is fine as we've argued in \enquote{Definition}~\cref{def:HomotopyPullback}), we find that
 	\begin{equation*}
 		\begin{tikzcd}
 			\Hom_{\cat{Cat}_{\infty/\Cc}}\bigl((t\colon \Cc_{x/}\rightarrow \Cc),(p\colon \Uu\rightarrow\Cc)\bigr)\rar\dar\drar[hpullback] & *\dar\\
@@ -1955,7 +1986,8 @@ For the proof we need, more or less, the fact that $*\simeq \{\id_x\}\rightarrow
 	\end{equation*}
 	is a homotopy pullback, where $*$ is sent to $x\in\core (\Cc)$. As observed above, $\Uu\rightarrow\Cc$ is an isofibration and so $\core (\Uu)\rightarrow (\Cc)$ is a Kan fibration. Thus, the homotopy pullback agrees with the ordinary pullback. Now $\core(\Uu)\times_{\core(\Cc)}\{x\}\cong \core(\Uu\times_\Cc\{x\})\cong \Uu\times_\Cc\{x\}\simeq F(x)$ using that the fibres $\Uu\times_\Cc\{x\}\eqqcolon p^{-1}\{x\}$ of $p$ are animae and compute the values of $F$. This is what we wanted to prove.
 \end{proof}
-Finally, we would like to construct the functor $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$. There are several ways to do this and we'll outline two possibilities in \cref{con:HomInTwoVariables,con:HomTwAr} below. We won't prove that they are equivalent (they are), but we won't ever need that either. So you can just choose whichever is your favourite.
+
+Finally, we would like to construct the functor $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$ and then use it to prove the embedding version of Yoneda's lemma. There are several constructions for $\Hom_\Cc$ and we'll outline two possibilities in \cref{con:HomInTwoVariables,con:HomTwAr} below. We won't prove that they are equivalent (they are), but we won't ever need that either. So you can just choose whichever is your favourite.
 \begin{con}\label{con:HomInTwoVariables}
 	Consider the functor $\Cc_{/-}\colon \Cc\rightarrow \cat{Cat}_\infty$ from \cref{exm:Straightening}\cref{enum:ArCocartesianFibration}. For every $x\in \Cc$ there is a natural functor $\Cc_{/x}\rightarrow \Cc$, so we would expect that $\Cc_{/-}$ lifts to a functor $\Cc_{/-}\colon \Cc\rightarrow \cat{Cat}_{\infty/\Cc}$. To construct such a lift, first note that for all quasi-categories $\Dd$ and all $y\in \Dd$, we have an equivalence  $\F(\Cc,\Dd_{/y})\simeq\F(\Cc,\Dd)_{/\const y}$ (in fact, even an isomorphism of simplicial sets), as can be checked by a simple calculation. Furthermore, \cref{thm:Straightening}\cref{enum:CocartesianStraightening} and \cref{exm:Straightening}\cref{enum:ProjectionsStraightenToConstantFunctors} imply that $\F(\Cc,\cat{Cat}_\infty)_{/\const \Cc}\simeq \cat{Cocart}(\Cc)_{/(\pr_2\colon\Cc\times \Cc\rightarrow \Cc)}$ holds. So to lift our functor $\Cc_{/-}$ to $\cat{Cat}_{\infty/\Cc}$, it suffices to observe that the following diagram is a morphism of cocartesian fibrations over $\Cc$:
 	\begin{equation*}
@@ -1966,13 +1998,13 @@ Finally, we would like to construct the functor $\Hom_\Cc\colon \Cc^\op\times\Cc
 	\end{equation*}
 	By the dual of \cref{cor:HomAnima}, $\Cc_{/x}\rightarrow \Cc$ is a right fibration for all $x\in \Cc$, hence $\Cc_{/-}\colon \Cc\rightarrow \cat{Cat}_{\infty/\Cc}$ takes values in the full sub-quasi-category $\cat{Right}(\Cc)\subseteq \cat{Cat}_{\infty/\Cc}$. Since $\cat{Right}(\Cc)\simeq \F(\Cc^\op,\cat{An})$ by the dual of \cref{thm:Straightening}\cref{enum:LeftStraightening}, we obtain a functor
 	\begin{equation*}
-		\Yo_\Cc\colon \Cc\xrightarrow{\Cc_{/-}} \cat{Right}(\Cc)\xrightarrow{\operatorname{St}^{(\mathrm{right})}}\F(\Cc^\op,\cat{An})\,,
+		\Yo_\Cc\colon \Cc\xrightarrow{\Cc_{/-}} \cat{Right}(\Cc)\xrightarrow{\operatorname{St}^{\mathrm{right}}}\F(\Cc^\op,\cat{An})\,,
 	\end{equation*}
 	which we take as our definition of the Yoneda embedding (we'll see in \cref{cor:YonedaEmbeddingFullyFaithful} below that it is indeed fully faithful). Finally, we let $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow \cat{An}$ be the image of $\Yo_\Cc$ under the \enquote{currying} equivalence $\F(\Cc,\F(\Cc^\op,\cat{An}))\simeq \F(\Cc^\op\times \Cc,\cat{An})$. We define the \emph{twisted arrow quasi-category} $(s,t)\colon \TwAr(\Cc)\rightarrow\Cc^\op\times\Cc$ to be the unstraightening of $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$ via \cref{thm:Straightening}\cref{enum:LeftStraightening}.
 \end{con}
 \cref{con:HomInTwoVariables} has the advantage that it allows for a straightforward proof of \cref{cor:YonedaEmbeddingFullyFaithful} below. On the downside, however, the unstraightening $\TwAr(\Cc)$ is very inexplicit in this description. So alternatively, one can write down an explicit simplicial model for $(s,t)\colon\TwAr(\Cc)\rightarrow \Cc^\op\times\Cc$ and define $\Hom_\Cc$ to be its straightening.
 \begin{con}\label{con:HomTwAr}
-	For an ordinary category $\Cc$, we define $\TwAr(\Cc)$ to be the ordinary category whose objects are arrows $\alpha\colon x\rightarrow y$ in $\Cc$ and whose morphisms $(\alpha\colon x\rightarrow y)\rightarrow (\alpha'\colon x'\rightarrow y')$ are \enquote{twisted} commutative squares
+	For an ordinary category $\Cc$, we define the \emph{twisted arrow category} $\TwAr(\Cc)$ to be the ordinary category whose objects are arrows $\alpha\colon x\rightarrow y$ in $\Cc$ and whose morphisms $(\alpha\colon x\rightarrow y)\rightarrow (\alpha'\colon x'\rightarrow y')$ are \enquote{twisted} commutative squares
 	\begin{equation*}
 		\begin{tikzcd}
 			x\dar["\alpha"']\drar[commutes] & x'\lar\dar["\alpha'"]\\
@@ -1991,7 +2023,7 @@ Finally, we would like to construct the functor $\Hom_\Cc\colon \Cc^\op\times\Cc
 \begin{rem}\label{rem:TwAr}
 	If $\Cc$ is an ordinary category, then $\N(\TwAr(\Cc))\simeq \TwAr(\N(\Cc))$, no matter how you define the right-hand side. So the notational overload checks out. If you use \cref{con:HomTwAr}, this equivalence is even an isomorphism of simplicial sets and straightforward to verify. If you use \cref{con:HomInTwoVariables} instead, the proof is still not too hard, but it requires you to know how straightening/unstraightening works under the hood, at least for ordinary categories (in which case straightening/unstraightening is known as the \emph{Grothendieck construction}). 
 \end{rem}
-Let's do three quick reality checks for our newly constructed functor $\Hom_\Cc$:
+Let's do a quick reality checks for our newly constructed functor $\Hom_\Cc$:
 \begin{lem}\label{lem:HomRealityCheck}
 	Let $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$ be the functor from \cref{con:HomInTwoVariables} or from \cref{con:HomTwAr}. For all $x,y\in\Cc$, the restrictions
 	\begin{equation*}
@@ -2012,11 +2044,37 @@ Let's do three quick reality checks for our newly constructed functor $\Hom_\Cc$
 			\Ar(\Cc)\rar["{(s,t)}"] & \Cc\times\Cc
 		\end{tikzcd}
 	\end{equation*}
-	To compute this homotopy pullback, we use model category fact~\cref{par:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}: We claim that $(s,t)\colon \Ar(\Cc)\rightarrow \Cc\times\Cc$ is already an isofibration. Indeed, it's an inner fibration by \cref{cor:FKanFibration} and lifting of equivalences follows easily from \cref{thm:EquivalencePointwise}. So we can just take the pullback on the nose, which is $\Cc_{x/}$ by \cref{par:HomInQuasiCategories}. But $\Hom_\Cc(x,-)\colon \Cc\rightarrow \cat{An}$ was defined to be the straightening of $t\colon \Cc_{x/}\rightarrow \Cc$. This shows $\Hom_\Cc|_{\{x\}\times\Cc}\simeq \Hom_\Cc(x,-)$.	
+	To compute this homotopy pullback, we use \enquote{Definition}~\cref{def:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}: We claim that $(s,t)\colon \Ar(\Cc)\rightarrow \Cc\times\Cc$ is already an isofibration. Indeed, it's an inner fibration by \cref{cor:FKanFibration} and lifting of equivalences follows easily from \cref{thm:EquivalencePointwise}. So we can just take the pullback on the nose, which is $\Cc_{x/}$ by \cref{par:HomInQuasiCategories}. But $\Hom_\Cc(x,-)\colon \Cc\rightarrow \cat{An}$ was defined to be the straightening of $t\colon \Cc_{x/}\rightarrow \Cc$. This shows $\Hom_\Cc|_{\{x\}\times\Cc}\simeq \Hom_\Cc(x,-)$.	
 \end{proof}
 \begin{proof}[Proof sketch, assuming \cref{con:HomTwAr}]
 	In this case, we need to show that the pullbacks of $(s,t)\colon \TwAr(\Cc)\rightarrow \Cc^\op\times\Cc$ along $\{x\}\times\Cc\rightarrow\Cc^\op\times\Cc$ and $\Cc^\op\times\{y\}\rightarrow\Cc^\op\times\Cc$ are equivalent to $\Cc_{x/}\rightarrow\Cc$ and $(\Cc_{/y})^\op\rightarrow\Cc^\op$, respectively. This is not quite trivial; see \cite[Proposition~\HAthm{5.2.1.10}]{HA} or \cite[Lemma~4.2.7]{Land}.
 \end{proof}
+
+The embedding version of Yoneda's lemma is now a simple consequence.
+\begin{cor}\label{cor:YonedaEmbeddingFullyFaithful}
+	For every quasi-category $\Cc$, the Yoneda embedding $\Yo_\Cc\colon \Cc\rightarrow\F(\Cc^\op,\cat{An})$ is fully faithful.
+\end{cor}
+\begin{proof}[Proof sketch]
+	We must show that $\Yo_\Cc$ induces equivalences
+	\begin{equation*}
+		\Hom_\Cc(x,y)\overset{\simeq}{\longrightarrow} \Hom_{\F(\Cc^\op,\cat{An})}\bigl(\Hom_\Cc(-,x),\Hom_\Cc(-,y)\bigr)
+	\end{equation*}
+	for all $x,y\in\Cc$. It's clear from \cref{thm:Yoneda} that both sides are equivalent via evaluation at $\id_x$. If you go with \cref{con:HomInTwoVariables}, it's straightforward to see that the morphism induced by $\Yo_\Cc$ is an inverse to evaluation at $\id_x$, so it is an equivalence too. If you prefer \cref{con:HomTwAr}, this needs a little more work, which we omit.
+\end{proof}
+
+\subsection{Remarks on model independence}
+
+We explained in \cref{par:ModelIndependenceIntro} that, at least in an ideal version of these notes, we would proceed via the following steps:
+\begin{alphanumerate}
+	\item First, throughout \crefrange{sec:SimplicialSets}{sec:Straightening}, we would set up the framework of quasi-categories.\label{enum:SetupQuasicategoriesNotIntro}
+	\item After that, we would identify a few key model-independent statements and prove (or black box) them in the model of quasi-categories.\label{enum:KeyStatementsNotIntro}
+	\item Finally, starting from \cref{sec:InftyCategoryTheory}, all further proofs would be done in a model-independent fashion.\label{enum:AllProofsModelIndependentNotIntro}
+\end{alphanumerate}
+Step~\cref{enum:SetupQuasicategoriesNotIntro} is done by now, whereas step~\cref{enum:AllProofsModelIndependentNotIntro} lays ahead, so in this subsection, we'll concern ourselves with step~\cref{enum:KeyStatementsNotIntro}.
+	
+What are these key model-independent statements supposed to be? Of course, \cref{thm:EquivalencePointwise,thm:EquivalenceFullyFaithfulEssentiallySurjective} are among them, as is the $\infty$-categorical Yoneda lemma \cref{thm:Yoneda}. But we'll need a few more. Let's start with three more reality checks for the $\Hom$ functor.
+
+
 \begin{lem}\label{lem:HomFunctorial}
 	Let $F\colon \Cc\rightarrow\Dd$ be a functor of quasi-categories. Then the natural maps $\Hom_\Cc(x,y)\rightarrow \Hom_\Dd(F(x),F(y))$ assemble into a natural transformation
 	\begin{equation*}
@@ -2056,7 +2114,7 @@ Let's do three quick reality checks for our newly constructed functor $\Hom_\Cc$
 	The latter is a morphism of left fibrations over $\Cc^\op\times\Cc$. Since precompositions correspond to pullbacks under straightening/unstraightening (see \cref{thm:Straightening}\cref{enum:CocartesianStraightening}), we get a natural transformation $\Hom_\Cc(-,-)\Rightarrow \Hom_\Dd(-,-)\circ (F^\op\times F)\simeq \Hom_\Dd(F(-),F(-))$, as desired.
 \end{proof}
 \begin{lem}\label{lem:HomNaturalTransformation}
-	Let $F,G\colon \Cc\rightarrow \Dd$ be functors of quasi-categories and let $\eta\colon F\Rightarrow G$ be a natural transformation. Then the natural transformation from \cref{lem:HomFunctorial} as well as $\eta_*$, postcomposition with $\eta$, and $\eta^*$, precomposition with $\eta$, fit into a commutative diagram
+	Let $F,G\colon \Cc\rightarrow \Dd$ be functors of quasi-categories and let $\eta\colon F\Rightarrow G$ be a natural transformation. Then the natural transformation from \cref{lem:HomFunctorial} as well as $\eta_*$ \embrace{postcomposition with $\eta$} and $\eta^*$ \embrace{precomposition with $\eta$} fit into a commutative diagram
 	\begin{equation*}
 		\begin{tikzcd}
 			\Hom_\Cc(-,-)\doublear["F"{black,swap,left=0.1em}]{d}\doublear["G"{black,above=0.1em}]{r}\drar[commutes] & \Hom_\Dd\bigl(G(-),G(-)\bigr)\doublear["\eta^*"{black,right=0.1em}]{d}\\
@@ -2088,55 +2146,61 @@ Let's do three quick reality checks for our newly constructed functor $\Hom_\Cc$
 	\end{equation*}
 	The natural transformation $\Hom_{\Delta^1\times\Cc}(-,-)\Rightarrow \Hom_\Dd(\eta(-),\eta(-))$ from \cref{lem:HomFunctorial} corresponds to a morphism between these commutative squares. By inspection, this yields the desired commutative square.
 \end{proof}
-%The embedding version of Yoneda's lemma is now a simple consequence.
-\begin{cor}\label{cor:YonedaEmbeddingFullyFaithful}
-	For every quasi-category $\Cc$, the Yoneda embedding $\Yo_\Cc\colon \Cc\rightarrow\F(\Cc^\op,\cat{An})$ is fully faithful.
-\end{cor}
-\begin{proof}[Proof sketch]
-	We must show that $\Yo_\Cc$ induces equivalences
+\begin{lem}[\enquote{Precomposition commutes with postcomposition}]\label{lem:PrecompositionCommutesWithPostcomposition}
+	Let $\Cc$, $\Dd$ be quasi-categories and let $\eta\colon F\Rightarrow G$, $\eta'\colon F'\Rightarrow G'$ be natural transformations in $\F(\Cc,\Dd)$. Then the following diagram commutes in the quasi-category $\F(\Cc^\op\times\Cc,\cat{An})$:
 	\begin{equation*}
-		\Hom_\Cc(x,y)\overset{\simeq}{\longrightarrow} \Hom_{\F(\Cc^\op,\cat{An})}\bigl(\Hom_\Cc(-,x),\Hom_\Cc(-,y)\bigr)
+		\begin{tikzcd}
+			\Hom_\Cc\bigl(G(-),F'(-)\bigr)\doublear["\eta^*"{black,swap,left=0.1em}]{d}\doublear["\eta'_*"{black,above=0.1em}]{r}\drar[commutes] & \Hom_\Dd\bigl(G(-),G'(-)\bigr)\doublear["\eta^*"{black,right=0.1em}]{d}\\
+			\Hom_\Dd\bigl(F(-),F'(-)\bigr)\doublear["\eta'_*"{black,above=0.1em}]{r} & \Hom_\Dd\bigl(F(-),G'(-)\bigr)
+		\end{tikzcd}
 	\end{equation*}
-	for all $x,y\in\Cc$. It's clear from \cref{thm:Yoneda} that both sides are equivalent via evaluation at $\id_x$. If you go with \cref{con:HomInTwoVariables}, it's straightforward to see that the morphism induced by $\Yo_\Cc$ is an inverse to evaluation at $\id_x$, so it is an equivalence too. If you prefer \cref{con:HomTwAr}, this needs a little more work, which we omit.
+\end{lem}
+\begin{proof}[Proof sketch]
+	The composition ${\Hom_\Dd}\circ {(\eta^\op\times \eta')}\colon (\Delta^1\times\Cc)^\op\times(\Delta^1\times\Cc)\rightarrow \cat{An}$ can be viewed
+	as a commutative square $\square^2\rightarrow \F(\Cc^\op\times\Cc,\cat{An})$, similar to the proof of \cref{lem:HomNaturalTransformation}. Upon unravelling of definitions, this is the square above.
 \end{proof}
-We finish this section with two final remarks.
-\begin{numpar}[Model independence.]\label{par:ModelIndependence}
-	Recall from \cref{par:ModelIndependenceIntro} that, at least in an ideal version of these notes, we planned to proceed via the following steps:
-	\begin{alphanumerate}
-		\item First, throughout \crefrange{sec:SimplicialSets}{sec:Straightening}, we would set up the framework of quasi-categories.\label{enum:SetupQuasicategoriesNotIntro}
-		\item After that, we would identify a few key model-independent statements and prove (or black box) them in the model of quasi-categories.\label{enum:KeyStatementsNotIntro}
-		\item Finally, starting from \cref{sec:InftyCategoryTheory}, all further proofs would be done in a model-independent fashion.\label{enum:AllProofsModelIndependentNotIntro}
-	\end{alphanumerate}
-	Step~\cref{enum:SetupQuasicategoriesNotIntro} is done by now, whereas step~\cref{enum:AllProofsModelIndependentNotIntro} lays ahead. So let's talk about what the key statements from step~\cref{enum:KeyStatementsNotIntro} are supposed to be. Of course, \cref{thm:EquivalencePointwise,thm:EquivalenceFullyFaithfulEssentiallySurjective} are among them, as are \cref{thm:Yoneda} as well as Lemmas~\labelcref{lem:HomRealityCheck}, \labelcref{lem:HomFunctorial}, and \labelcref{lem:HomNaturalTransformation}. In each of these cases, it's clear that the statement is really a model-independent one, even though we formulated them in the model of quasi-categories. Somewhat surprisingly though, \cref{thm:Straightening} can also be reformulated in a model-independent way. In particular, there are model-independent definitions of cocartesian and left fibrations! Indeed, if $p\colon \Uu\rightarrow \Cc$ is a functor of $\infty$-categories, \cref{lem:CocartesianMorphisms} provides a model-independent definition of a morphism $\varphi\colon u\rightarrow v$ in $\Uu$ being $p$-cocartesian.%\footnote{Of course, instead of \enquote{homotopy pullback}, one has to say \enquote{pullback square in the $\infty$-category $\cat{An}$}, which is a model-independent notion as will hopefully become clear in \cref{def:Colimits}.}
+
+Another model-independent statement, which will turn out to be very useful in developing $\infty$-category theory, is Lurie's straightening/unstraightening equivalence \cref{thm:Straightening}. This may come as a little surprise: After all, the way we defined cocartesian and left fibrations very much relies on the simplicial model. Here's a model-independent re-definition:
+
+\begin{numpar}[Cocartesian and left fibrations, model-independently.]\label{par:ModelIndependence}
+	If $p\colon \Uu\rightarrow \Cc$ is a functor of $\infty$-categories, \cref{lem:CocartesianMorphisms} provides a model-independent definition of a morphism $\varphi\colon u\rightarrow v$ in $\Uu$ being \emph{$p$-cocartesian}.\footnote{Of course, instead of \enquote{homotopy pullback}, one has to say \enquote{pullback square in the $\infty$-category $\cat{An}$}, which is a model-independent notion as will hopefully become clear in \cref{def:Colimits}.}
 	The condition that cocartesian lifts exist (\cref{def:Cocartesian}\cref{enum:CocartesianFibration}) can be replaced by the condition that
 	\begin{equation*}
 		\begin{tikzcd}
-			\Ar^{(\mathrm{cocart})}(\Uu)\rar\dar\drar[pullback] & \Ar(\Cc)\dar["s"]\\
+			\Ar^{\mathrm{cocart}}(\Uu)\rar\dar\drar[pullback] & \Ar(\Cc)\dar["s"]\\
 			\Uu\rar["p"] & \Cc
 		\end{tikzcd}
 	\end{equation*}
-	is a pullback in $\cat{Cat}_\infty$, where $\Ar^{(\mathrm{cocart})}(\Uu)\subseteq \Ar(\Uu)$ is the full sub-$\infty$-category spanned by the $p$-cocartesian morphisms. This model-independent definition of cocartesian fibrations recovers \cref{def:Cocartesian}, as we'll see in \cref{lem:CocartesianModelIndependent} below. Finally, in light of \cref{lem:CocartesianLeft}, we can redefine $p$ to be a \emph{left fibration} if it is a cocartesian fibration and $\Ar^{(\mathrm{cocart})}(\Uu)\subseteq \Ar(\Uu)$ is an equivalence of $\infty$-categories.
+	is a pullback in $\cat{Cat}_\infty$, where $\Ar^{\mathrm{cocart}}(\Uu)\subseteq \Ar(\Uu)$ is the full sub-$\infty$-category spanned by the $p$-cocartesian morphisms. This model-independent definition of cocartesian fibrations recovers \cref{def:Cocartesian}, as we'll see in \cref{lem:CocartesianModelIndependent} below. Finally, in light of \cref{lem:CocartesianLeft}, we can redefine $p$ to be a \emph{left fibration} if it is a cocartesian fibration and $\Ar^{\mathrm{cocart}}(\Uu)\subseteq \Ar(\Uu)$ is an equivalence of $\infty$-categories.
 	
 	
-	In particular, \cref{thm:Straightening} can be reinterpreted as a model-independent statement about an equivalence of $\infty$-categories $\cat{Cocart}(\Cc)\simeq \Fun(\Cc,\cat{Cat}_\infty)$ for any $\infty$-category $\Cc$. This statement absolutely belongs to step~\cref{enum:KeyStatementsNotIntro} and it will play a much more prominent role in our treatment of $\infty$-categories than it does in ordinary category theory.
-	
-	The example of cocartesian and left fibrations is only the first of many instances where our constructions with quasi-categories can be retconned into model-independent constructions. We'll see more of that in model category fact~\cref{par:HomotopyPushout}.
+	In particular, \cref{thm:Straightening} can be reinterpreted as a model-independent statement about equivalences of $\infty$-categories 
+	\begin{equation*}
+		\cat{Cocart}(\Cc)\simeq \Fun(\Cc,\cat{Cat}_\infty)\quad\text{and}\quad\cat{Left}(\Cc)\simeq \Fun(\Cc,\cat{An})
+	\end{equation*}
+	for any $\infty$-category $\Cc$. This statement absolutely belongs to step~\cref{enum:KeyStatementsNotIntro} and it will play a much more prominent role in our treatment of $\infty$-categories than it does in ordinary category theory.
 \end{numpar}
 \begin{lem}\label{lem:CocartesianModelIndependent}
-	The functor $\Ar^{(\mathrm{cocart})}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is always fully faithful \embrace{where the pullback is taken in $\cat{Cat}_\infty$}. Furthermore, the following conditions are equivalent:
+	The functor $\Ar^{\mathrm{cocart}}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is always fully faithful \embrace{where the pullback is taken in $\cat{Cat}_\infty$}. Furthermore, the following conditions are equivalent:
 	\begin{alphanumerate}
-		\item $\Ar^{(\mathrm{cocart})}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is also essentially surjective. In particular, it must be an equivalence \embrace{by \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective}}, so that $p\colon \Uu\rightarrow \Cc$ is a cocartesian fibration in the model-independent sense.\label{enum:CocartesianModelIndependent}
+		\item $\Ar^{\mathrm{cocart}}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is also essentially surjective. In particular, it must be an equivalence \embrace{by \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective}}, so that $p\colon \Uu\rightarrow \Cc$ is a cocartesian fibration in the model-independent sense.\label{enum:CocartesianModelIndependent}
 		\item For every factorisation $p\colon \Uu\rightarrow \Uu'\rightarrow \Cc$ into an equivalence of quasi-categories followed by an isofibration, $\Uu'\rightarrow \Cc$ is a cocartesian fibration in the old sense.\label{enum:CocartesianAllFactorisations}
 		\item For some factorisation $p\colon \Uu\rightarrow \Uu'\rightarrow \Cc$ into an equivalence of quasi-categories followed by an isofibration, $\Uu'\rightarrow \Cc$ is a cocartesian fibration in the old sense.\label{enum:CocartesianSomeFactorisations}
 	\end{alphanumerate}
 \end{lem}
 \begin{proof}[Proof sketch]
-	To show that $\Ar^{(\mathrm{cocart})}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is fully faithful, use \cref{lem:HomInArrowCategories} to compute $\Hom$ on either side and \cref{lem:CocartesianMorphisms} to show that they coincide. This is fun to figure out yourself so we'll leave it to you.
+	To show that $\Ar^{\mathrm{cocart}}(\Uu)\rightarrow \Uu\times_{\Cc,s}\Ar(\Cc)$ is fully faithful, use \cref{lem:HomInArrowCategories} to compute $\Hom$ on either side and \cref{lem:CocartesianMorphisms} to show that they coincide. This is fun to figure out yourself so we'll leave it to you.
 	
-	The implication \cref{enum:CocartesianAllFactorisations} $\Rightarrow$ \cref{enum:CocartesianSomeFactorisations} is trivial. For \cref{enum:CocartesianSomeFactorisations} $\Rightarrow$ \cref{enum:CocartesianModelIndependent}, it's enough to show that the functor $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is essentially surjective, because $\Uu\rightarrow \Uu'$ is an equivalence of quasi-categories. Since $\Uu'\rightarrow \Cc$ is a cocartesian fibration, it's an isofibration too, hence the pullback $\Uu'\times_{\Cc,s}\Ar(\Cc)$ in $\cat{Cat}_\infty$ can also be taken in simplicial sets (see~\cref{par:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}). Furthermore, the condition from \cref{def:Cocartesian}\cref{enum:CocartesianFibration} translates into $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ being surjective on $0$-simplices. Hence it must be an essentially surjective functor of quasi-categories.
+	The implication \cref{enum:CocartesianAllFactorisations} $\Rightarrow$ \cref{enum:CocartesianSomeFactorisations} is trivial. For \cref{enum:CocartesianSomeFactorisations} $\Rightarrow$ \cref{enum:CocartesianModelIndependent}, it's enough to show that the functor $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is essentially surjective, because $\Uu\rightarrow \Uu'$ is an equivalence of quasi-categories. Since $\Uu'\rightarrow \Cc$ is a cocartesian fibration, it's an isofibration too, hence the pullback $\Uu'\times_{\Cc,s}\Ar(\Cc)$ in $\cat{Cat}_\infty$ can also be taken in simplicial sets (see \enquote{Definition}~\cref{def:HomotopyPullback}\cref{enum:HomotopyPullbackOfQuasicategories}). Furthermore, the condition from \cref{def:Cocartesian}\cref{enum:CocartesianFibration} translates into $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ being surjective on $0$-simplices. Hence it must be an essentially surjective functor of quasi-categories.
 	
-	By the same reasoning, to show \cref{enum:CocartesianModelIndependent} $\Rightarrow$ \cref{enum:CocartesianAllFactorisations}, we must show that for all factorisations $p\colon \Uu\rightarrow \Uu'\rightarrow \Cc$ into an equivalence followed by an isofibration, the map of simplicial sets $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is surjective on $0$-simplices. The condition from~\cref{enum:CocartesianModelIndependent} tells us this map is an equivalence of quasi-categories. In particular, it hits every equivalence class of $0$-simplices. To show that it really hits every $0$-simplex, it then suffices to show that $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration. Observe that $\Ar(\Uu')\rightarrow\Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration---it's an inner fibration by \cref{cor:FKanFibration} and lifting of equivalences can be shown by a straightforward argument, using that the isofibration $\Uu'\rightarrow \Cc$ admits lifting of equivalences too. Since $\Ar^{(\mathrm{cocart})}(\Uu')\subseteq \Ar(\Uu')$ is a full sub-quasi-category in the sense of \cref{par:SubQuasiCategories} and furthermore closed under equivalences, the map $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Ar(\Uu')$ must be an isofibration. It follows that $\Ar^{(\mathrm{cocart})}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration too, as desired.
+	By the same reasoning, to show \cref{enum:CocartesianModelIndependent} $\Rightarrow$ \cref{enum:CocartesianAllFactorisations}, we must show that for all factorisations $p\colon \Uu\rightarrow \Uu'\rightarrow \Cc$ into an equivalence followed by an isofibration, the map of simplicial sets $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is surjective on $0$-simplices. The condition from~\cref{enum:CocartesianModelIndependent} tells us this map is an equivalence of quasi-categories. In particular, it hits every equivalence class of $0$-simplices. To show that it really hits every $0$-simplex, it then suffices to show that $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration. Observe that $\Ar(\Uu')\rightarrow\Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration---it's an inner fibration by \cref{cor:FKanFibration} and lifting of equivalences can be shown by a straightforward argument, using that the isofibration $\Uu'\rightarrow \Cc$ admits lifting of equivalences too. Since $\Ar^{\mathrm{cocart}}(\Uu')\subseteq \Ar(\Uu')$ is a full sub-quasi-category in the sense of \cref{par:SubQuasiCategories} and furthermore closed under equivalences, the map $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Ar(\Uu')$ must be an isofibration. It follows that $\Ar^{\mathrm{cocart}}(\Uu')\rightarrow \Uu'\times_{\Cc,s}\Ar(\Cc)$ is an isofibration too, as desired.
 \end{proof}
+
+
+
+The example of cocartesian and left fibrations is only the first of many instances where our constructions with quasi-categories can be retconned into model-independent constructions. We'll see more of that in model category fact~\cref{par:HomotopyPushout}.
+
+To finish this subsection, we'll briefly remark how to make the Yoneda lemma (in the version from \cref{thm:Yoneda}) functorial, since this will become relevant later.
 
 %A functor $p\colon \Uu\rightarrow \Cc$ of quasi-categories is a cocartesian fibration in the new sense if and only if $\Uu'\rightarrow \Cc$ is a cocartesian fibration in the old sense, where $p\colon \Uu\rightarrow \Uu'\rightarrow \Cc$ is any factorisation into an equivalence followed by an isofibration. A proof of this uses \cref{thm:EquivalenceFullyFaithfulEssentiallySurjective} and \cref{lem:HomInArrowCategories} and is not particularly difficult. You can find it in my notes on Fabian's $\K$-Theory lecture, see \cite[Lemma*~\href{https://florianadler.github.io/AlgebraBonn/KTheory.pdf\#smallerdummy.1.24.2}{I.24$b$}]{KTheory}.
 

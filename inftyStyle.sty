@@ -10,10 +10,13 @@
 \usepackage{lmodern}
 \usepackage{microtype}
 \usepackage{csquotes}
+\usepackage[all,defaultlines]{nowidow}
 \usepackage{footmisc}%[symbol,perpage]
-\setkomafont{sectioning}{\rmfamily\bfseries}
+%\setkomafont{sectioning}{\rmfamily\bfseries}
+\usepackage{bm}
 \addtokomafont{section}{\centering}
 \addtokomafont{subsection}{\centering}
+\addtokomafont{sectioning}{\boldmath}
 
 %%%% tables %%%%
 \usepackage{tabularx}
@@ -31,7 +34,7 @@
 %%%% diagrams %%%%
 \usepackage{tikz-cd}
 \usepackage{tikzpagenodes}
-\usetikzlibrary{arrows,calc,decorations.markings,decorations.pathmorphing,patterns,patterns.meta}
+\usetikzlibrary{arrows,calc,decorations.markings,decorations.text,decorations.pathmorphing,patterns,patterns.meta}
 
 %%%% miscellaneous %%%%
 \usepackage{blindtext}
@@ -83,8 +86,8 @@
 \DeclareMathAccent{\widetilde}{\mathord}{mathx}{"72} %tilde
 
 %%%% delimiters to be typeset à la mathabx %%%%
-\DeclareMathSymbol{(}{\mathopen}{matha}{"70}
-\DeclareMathSymbol{)}{\mathclose}{matha}{"71}
+%\DeclareMathSymbol{(}{\mathopen}{matha}{"70}
+%\DeclareMathSymbol{)}{\mathclose}{matha}{"71}
 \DeclareMathSymbol{[}{\mathopen}{matha}{"72}
 \DeclareMathSymbol{]}{\mathclose}{matha}{"73}
 \DeclareMathDelimiter{(}{matha}{"70}{mathx}{"00}
@@ -157,6 +160,15 @@
 	#1%
 	\mathclose{}%
 }
+
+%%%% add tiny spacing after commas in sub- or superscripts %%%%
+\newcommand{\SubscriptCommaSpace}{\mathchoice{}{}{\hspace{0.1ex}}{\hspace{0.1ex}}}
+
+\AtBeginDocument{%
+	\mathchardef\stdcomma=\mathcode`,
+	\mathcode`,="8000
+}
+\begingroup\lccode`~=`, \lowercase{\endgroup\def~}{\stdcomma\SubscriptCommaSpace}
 
 %%%% *********************** SETTING UP THE BIBLIOGRAPHY *********************** %%%%
 %%%% *************************************************************************** %%%%
@@ -301,14 +313,14 @@ maxnames=3]{biblatex}
 \pagestyle{scrheadings}
 \newcommand{\ParagraphOrNot}{}
 \renewcommand*{\sectionmarkformat}{%
-	\ParagraphOrNot\thesection\autodot\enskip}
+	\textup{\ParagraphOrNot\thesection\autodot\enskip}}
 \renewcommand*{\subsectionmarkformat}{%
-	\ParagraphOrNot\thesubsection\autodot\enskip}
+	\textup{\ParagraphOrNot\thesubsection\autodot\enskip}}
 \chead{\ifodd\number\value{page}%
-	\textsc{\emph{\rightmark}}%
-\else%
-	\textsc{\emph{\leftmark}}%
-\fi%
+		\textsc{\emph{\rightmark}}
+	\else%
+		\textsc{\emph{\leftmark}}
+	\fi%
 }
 %\ofoot{\ifodd\number\value{page}%
 %	\emph{\thepage}%
@@ -722,8 +734,8 @@ tocnumwidth=0em,
 style=section]{csectionappendix}
 
 \newcommand{\sectionappendix}[1]{%
-	\csectionappendix*{Appendix to \S\thesection.\enskip#1}%
-	\addcontentsline{toc}{csectionappendix}{Appendix to \S\thesection.\texorpdfstring{\enskip}{ }#1}%
+	\csectionappendix*{Appendix to \textrm{\S}\thesection.\enskip#1}%
+	\addcontentsline{toc}{csectionappendix}{Appendix to \textrm{\S}\thesection.\texorpdfstring{\enskip}{ }#1}%
 	\renewcommand*{\sectionmarkformat}{%
 		Appendix to \S\thesection\autodot\enskip}%
 	\sectionmark{#1}%
@@ -740,7 +752,7 @@ style=section]{csectionappendix}
 {\topsep}   % BELOWSPACE
 {\normalfont}  % BODYFONT
 {0pt}       % INDENT (empty value is the same as 0pt)
-{\bfseries} % HEADFONT
+{\bfseries\boldmath} % HEADFONT
 {\enskip---\enskip}         % HEADPUNCT
 {0pt} % HEADSPACE
 {\thmnumber{#2.\ifstrempty{#3}{}{ }}\thmname{#3}}          % CUSTOM-HEAD-SPEC
