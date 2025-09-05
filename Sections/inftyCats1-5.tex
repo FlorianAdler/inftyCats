@@ -221,7 +221,7 @@ Furthermore, we need the following general lemma (which will occasionally be use
 	Let $\Cc$ and $\Dd$ be categories and let $L\colon \Cc\shortdoublelrmorphism \Dd\noloc R$ be an adjunction.
 	\begin{alphanumerate}
 		\item The left adjoint $L$ is fully faithful if and only if the unit transformation $u\colon \id_\Cc\Rightarrow RL$ is an equivalence.\label{enum:1FullyFaithfulIffUnitEquivalence}
-		\item Suppose $L$ ist fully faithful and $R$ is conservative \embrace{that is, if $\alpha\colon x\rightarrow y$ is a morphism in $\Dd$ such that $R(\alpha)$ is an isomorphism, then $\alpha$ is an isomorphism too}. Then $L$ and $R$ are inverse equivalences of categories.\label{enum:1Conservative}
+		\item Suppose $L$ is fully faithful and $R$ is conservative \embrace{that is, if $\alpha\colon x\rightarrow y$ is a morphism in $\Dd$ such that $R(\alpha)$ is an isomorphism, then $\alpha$ is an isomorphism too}. Then $L$ and $R$ are inverse equivalences of categories.\label{enum:1Conservative}
 	\end{alphanumerate}
 \end{lem}
 \begin{proof}
@@ -439,7 +439,7 @@ The rest of \cref{sec:SimplicialSets} as well as the entirety of \cref{sec:Joyal
 			\path (0) to node[pos=0.5] (mid) {\phantom{x}} (2);
 			\path[commutative diagrams/.cd, every arrow, every label]
 			(0) edge node[swap] {$\alpha$} (1)
-			(1) edge node[swap,text depth=0pt] {$\id_z$} (2)
+			(1) edge node[swap,text depth=0pt] {$\id_y$} (2)
 			(0) edge node {$\alpha'$} (2);
 		\end{tikzpicture}
 	\end{equation*}
@@ -1953,7 +1953,7 @@ For the proof we need, more or less, the fact that $*\simeq \{\id_x\}\rightarrow
 			\core(\Uu)\rar & \core(\Cc)
 		\end{tikzcd}
 	\end{equation*}
-	is a homotopy pullback, where $*$ is sent to $x\in\core (\Cc)$. As observed above, $\Uu\rightarrow\Cc$ is an isofibration and so $\core (\Uu)\rightarrow (\Cc)$ is a Kan fibration. Thus, the homotopy pullback agrees with the ordinary pullback. Now $\core(\Uu)\times_{\core(\Cc)}\{x\}\cong \core(\Uu\times_\Cc\{x\})\cong \Uu\times_\Cc\{x\}\simeq F(x)$ using that the fibres $\Uu\times_\Cc\{x\}\eqqcolon p^{-1}\{x\}$ of $p$ are animae and compute the values of $F$. This is what we wanted to prove.
+	is a homotopy pullback, where $*$ is sent to $x\in\core (\Cc)$. As observed above, $\Uu\rightarrow\Cc$ is an isofibration and so $\core (\Uu)\rightarrow \core (\Cc)$ is a Kan fibration. Thus, the homotopy pullback agrees with the ordinary pullback. Now $\core(\Uu)\times_{\core(\Cc)}\{x\}\cong \core(\Uu\times_\Cc\{x\})\cong \Uu\times_\Cc\{x\}\simeq F(x)$ using that the fibres $\Uu\times_\Cc\{x\}\eqqcolon p^{-1}\{x\}$ of $p$ are animae and compute the values of $F$. This is what we wanted to prove.
 \end{proof}
 Finally, we would like to construct the functor $\Hom_\Cc\colon \Cc^\op\times\Cc\rightarrow\cat{An}$. There are several ways to do this and we'll outline two possibilities in \cref{con:HomInTwoVariables,con:HomTwAr} below. We won't prove that they are equivalent (they are), but we won't ever need that either. So you can just choose whichever is your favourite.
 \begin{con}\label{con:HomInTwoVariables}
